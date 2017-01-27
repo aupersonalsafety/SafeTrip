@@ -19,8 +19,22 @@ namespace SafeTrip.Droid
 			// Get our button from the layout resource,
 			// and attach an event to it
 			Button button = FindViewById<Button>(Resource.Id.myButton);
+            Button button2 = FindViewById<Button>(Resource.Id.myButton2);
 
-			button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            EditText nameEditText = FindViewById<EditText>(Resource.Id.editText1);
+            EditText messageEditText = FindViewById<EditText>(Resource.Id.editText2);
+            EditText recipientPhoneNumberEditText = FindViewById<EditText>(Resource.Id.editText3);
+            Service service = new Service();
+
+            button.Click += async delegate {                
+                string greeting = await service.SayHello(nameEditText.Text);
+                Toast.MakeText(this, greeting, ToastLength.Long).Show();
+            };
+
+            button2.Click += delegate
+            {
+                service.SendSMSMessage(nameEditText.Text, recipientPhoneNumberEditText.Text);
+            };
 		}
 	}
 }

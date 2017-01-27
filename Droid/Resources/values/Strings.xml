@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
+	<string name="hello">Click Me For a Greeting!</string>
+  <string name="sms">Click to Send SMS Message!</string>
 	<string name="app_name">SafeTrip.Droid</string>
 </resources>

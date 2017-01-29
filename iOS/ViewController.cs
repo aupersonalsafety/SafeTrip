@@ -6,7 +6,9 @@ namespace SafeTrip.iOS
 {
 	public partial class ViewController : UIViewController
 	{
-		int count = 1;
+		//int count = 1;
+
+		SafeTrip.Service service = new SafeTrip.Service();
 
 		public ViewController(IntPtr handle) : base(handle)
 		{
@@ -22,11 +24,19 @@ namespace SafeTrip.iOS
 #endif
 
 			// Perform any additional setup after loading the view, typically from a nib.
-			Button.AccessibilityIdentifier = "myButton";
-			Button.TouchUpInside += delegate
+			//Button.AccessibilityIdentifier = "myButton";
+			//Button.TouchUpInside += delegate
+			//{
+			//	var title = string.Format("{0} clicks!", count++);
+			//	Button.SetTitle(title, UIControlState.Normal);
+			//};
+
+
+			SubmitButton.AccessibilityIdentifier = "submitTextButton";
+			SubmitButton.TouchUpInside += delegate
 			{
-				var title = string.Format("{0} clicks!", count++);
-				Button.SetTitle(title, UIControlState.Normal);
+				ResultLabel.Text = MessageTextBox.Text;
+				service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
 			};
 		}
 

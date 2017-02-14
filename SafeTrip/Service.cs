@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Geolocator;
 
 namespace SafeTrip
 {
@@ -43,5 +44,27 @@ namespace SafeTrip
 
             return await response.Content.ReadAsStringAsync();
         }
+
+		public async void monitorLocation()
+		{
+			try {
+				System.Diagnostics.Debug.WriteLine("monitorLocations called");
+				var locator = CrossGeolocator.Current;
+				locator.DesiredAccuracy = 50;
+
+				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
+
+				var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+
+				System.Diagnostics.Debug.WriteLine("Position Status: {0}", position.Timestamp);
+				System.Diagnostics.Debug.WriteLine("Position Latitude: {0}", position.Latitude);
+				System.Diagnostics.Debug.WriteLine("Position Longitude: {0}", position.Longitude);
+
+			}
+			catch(Exception ex)
+			{
+			  System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+			}
+		}
     }
 }

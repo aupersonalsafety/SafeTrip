@@ -33,7 +33,7 @@ namespace SafeTrip.Droid
 
             button2.Click += delegate
             {
-                service.SendSMSMessage(messageEditText.Text, recipientPhoneNumberEditText.Text);
+				service.SendSMSMessage(messageEditText.Text, recipientPhoneNumberEditText.Text);
             };
 		}
 	}

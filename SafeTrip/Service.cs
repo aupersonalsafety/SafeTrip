@@ -66,5 +66,31 @@ namespace SafeTrip
 			  System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 			}
 		}
+		public async Task<GlobalPosition> getGlobalPosition()
+		{
+			GlobalPosition globalPosition = new GlobalPosition();
+			try
+			{
+				
+				System.Diagnostics.Debug.WriteLine("getLatitude called");
+				var locator = CrossGeolocator.Current;
+				locator.DesiredAccuracy = 50;
+
+				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
+
+				var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+
+				globalPosition.Latitude = position.Latitude;
+				globalPosition.Longitude = position.Longitude;
+
+				return globalPosition;
+
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+				return globalPosition;
+			}
+		}
     }
 }

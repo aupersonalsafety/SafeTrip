@@ -48,24 +48,34 @@ namespace SafeTrip
 		public async void monitorLocation()
 		{
 			try {
-				System.Diagnostics.Debug.WriteLine("monitorLocations called");
 				var locator = CrossGeolocator.Current;
-				locator.DesiredAccuracy = 50;
+				locator.DesiredAccuracy = 1;
 
-				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
+				locator.PositionChanged += positionChanged;
+				locator.PositionError += positionErrorChanged;
 
-				var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
-
-				System.Diagnostics.Debug.WriteLine("Position Status: {0}", position.Timestamp);
-				System.Diagnostics.Debug.WriteLine("Position Latitude: {0}", position.Latitude);
-				System.Diagnostics.Debug.WriteLine("Position Longitude: {0}", position.Longitude);
-
+				await locator.StartListeningAsync(1, 1);
 			}
 			catch(Exception ex)
 			{
 			  System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 			}
 		}
+
+		public void positionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+		{
+			var position = e.Position;
+			System.Diagnostics.Debug.WriteLine("Position Status: {0}", position.Timestamp);
+			System.Diagnostics.Debug.WriteLine("Position Latitude: {0}", position.Latitude);
+			System.Diagnostics.Debug.WriteLine("Position Longitude: {0}", position.Longitude);
+		}
+
+		public void positionErrorChanged(object sender, Plugin.Geolocator.Abstractions.PositionErrorEventArgs e)
+		{
+			var error = e.Error;
+			System.Diagnostics.Debug.WriteLine("Position Error: {0}", error.ToString());
+		}
+
 		public async Task<GlobalPosition> getGlobalPosition()
 		{
 			GlobalPosition globalPosition = new GlobalPosition();
@@ -74,7 +84,7 @@ namespace SafeTrip
 				
 				System.Diagnostics.Debug.WriteLine("getLatitude called");
 				var locator = CrossGeolocator.Current;
-				locator.DesiredAccuracy = 50;
+				locator.DesiredAccuracy = 10;
 
 				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
 

@@ -65,9 +65,9 @@ namespace SafeTrip
 		public void positionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
 		{
 			var position = e.Position;
-			System.Diagnostics.Debug.WriteLine("Position Status: {0}", position.Timestamp);
-			System.Diagnostics.Debug.WriteLine("Position Latitude: {0}", position.Latitude);
-			System.Diagnostics.Debug.WriteLine("Position Longitude: {0}", position.Longitude);
+			GlobalPosition globalPosition = new GlobalPosition(position.Latitude, position.Longitude, position.Timestamp);
+			//FIXME
+			//call write to database with position?
 		}
 
 		public void positionErrorChanged(object sender, Plugin.Geolocator.Abstractions.PositionErrorEventArgs e)

@@ -9,6 +9,7 @@ namespace SafeTrip.iOS
 		//int count = 1;
 
 		SafeTrip.Service service = new SafeTrip.Service();
+		GlobalPosition currentPosition;
 
 		public ViewController(IntPtr handle) : base(handle)
 		{
@@ -38,7 +39,23 @@ namespace SafeTrip.iOS
 				ResultLabel.Text = MessageTextBox.Text;
 				service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
 			};
+
+			GetPositionButton.TouchUpInside += delegate {
+				setCurrentPosition();
+				//var test1 = service.getGlobalPosition();
+				//LatitudeLabel.Text = test.Latitude.ToString();
+				//LongitudeLabel.Text = test.Longitude.ToString();
+
+			};
 		}
+
+		public async void setCurrentPosition()
+		{
+			currentPosition = await service.getGlobalPosition();
+			LatitudeLabel.Text = currentPosition.Latitude.ToString();
+			LongitudeLabel.Text = currentPosition.Longitude.ToString();
+		}
+
 
 		public override void DidReceiveMemoryWarning()
 		{

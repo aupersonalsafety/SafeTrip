@@ -18,7 +18,11 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton GetLocationButton { get; set; }
+        UIKit.UIButton EmergencyContactsButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton GetPositionButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -48,19 +52,16 @@ namespace SafeTrip.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton SubmitButton { get; set; }
 
-        [Action ("UIButton117_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton117_TouchUpInside (UIKit.UIButton sender);
-
-        [Action ("UIButton74_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton74_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
-            if (GetLocationButton != null) {
-                GetLocationButton.Dispose ();
-                GetLocationButton = null;
+            if (EmergencyContactsButton != null) {
+                EmergencyContactsButton.Dispose ();
+                EmergencyContactsButton = null;
+            }
+
+            if (GetPositionButton != null) {
+                GetPositionButton.Dispose ();
+                GetPositionButton = null;
             }
 
             if (LatitudeLabel != null) {

@@ -82,23 +82,23 @@ namespace SafeTrip
 			try
 			{
 				
-				System.Diagnostics.Debug.WriteLine("getLatitude called");
+				System.Diagnostics.Debug.WriteLine("getGlobalPosition called");
 				var locator = CrossGeolocator.Current;
 				locator.DesiredAccuracy = 10;
 
 				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
-
-				var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
-
+				var position = await locator.GetPositionAsync(timeoutMilliseconds: 200);
 				globalPosition.Latitude = position.Latitude;
 				globalPosition.Longitude = position.Longitude;
-
 				return globalPosition;
 
 			}
 			catch (Exception ex)
 			{
+				System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
 				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+				globalPosition.Latitude = 32.607722;
+				globalPosition.Longitude = -85.489545;
 				return globalPosition;
 			}
 		}

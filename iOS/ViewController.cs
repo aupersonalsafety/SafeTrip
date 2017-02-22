@@ -6,8 +6,6 @@ namespace SafeTrip.iOS
 {
 	public partial class ViewController : UIViewController
 	{
-		//int count = 1;
-
 		SafeTrip.Service service = new SafeTrip.Service();
 		GlobalPosition currentPosition;
 
@@ -42,11 +40,21 @@ namespace SafeTrip.iOS
 
 			GetPositionButton.TouchUpInside += delegate {
 				setCurrentPosition();
-				//var test1 = service.getGlobalPosition();
-				//LatitudeLabel.Text = test.Latitude.ToString();
-				//LongitudeLabel.Text = test.Longitude.ToString();
 
 			};
+
+
+			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				// Launches a new instance of CallHistoryController
+				EmergencyContactsViewController emergencyContactsViewController = this.Storyboard.InstantiateViewController("CallHistoryController") as EmergencyContactsViewController;
+				if (emergencyContactsViewController != null)
+				{
+					//callHistory.PhoneNumbers = PhoneNumbers;
+					this.NavigationController.PushViewController(emergencyContactsViewController, true);
+				}
+			};
+
 		}
 
 		public async void setCurrentPosition()

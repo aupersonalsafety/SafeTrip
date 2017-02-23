@@ -114,7 +114,21 @@ namespace SafeTrip
 			{
 				//reponse not successful
 				System.Diagnostics.Debug.WriteLine("response is not successful");
-			} 		}  		public void handleData(String result) 		{ 			var json = JObject.Parse(result);
+			} 		}
+
+		public async Task<int> setTimer(int seconds)
+		{
+			try
+			{
+				int milliseconds = seconds * 1000;
+				await Task.Delay(milliseconds);
+				return 1;
+			}
+			catch 
+			{
+				return -1;
+			}
+		}  		public void handleData(String result) 		{ 			var json = JObject.Parse(result);
 			//System.Diagnostics.Debug.WriteLine("json: " + json); 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
 			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]); 		}
     }

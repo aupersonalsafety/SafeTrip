@@ -31,6 +31,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Classes\GlobalPosition.cs" />
+    <Compile Include="Classes\EmergencyContact.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

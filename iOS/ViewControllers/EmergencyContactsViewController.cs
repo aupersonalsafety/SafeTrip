@@ -20,6 +20,13 @@ namespace SafeTrip.iOS
 #endif
 
 
+
+			//SubmitButton.TouchUpInside += delegate
+			//{
+			//	EmergencyContact emergencyContact = new EmergencyContact(ContactIDValue, FirstNameTextBox.Text, LastNameTextBox.Text, PhoneNumberTextBox.Text, EmailTextBox.Text);
+			//	service.SaveOrUpdateContact(emergencyContact);
+			//};
+
 		}
 
 

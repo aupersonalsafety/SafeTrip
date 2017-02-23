@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.Geolocator;
+using Newtonsoft.Json.Linq;
 
 namespace SafeTrip
 {
@@ -102,5 +103,19 @@ namespace SafeTrip
 				return globalPosition;
 			}
 		}
+
+		public async void getLatLongFromAddress(String addressIn) 		{
+			var key = "AIzaSyBwyE2TJ5l5VB-VygdMiWFB4kWPJj4WG58";
+
+			var address = addressIn.Replace(" ", "+");
+ 			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + key;  			//var response = await  			//https://developer.xamarin.com/guides/xamarin-forms/web-services/consuming/rest/  			var client = new HttpClient(); 			client.MaxResponseContentBufferSize = 256000;  			var response = await client.GetAsync(url);  			if (response.IsSuccessStatusCode) 			{
+				//response successful 				System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result; 				handleData(result); 			}
+			else 
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful");
+			} 		}  		public void handleData(String result) 		{ 			var json = JObject.Parse(result);
+			//System.Diagnostics.Debug.WriteLine("json: " + json); 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
+			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]); 		}
     }
 }

@@ -130,7 +130,7 @@ namespace SafeTrip
 		public void positionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
 		{
 			var position = e.Position;
-			GlobalPosition globalPosition = new GlobalPosition(position.Latitude, position.Longitude, position.Timestamp);
+			GlobalPosition globalPosition = new GlobalPosition(position.Latitude, position.Longitude);
 			//FIXME
 			//call write to database with position?
 		}

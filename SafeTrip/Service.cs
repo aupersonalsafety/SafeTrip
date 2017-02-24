@@ -15,12 +15,16 @@ namespace SafeTrip
         private string baseURI;
         private string sendSMSResourceURI;
         private string helloResourceURI;
+		private string positionResourceURI;
+		private string emergencyContactResourceURI;
 
         public Service()
         {
             baseURI = "https://au-personal-safety.herokuapp.com/";
             sendSMSResourceURI = "rest/sms/send";
             helloResourceURI = "rest/greetings";
+			positionResourceURI = "rest/position";
+			emergencyContactResourceURI = "rest/emergecyContact";
         } 
 
         public async void SendSMSMessage(string message, string recipientPhoneNumber)
@@ -46,6 +50,65 @@ namespace SafeTrip
 
             return await response.Content.ReadAsStringAsync();
         }
+
+		public async Task<int> SaveOrUpdateContact(EmergencyContact emergencyContact)
+		{
+			string jsonEmergencyContact = Newtonsoft.Json.JsonConvert.SerializeObject(emergencyContact);
+
+			var client = new HttpClient();
+			// Add body content
+			var content = new StringContent(
+				jsonEmergencyContact,
+				Encoding.UTF8,
+				"application/json"
+			);
+
+			// Send the request
+			await client.PostAsync(baseURI + emergencyContactResourceURI + "/" + 1, content);
+			return 1;
+		}
+
+		public async Task<GlobalPosition> saveGlobalPosition()
+		{
+			GlobalPosition globalPosition = new GlobalPosition();
+			try
+			{
+
+				System.Diagnostics.Debug.WriteLine("getGlobalPosition called");
+				var locator = CrossGeolocator.Current;
+				locator.DesiredAccuracy = 10;
+
+				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
+				var position = await locator.GetPositionAsync(timeoutMilliseconds: 2000);
+				globalPosition.Latitude = position.Latitude;
+				globalPosition.Longitude = position.Longitude;
+
+				string jsonPosition = Newtonsoft.Json.JsonConvert.SerializeObject(globalPosition);
+
+				var client = new HttpClient();
+				// Add body content
+				var content = new StringContent(
+					jsonPosition,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+				// Send the request
+				await client.PostAsync(baseURI + positionResourceURI + "/" + 1, content);
+				return globalPosition;
+
+			}
+			catch (Exception ex)
+			{
+				//Fixme
+				//This is temporary for testing on IOS emulator
+				System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
+				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+				globalPosition.Latitude = 32.607722;
+				globalPosition.Longitude = -85.489545;
+				return globalPosition;
+			}
+		}
 
 		public async void monitorLocation()
 		{
@@ -89,7 +152,7 @@ namespace SafeTrip
 				locator.DesiredAccuracy = 10;
 
 				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
-				var position = await locator.GetPositionAsync(timeoutMilliseconds: 200);
+				var position = await locator.GetPositionAsync(timeoutMilliseconds: 2000);
 				globalPosition.Latitude = position.Latitude;
 				globalPosition.Longitude = position.Longitude;
 				return globalPosition;
@@ -97,6 +160,8 @@ namespace SafeTrip
 			}
 			catch (Exception ex)
 			{
+				//Fixme
+				//This is temporary for testing on IOS emulator
 				System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
 				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 				globalPosition.Latitude = 32.607722;

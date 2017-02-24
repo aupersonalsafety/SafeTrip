@@ -46,11 +46,13 @@ namespace SafeTrip.iOS
 
 			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				EmergencyContactsViewController emergencyContactsViewController = (EmergencyContactsViewController) Storyboard.InstantiateViewController("EmergencyContactsViewController");
+				var storyBoard = UIStoryboard.FromName("EmergencyContactsMenu", Foundation.NSBundle.MainBundle);
+				EmergencyContactsViewController emergencyContactsViewController = (EmergencyContactsViewController) storyBoard.InstantiateViewController("EmergencyContactsViewController");
+
 				if (emergencyContactsViewController != null)
 				{
 					//emergencyContactsViewController.PhoneNumbers = PhoneNumbers;
-					this.NavigationController.PushViewController(emergencyContactsViewController, true);
+					NavigationController.PushViewController(emergencyContactsViewController, true);
 				}
 			};
 

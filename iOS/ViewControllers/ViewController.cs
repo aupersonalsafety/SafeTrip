@@ -56,6 +56,16 @@ namespace SafeTrip.iOS
 				}
 			};
 
+			DisplayContactsButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
+				ContactsTableViewController contactsTableViewController = (ContactsTableViewController) storyBoard.InstantiateViewController("ContactsTableViewController");
+
+				if (contactsTableViewController != null)
+				{
+					NavigationController.PushViewController(contactsTableViewController, true);
+				}
+			};
 		}
 
 		public async void setCurrentPosition()

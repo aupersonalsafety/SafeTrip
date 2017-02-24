@@ -198,7 +198,7 @@ namespace SafeTrip
 			//System.Diagnostics.Debug.WriteLine("json: " + json); 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
 			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]); 		}
 
-		public async void getContacts()
+		public async Task<List<Plugin.Contacts.Abstractions.Contact>> getContacts()
 		{
 			System.Diagnostics.Debug.WriteLine("getContacts called");
 			if (await CrossContacts.Current.RequestPermission())
@@ -210,16 +210,21 @@ namespace SafeTrip
 				await Task.Run(() =>
 				{
 					if (CrossContacts.Current.Contacts == null)
-						return;
+						return null;
 
 					contacts = CrossContacts.Current.Contacts.ToList();
+					contacts = contacts.Where(c => c.Phones.Count > 0).ToList();
+					contacts = contacts.OrderBy(c => c.LastName).ToList();
 
-					handleContacts(contacts);
+					//handleContacts(contacts);
+					return contacts;
 				});
+				return null;
 			}
 			else
 			{
 				System.Diagnostics.Debug.WriteLine("requestPermission failed");
+				return null;
 			}
 		}
 

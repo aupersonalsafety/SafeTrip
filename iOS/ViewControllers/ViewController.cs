@@ -46,11 +46,10 @@ namespace SafeTrip.iOS
 
 			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				// Launches a new instance of CallHistoryController
-				EmergencyContactsViewController emergencyContactsViewController = this.Storyboard.InstantiateViewController("CallHistoryController") as EmergencyContactsViewController;
+				EmergencyContactsViewController emergencyContactsViewController = (EmergencyContactsViewController) Storyboard.InstantiateViewController("EmergencyContactsViewController");
 				if (emergencyContactsViewController != null)
 				{
-					//callHistory.PhoneNumbers = PhoneNumbers;
+					//emergencyContactsViewController.PhoneNumbers = PhoneNumbers;
 					this.NavigationController.PushViewController(emergencyContactsViewController, true);
 				}
 			};

@@ -14,16 +14,8 @@ namespace SafeTrip.iOS
     [Register ("EmergencyContactsViewController")]
     partial class EmergencyContactsViewController
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton AddNewContactButton { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (AddNewContactButton != null) {
-                AddNewContactButton.Dispose ();
-                AddNewContactButton = null;
-            }
         }
     }
 }

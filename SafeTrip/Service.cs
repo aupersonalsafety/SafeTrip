@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Newtonsoft.Json.Linq;
+using Plugin.Contacts;
 
 namespace SafeTrip
 {
@@ -117,5 +118,43 @@ namespace SafeTrip
 			} 		}  		public void handleData(String result) 		{ 			var json = JObject.Parse(result);
 			//System.Diagnostics.Debug.WriteLine("json: " + json); 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
 			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]); 		}
+
+		public async void getContacts()
+		{
+			System.Diagnostics.Debug.WriteLine("getContacts called");
+			if (await CrossContacts.Current.RequestPermission())
+			{
+				System.Diagnostics.Debug.WriteLine("requestPermission passed");
+				List<Plugin.Contacts.Abstractions.Contact> contacts = null;
+				CrossContacts.Current.PreferContactAggregation = false;//recommended
+																	   //run in background
+				await Task.Run(() =>
+				{
+					if (CrossContacts.Current.Contacts == null)
+						return;
+
+					contacts = CrossContacts.Current.Contacts.ToList();
+
+					handleContacts(contacts);
+				});
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("requestPermission failed");
+			}
+		}
+
+		public void handleContacts(List<Plugin.Contacts.Abstractions.Contact> contacts)
+		{
+			System.Diagnostics.Debug.WriteLine("handleContacts called");
+			contacts = contacts.Where(c => c.Phones.Count > 0).ToList();
+			contacts = contacts.OrderBy(c => c.LastName).ToList();
+
+
+			foreach (var contact in contacts)
+			{
+				//System.Diagnostics.Debug.WriteLine("contact: " + contact.Phones.FirstOrDefault().Number);
+			}
+		}
     }
 }

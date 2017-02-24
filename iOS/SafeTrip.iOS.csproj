@@ -102,6 +102,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Contacts.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Contacts.2.2.0.37-beta\lib\Xamarin.iOS10\Plugin.Contacts.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Contacts">
+      <HintPath>..\packages\Xam.Plugin.Contacts.2.2.0.37-beta\lib\Xamarin.iOS10\Plugin.Contacts.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SafeTrip\SafeTrip.csproj">

@@ -50,5 +50,7 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>SafeTrip uses your location to help emergency contacts know where you are located during an emergency</string>
+	<key>NSContactsUsageDescription</key>
+	<string>SafeTrip needs access to access your contacts so it can display them to you</string>
 </dict>
 </plist>

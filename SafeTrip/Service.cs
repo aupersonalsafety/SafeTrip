@@ -258,6 +258,17 @@ namespace SafeTrip
 				//System.Diagnostics.Debug.WriteLine("contact: " + contact.Phones.FirstOrDefault().Number);
 			}
 		}
+
+		public List<EmergencyContact> fetchContacts()
+		{
+			//dummy data
+			List<EmergencyContact> list = new List<EmergencyContact>();
+			EmergencyContact temp = new EmergencyContact(55, "Philip", "Sawyer", "555-555-5555", "phil@test.com");
+			list.Add(temp);
+			temp = new EmergencyContact(44, "Aaron", "Scherer", "444-444-4444", "aaron@test.com");
+			list.Add(temp);
+			return list;
+		}
     }
 
 	public class ContactsList

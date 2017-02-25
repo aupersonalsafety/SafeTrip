@@ -83,7 +83,6 @@ namespace SafeTrip.iOS
 			indexedTableItems = new Dictionary<string, List<string>>();
 			foreach (var t in contacts)
 			{
-				Console.WriteLine("t: " + t.DisplayName);
 				if (indexedTableItems.ContainsKey(t.DisplayName[0].ToString()))
 				{
 					indexedTableItems[t.DisplayName[0].ToString()].Add(t.DisplayName);

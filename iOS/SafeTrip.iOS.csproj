@@ -154,6 +154,7 @@
     <Compile Include="ViewControllers\ModifyContactViewController.cs" />
     <Compile Include="ViewControllers\ModifyContactViewController.designer.cs">
       <DependentUpon>ModifyContactViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\ContactsTableViewController.cs" />
     <Compile Include="ViewControllers\ContactsTableViewController.designer.cs">
       <DependentUpon>ContactsTableViewController.cs</DependentUpon>

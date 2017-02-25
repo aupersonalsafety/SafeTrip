@@ -72,13 +72,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="248" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="216" y="550" width="157" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Display Contacts">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -113,7 +106,6 @@
                         <outlet property="LongitudeLabel" destination="81" id="name-outlet-81"/>
                         <outlet property="PanicButton" destination="86" id="name-outlet-86"/>
                         <outlet property="EmergencyContactsButton" destination="133" id="name-outlet-133"/>
-                        <outlet property="DisplayContactsButton" destination="248" id="name-outlet-248"/>
                     </connections>
                     <navigationItem title="Title" id="242" key="navigationItem"/>
                 </viewController>

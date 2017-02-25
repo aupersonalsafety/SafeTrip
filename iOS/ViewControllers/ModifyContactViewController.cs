@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Plugin.Contacts.Abstractions;
+
 using UIKit;
 
 namespace SafeTrip.iOS
@@ -27,6 +29,17 @@ namespace SafeTrip.iOS
 
 			};
 
+			AddressBookButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
+				ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
+				contactsTableViewController.modifyContactsViewController = this;
+
+				if (contactsTableViewController != null)
+				{
+					NavigationController.PushViewController(contactsTableViewController, true);
+				}
+			};
 
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
@@ -36,7 +49,7 @@ namespace SafeTrip.iOS
 		{
 			if (await service.SaveOrUpdateContact(emergencyContactIn) == 1)
 			{
-				emergencyContactsViewController.DismissUpdateContactViewModel(this);
+				emergencyContactsViewController.DismissUpdateContactViewModel();
 			}
 		}
 
@@ -44,6 +57,22 @@ namespace SafeTrip.iOS
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
+		}
+
+		public void DismissUpdateContactViewModel(Contact contact)
+		{
+			NavigationController.PopViewController(true);
+
+			FirstNameTextField.Text = contact.FirstName;
+			LastNameTextField.Text = contact.LastName;
+			if (contact.Phones.Count > 0)
+			{
+				PhoneNumberTextField.Text = contact.Phones[0].Number;
+			}
+			if (contact.Emails.Count > 0)
+			{
+				EmailTextField.Text = contact.Emails[0].Address;
+			}
 		}
 	}
 }

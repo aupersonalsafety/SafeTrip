@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 using UIKit;
 
-using Plugin.Contacts;
-
 namespace SafeTrip.iOS
 {
 	public partial class ContactsTableViewController : UITableViewController
 	{
+		public ModifyContactViewController modifyContactsViewController;
+		ContactsList contacts;
 
 		public ContactsTableViewController(IntPtr handle) : base(handle)
 		{
@@ -32,11 +32,11 @@ namespace SafeTrip.iOS
 		public async Task fetchContacts()
 		{
 			Service service = new Service();
-			ContactsList contacts = await service.getContacts();
+			contacts = await service.getContacts();
 
 			if (contacts.getContacts() != null)
 			{
-				TableView.Source = new ContactsSource(contacts);
+				TableView.Source = new ContactsSource(contacts, this);
 				TableView.ReloadData();
 			}
 			else
@@ -51,17 +51,16 @@ namespace SafeTrip.iOS
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
-		{
-			base.RowSelected(tableView, indexPath);
-			tableView.DeselectRow(indexPath, true);
-		}
-
 		public void showAlert(String error)
 		{
 			var alert = UIAlertController.Create("Error", error, UIAlertControllerStyle.Alert);
 			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
 			PresentViewController(alert, true, null);
+		}
+
+		public void contactSelected(Plugin.Contacts.Abstractions.Contact contact)
+		{
+			modifyContactsViewController.DismissUpdateContactViewModel(contact);
 		}
 	}
 
@@ -69,27 +68,31 @@ namespace SafeTrip.iOS
 	{
 		List<Plugin.Contacts.Abstractions.Contact> contacts;
 		string[] keys;
-		Dictionary<string, List<string>> indexedTableItems;
+		Dictionary<string, List<Plugin.Contacts.Abstractions.Contact>> indexedTableItems;
+		ContactsTableViewController owner;
 
-		public ContactsSource()
+
+		public ContactsSource(ContactsTableViewController ownerIn)
 		{
+			owner = ownerIn;
 			contacts = new List<Plugin.Contacts.Abstractions.Contact>();
 		}
 
-		public ContactsSource(ContactsList contactsListIn)
+		public ContactsSource(ContactsList contactsListIn, ContactsTableViewController ownerIn)
 		{
+			owner = ownerIn;
 			contacts = contactsListIn.getContacts();
 
-			indexedTableItems = new Dictionary<string, List<string>>();
+			indexedTableItems = new Dictionary<string, List<Plugin.Contacts.Abstractions.Contact>>();
 			foreach (var t in contacts)
 			{
 				if (indexedTableItems.ContainsKey(t.DisplayName[0].ToString()))
 				{
-					indexedTableItems[t.DisplayName[0].ToString()].Add(t.DisplayName);
+					indexedTableItems[t.DisplayName[0].ToString()].Add(t);
 				}
 				else
 				{
-					indexedTableItems.Add(t.DisplayName[0].ToString(), new List<string>() { t.DisplayName });
+					indexedTableItems.Add(t.DisplayName[0].ToString(), new List<Plugin.Contacts.Abstractions.Contact>() { t });
 				}
 			}
 
@@ -101,7 +104,7 @@ namespace SafeTrip.iOS
 		{
 			var CellIdentifier = "Cell";
 			UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier);
-			string item = indexedTableItems[keys[indexPath.Section]][indexPath.Row];
+			string item = indexedTableItems[keys[indexPath.Section]][indexPath.Row].DisplayName;
 
 			//---- if there are no cells to reuse, create a new one
 			if (cell == null)
@@ -110,11 +113,6 @@ namespace SafeTrip.iOS
 			cell.TextLabel.Text = item;
 
 			return cell;
-		}
-
-		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
-		{
-			tableView.DeselectRow(indexPath, true);
 		}
 
 		public override nint NumberOfSections(UITableView tableView)
@@ -140,6 +138,12 @@ namespace SafeTrip.iOS
 		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
 		{
 			return 1;
+		}
+
+		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			tableView.DeselectRow(indexPath, true);
+			owner.contactSelected(indexedTableItems[keys[indexPath.Section]][indexPath.Row]);
 		}
 	}
 }

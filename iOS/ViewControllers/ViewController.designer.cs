@@ -18,10 +18,6 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton DisplayContactsButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton EmergencyContactsButton { get; set; }
 
         [Outlet]
@@ -58,11 +54,6 @@ namespace SafeTrip.iOS
 
         void ReleaseDesignerOutlets ()
         {
-            if (DisplayContactsButton != null) {
-                DisplayContactsButton.Dispose ();
-                DisplayContactsButton = null;
-            }
-
             if (EmergencyContactsButton != null) {
                 EmergencyContactsButton.Dispose ();
                 EmergencyContactsButton = null;

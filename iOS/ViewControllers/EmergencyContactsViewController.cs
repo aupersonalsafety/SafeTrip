@@ -33,7 +33,7 @@ namespace SafeTrip.iOS
 			};
 		}
 
-		public void DismissUpdateContactViewModel(ModifyContactViewController modifyContactViewController)
+		public void DismissUpdateContactViewModel()
 		{
 			NavigationController.PopViewController(true);
 		}

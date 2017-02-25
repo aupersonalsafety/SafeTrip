@@ -17,16 +17,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello Emergency Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="134" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="138" y="276" width="323" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="138" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="20" y="73" width="182" height="30"/>
+                                <state key="normal" title="Add Emergency Contact">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="141" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="20" y="130" width="560" height="450"/>
+                            </scrollView>
                         </subviews>
+                        <constraints>
+                            <constraint id="139" firstItem="138" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20"/>
+                            <constraint id="140" firstItem="138" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="53"/>
+                            <constraint id="142" firstItem="141" firstAttribute="top" secondItem="138" secondAttribute="bottom" constant="27"/>
+                            <constraint id="143" firstItem="141" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20"/>
+                            <constraint id="144" firstItem="6" firstAttribute="bottom" secondItem="141" secondAttribute="bottom" constant="20"/>
+                        </constraints>
                     </view>
-                    <connections/>
+                    <connections>
+                        <outlet property="AddEmergencyContactButton" destination="138" id="name-outlet-138"/>
+                    </connections>
                     <navigationItem title="Title" id="122" key="navigationItem"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7" userLabel="First Responder" sceneMemberID="firstResponder"/>

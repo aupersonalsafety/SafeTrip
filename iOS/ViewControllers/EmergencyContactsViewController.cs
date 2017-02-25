@@ -20,15 +20,23 @@ namespace SafeTrip.iOS
 #endif
 
 
+			AddEmergencyContactButton.TouchUpInside += delegate {
+				var storyBoard = UIStoryboard.FromName("ModifyContact", Foundation.NSBundle.MainBundle);
+				ModifyContactViewController modifyContactViewController = (ModifyContactViewController)storyBoard.InstantiateViewController("ModifyContactViewController");
 
-			//SubmitButton.TouchUpInside += delegate
-			//{
-			//	EmergencyContact emergencyContact = new EmergencyContact(ContactIDValue, FirstNameTextBox.Text, LastNameTextBox.Text, PhoneNumberTextBox.Text, EmailTextBox.Text);
-			//	service.SaveOrUpdateContact(emergencyContact);
-			//};
-
+				if (modifyContactViewController != null)
+				{
+					modifyContactViewController.emergencyContact = new EmergencyContact();
+					modifyContactViewController.emergencyContactsViewController = this;
+					NavigationController.PushViewController(modifyContactViewController, true);
+				}
+			};
 		}
 
+		public void DismissUpdateContactViewModel(ModifyContactViewController modifyContactViewController)
+		{
+			NavigationController.PopViewController(true);
+		}
 
 		public override void DidReceiveMemoryWarning()
 		{

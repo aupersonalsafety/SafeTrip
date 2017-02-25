@@ -53,18 +53,20 @@ namespace SafeTrip
 
 		public async Task<int> SaveOrUpdateContact(EmergencyContact emergencyContact)
 		{
-			string jsonEmergencyContact = Newtonsoft.Json.JsonConvert.SerializeObject(emergencyContact);
+			//string jsonEmergencyContact = Newtonsoft.Json.JsonConvert.SerializeObject(emergencyContact);
 
-			var client = new HttpClient();
-			// Add body content
-			var content = new StringContent(
-				jsonEmergencyContact,
-				Encoding.UTF8,
-				"application/json"
-			);
+			//var client = new HttpClient();
+			//// Add body content
+			//var content = new StringContent(
+			//	jsonEmergencyContact,
+			//	Encoding.UTF8,
+			//	"application/json"
+			//);
 
-			// Send the request
-			await client.PostAsync(baseURI + emergencyContactResourceURI + "/" + 1, content);
+			//// Send the request
+			//await client.PostAsync(baseURI + emergencyContactResourceURI + "/" + 1, content);
+
+			await setTimer(2);
 			return 1;
 		}
 

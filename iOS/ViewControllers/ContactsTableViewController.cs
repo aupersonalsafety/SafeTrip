@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using UIKit;
 
@@ -17,17 +19,30 @@ namespace SafeTrip.iOS
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			//TableView.Source = new ContactsSource();
+			Title = "Contacts";
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 
-			Service service = new Service();
-			List<Plugin.Contacts.Abstractions.Contact> tempContacts = service.getContacts().Result;
+			fetchContacts();
+		}
 
-			TableView.Source = new ContactsSource(tempContacts);
+		public async Task fetchContacts()
+		{
+			Service service = new Service();
+			ContactsList contacts = await service.getContacts();
+
+			if (contacts.getContacts() != null)
+			{
+				TableView.Source = new ContactsSource(contacts);
+				TableView.ReloadData();
+			}
+			else
+			{
+				showAlert(contacts.getError());
+			}
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -41,40 +56,91 @@ namespace SafeTrip.iOS
 			base.RowSelected(tableView, indexPath);
 			tableView.DeselectRow(indexPath, true);
 		}
+
+		public void showAlert(String error)
+		{
+			var alert = UIAlertController.Create("Error", error, UIAlertControllerStyle.Alert);
+			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			PresentViewController(alert, true, null);
+		}
 	}
 
 	public class ContactsSource : UITableViewSource
 	{
 		List<Plugin.Contacts.Abstractions.Contact> contacts;
+		string[] keys;
+		Dictionary<string, List<string>> indexedTableItems;
 
 		public ContactsSource()
 		{
 			contacts = new List<Plugin.Contacts.Abstractions.Contact>();
 		}
 
-		public ContactsSource(List<Plugin.Contacts.Abstractions.Contact> contactsIn)
+		public ContactsSource(ContactsList contactsListIn)
 		{
-			contacts = contactsIn;
-		}
+			contacts = contactsListIn.getContacts();
 
-		public override nint RowsInSection(UITableView tableview, nint section)
-		{
-			return contacts.Count;
+			indexedTableItems = new Dictionary<string, List<string>>();
+			foreach (var t in contacts)
+			{
+				Console.WriteLine("t: " + t.DisplayName);
+				if (indexedTableItems.ContainsKey(t.DisplayName[0].ToString()))
+				{
+					indexedTableItems[t.DisplayName[0].ToString()].Add(t.DisplayName);
+				}
+				else
+				{
+					indexedTableItems.Add(t.DisplayName[0].ToString(), new List<string>() { t.DisplayName });
+				}
+			}
+
+			keys = indexedTableItems.Keys.ToArray();
+			Array.Sort(keys);
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
 			var CellIdentifier = "Cell";
 			UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier);
-			Plugin.Contacts.Abstractions.Contact item = contacts[indexPath.Row];
+			string item = indexedTableItems[keys[indexPath.Section]][indexPath.Row];
 
 			//---- if there are no cells to reuse, create a new one
 			if (cell == null)
 			{ cell = new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier); }
 
-			cell.TextLabel.Text = item.DisplayName;
+			cell.TextLabel.Text = item;
 
 			return cell;
+		}
+
+		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			tableView.DeselectRow(indexPath, true);
+		}
+
+		public override nint NumberOfSections(UITableView tableView)
+		{
+			return keys.Length;
+		}
+
+		public override nint RowsInSection(UITableView tableview, nint section)
+		{
+			return indexedTableItems[keys[section]].Count;
+		}
+
+		public override string[] SectionIndexTitles(UITableView tableView)
+		{
+			return keys;
+		}
+
+		public override string TitleForHeader(UITableView tableView, nint section)
+		{
+			return keys[section];
+		}
+
+		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+		{
+			return 1;
 		}
 	}
 }

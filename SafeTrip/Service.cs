@@ -200,28 +200,49 @@ namespace SafeTrip
 			//System.Diagnostics.Debug.WriteLine("json: " + json); 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
 			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]); 		}
 
-		public async void getContacts()
+		public async Task<ContactsList> getContacts()
 		{
 			System.Diagnostics.Debug.WriteLine("getContacts called");
 			if (await CrossContacts.Current.RequestPermission())
 			{
 				System.Diagnostics.Debug.WriteLine("requestPermission passed");
 				List<Plugin.Contacts.Abstractions.Contact> contacts = null;
-				CrossContacts.Current.PreferContactAggregation = false;//recommended
-																	   //run in background
-				await Task.Run(() =>
+				CrossContacts.Current.PreferContactAggregation = false;
+
+				//recommended
+				//run in background
+				//await Task.Run(() =>
+				//{
+				//	if (CrossContacts.Current.Contacts == null)
+				//		return null;
+
+				//	contacts = CrossContacts.Current.Contacts.ToList();
+				//	contacts = contacts.Where(c => c.Phones.Count > 0).ToList();
+				//	contacts = contacts.OrderBy(c => c.LastName).ToList();
+
+				//	//handleContacts(contacts);
+				//	return contacts;
+				//});
+
+
+				if (CrossContacts.Current.Contacts == null)
 				{
-					if (CrossContacts.Current.Contacts == null)
-						return;
-
+					var contactsList = new ContactsList(null, "Error gettings contacts. Try again.");
+					return contactsList;
+				}
+				else
+				{
 					contacts = CrossContacts.Current.Contacts.ToList();
-
-					handleContacts(contacts);
-				});
+					contacts = contacts.Where(c => c.Phones.Count > 0).ToList();
+					contacts = contacts.OrderBy(c => c.LastName).ToList();
+					var contactsList = new ContactsList(contacts, null);
+					return contactsList;
+				}
 			}
 			else
 			{
-				System.Diagnostics.Debug.WriteLine("requestPermission failed");
+				var contactsList = new ContactsList(null, "Contacts permission failed. Go to Settings to give SafeTrip access to your contacts.");
+				return contactsList;
 			}
 		}
 
@@ -238,4 +259,26 @@ namespace SafeTrip
 			}
 		}
     }
+
+	public class ContactsList
+	{
+		List<Plugin.Contacts.Abstractions.Contact> contacts;
+		String errorString;
+
+		public ContactsList(List<Plugin.Contacts.Abstractions.Contact> contactsIn, String errorStringIn)
+		{
+			contacts = contactsIn;
+			errorString = errorStringIn;
+		}
+
+		public List<Plugin.Contacts.Abstractions.Contact> getContacts()
+		{
+			return contacts;
+		}
+
+		public String getError()
+		{
+			return errorString;
+		}
+	}
 }

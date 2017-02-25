@@ -133,6 +133,7 @@
     <InterfaceDefinition Include="Storyboards\Main.storyboard" />
     <InterfaceDefinition Include="Storyboards\EmergencyContactsMenu.storyboard" />
     <InterfaceDefinition Include="Storyboards\ModifyContact.storyboard" />
+    <InterfaceDefinition Include="Storyboards\ContactsSelector.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -153,6 +154,9 @@
     <Compile Include="ViewControllers\ModifyContactViewController.cs" />
     <Compile Include="ViewControllers\ModifyContactViewController.designer.cs">
       <DependentUpon>ModifyContactViewController.cs</DependentUpon>
+    <Compile Include="ViewControllers\ContactsTableViewController.cs" />
+    <Compile Include="ViewControllers\ContactsTableViewController.designer.cs">
+      <DependentUpon>ContactsTableViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

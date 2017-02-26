@@ -12,6 +12,7 @@ namespace SafeTrip.iOS
 
 		public EmergencyContact emergencyContact;
 		SafeTrip.Service service = new SafeTrip.Service();
+		int? emergencyContactID;
 
 		public ModifyContactViewController(IntPtr handle) : base(handle)
 		{
@@ -19,7 +20,7 @@ namespace SafeTrip.iOS
 
 		public override void ViewDidLoad()
 		{
-
+			
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
@@ -41,6 +42,7 @@ namespace SafeTrip.iOS
 				}
 			};
 
+			LoadEmergencyContact(emergencyContact);
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 		}
@@ -73,6 +75,15 @@ namespace SafeTrip.iOS
 			{
 				EmailTextField.Text = contact.Emails[0].Address;
 			}
+		}
+
+		public void LoadEmergencyContact(EmergencyContact emergencyContact)
+		{
+			emergencyContactID = emergencyContact.ContactID;
+			FirstNameTextField.Text = emergencyContact.FirstName;
+			LastNameTextField.Text = emergencyContact.LastName;
+			PhoneNumberTextField.Text = emergencyContact.PhoneNumber;
+			EmailTextField.Text = emergencyContact.Email;
 		}
 	}
 }

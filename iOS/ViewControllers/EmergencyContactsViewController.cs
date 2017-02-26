@@ -34,12 +34,32 @@ namespace SafeTrip.iOS
 			, true);
 
 			Service service = new Service();
-			TableView.Source = new EmergencyContactsDataSource(service.fetchContacts());
+			TableView.Source = new EmergencyContactsDataSource(service.fetchContacts(), this);
 		}
 
 		public void DismissUpdateContactViewModel()
 		{
 			NavigationController.PopViewController(true);
+		}
+
+		public void contactSelected(EmergencyContact emergencyContact)
+		{
+			var storyBoard = UIStoryboard.FromName("ModifyContact", Foundation.NSBundle.MainBundle);
+			ModifyContactViewController modifyContactViewController = (ModifyContactViewController)storyBoard.InstantiateViewController("ModifyContactViewController");
+
+			if (modifyContactViewController != null)
+			{
+				modifyContactViewController.emergencyContact = new EmergencyContact();
+				modifyContactViewController.emergencyContact.ContactID = emergencyContact.ContactID;
+				modifyContactViewController.emergencyContact.FirstName = emergencyContact.FirstName;
+				modifyContactViewController.emergencyContact.LastName = emergencyContact.LastName;
+				modifyContactViewController.emergencyContact.PhoneNumber = emergencyContact.PhoneNumber;
+				modifyContactViewController.emergencyContact.Email = emergencyContact.Email;
+				modifyContactViewController.emergencyContactsViewController = this;
+				NavigationController.PushViewController(modifyContactViewController, true);
+				//modifyContactViewController.LoadEmergencyContact(modifyContactViewController.emergencyContact);
+				
+			}
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -52,9 +72,12 @@ namespace SafeTrip.iOS
 	public class EmergencyContactsDataSource : UITableViewSource
 	{
 		List<EmergencyContact> contacts;
-		public EmergencyContactsDataSource(List<EmergencyContact> contactsIn)
+		EmergencyContactsViewController owner;
+
+		public EmergencyContactsDataSource(List<EmergencyContact> contactsIn, EmergencyContactsViewController emergencyContactsViewController)
 		{
 			contacts = contactsIn;
+			owner = emergencyContactsViewController;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)
@@ -85,6 +108,7 @@ namespace SafeTrip.iOS
 		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
 			tableView.DeselectRow(indexPath, true);
+			owner.contactSelected(contacts[indexPath.Row]);
 		}
 	}
 }

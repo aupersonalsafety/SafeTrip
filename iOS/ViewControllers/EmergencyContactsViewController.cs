@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Foundation;
+
 using UIKit;
 
 namespace SafeTrip.iOS
@@ -110,5 +112,28 @@ namespace SafeTrip.iOS
 			tableView.DeselectRow(indexPath, true);
 			owner.contactSelected(contacts[indexPath.Row]);
 		}
+
+		//public override bool CanEditRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		//{
+		//	//return base.CanEditRow(tableView, indexPath);
+		//	return true;
+		//}
+
+		//public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, Foundation.NSIndexPath indexPath)
+		//{
+		//	switch (editingStyle)
+		//	{
+		//		case UITableViewCellEditingStyle.Delete:
+		//			// remove the item from the underlying data source
+		//			//tableItems.RemoveAt(indexPath.Row);
+		//			contacts.RemoveAt(indexPath.Row);
+		//			// delete the row from the table
+		//			tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+		//			break;
+		//		case UITableViewCellEditingStyle.None:
+		//			Console.WriteLine("CommitEditingStyle:None called");
+		//			break;
+		//	}
+		//}
 	}
 }

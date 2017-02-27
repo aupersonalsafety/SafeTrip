@@ -49,7 +49,9 @@ namespace SafeTrip.iOS
 
 		public async void UpdateContact(EmergencyContact emergencyContactIn)
 		{
-			if (await service.SaveOrUpdateContact(emergencyContactIn) == 1)
+			//FIXME
+			//update to userID
+			if (await service.postContactToDatabase(emergencyContactIn, 1234) == 1)
 			{
 				emergencyContactsViewController.DismissUpdateContactViewModel();
 			}

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Newtonsoft.Json.Linq;
 using Plugin.Contacts;
+using Newtonsoft.Json;
 
 namespace SafeTrip
 {
@@ -50,25 +51,6 @@ namespace SafeTrip
 
             return await response.Content.ReadAsStringAsync();
         }
-
-		public async Task<int> SaveOrUpdateContact(EmergencyContact emergencyContact)
-		{
-			//string jsonEmergencyContact = Newtonsoft.Json.JsonConvert.SerializeObject(emergencyContact);
-
-			//var client = new HttpClient();
-			//// Add body content
-			//var content = new StringContent(
-			//	jsonEmergencyContact,
-			//	Encoding.UTF8,
-			//	"application/json"
-			//);
-
-			//// Send the request
-			//await client.PostAsync(baseURI + emergencyContactResourceURI + "/" + 1, content);
-
-			await setTimer(2);
-			return 1;
-		}
 
 		public async Task<GlobalPosition> saveGlobalPosition()
 		{
@@ -240,6 +222,48 @@ namespace SafeTrip
 			temp = new EmergencyContact(44, "Aaron", "Scherer", "444-444-4444", "aaron@test.com");
 			list.Add(temp);
 			return list;
+		}
+
+		public async Task<int> postContactToDatabase(EmergencyContact contact, int userId)
+		{
+			System.Diagnostics.Debug.WriteLine("postContactToDatabase called");
+			String url = "https://au-personal-safety.herokuapp.com/contact/sendtodb";
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			dict.Add("firstName", contact.FirstName);
+			dict.Add("lastName", contact.LastName);
+			dict.Add("contactEmail", contact.Email);
+			dict.Add("contactPhone", contact.PhoneNumber);
+			//FIXME
+			//Database needs to be able to update or new
+			//dict.Add("contactID", contact.ContactID);
+			dict.Add("userID", userId);
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
 		}
     }
 

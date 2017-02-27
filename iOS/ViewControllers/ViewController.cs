@@ -48,7 +48,6 @@ namespace SafeTrip.iOS
 
 				if (emergencyContactsViewController != null)
 				{
-					//emergencyContactsViewController.PhoneNumbers = PhoneNumbers;
 					NavigationController.PushViewController(emergencyContactsViewController, true);
 				}
 			};

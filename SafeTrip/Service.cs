@@ -115,8 +115,12 @@ namespace SafeTrip
 		{
 			var position = e.Position;
 			GlobalPosition globalPosition = new GlobalPosition(position.Latitude, position.Longitude);
+
+			System.Diagnostics.Debug.WriteLine("globalPostion:D " + globalPosition);
+
 			//FIXME
-			//call write to database with position?
+			//add actual user id
+			postLocationToDatabase(globalPosition, 1234);
 		}
 
 		public void positionErrorChanged(object sender, Plugin.Geolocator.Abstractions.PositionErrorEventArgs e)
@@ -150,6 +154,9 @@ namespace SafeTrip
 				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 				globalPosition.Latitude = 32.607722;
 				globalPosition.Longitude = -85.489545;
+
+				postLocationToDatabase(globalPosition, 5678);
+
 				return globalPosition;
 			}
 		}
@@ -226,7 +233,6 @@ namespace SafeTrip
 
 		public async Task<int> postContactToDatabase(EmergencyContact contact, int userId)
 		{
-			System.Diagnostics.Debug.WriteLine("postContactToDatabase called");
 			String url = "https://au-personal-safety.herokuapp.com/contact/sendtodb";
 
 			var client = new HttpClient();
@@ -262,6 +268,41 @@ namespace SafeTrip
 			{
 				//reponse not successful
 				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
+		}
+
+		public async Task<int> postLocationToDatabase(GlobalPosition position, int userID)
+		{
+			String url = "https://au-personal-safety.herokuapp.com/location/store/" + userID;
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			dict.Add("long", position.Longitude);
+			dict.Add("lat", position.Latitude);
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}

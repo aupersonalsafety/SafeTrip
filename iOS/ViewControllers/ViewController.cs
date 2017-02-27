@@ -38,6 +38,7 @@ namespace SafeTrip.iOS
 			GetPositionButton.TouchUpInside += delegate {
 				setCurrentPosition();
 
+				//service.monitorLocation();
 			};
 
 

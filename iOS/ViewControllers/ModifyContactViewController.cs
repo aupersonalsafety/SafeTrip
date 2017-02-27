@@ -43,6 +43,15 @@ namespace SafeTrip.iOS
 			};
 
 			LoadEmergencyContact(emergencyContact);
+			if (emergencyContact.ContactID == null)
+			{
+				UpdateContactButton.SetTitle("Add Contact", forState: UIControlState.Normal);
+			}
+			else
+			{
+				UpdateContactButton.SetTitle("Save Changes", forState: UIControlState.Normal);
+			}
+
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 		}

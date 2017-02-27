@@ -22,23 +22,47 @@ namespace SafeTrip
         public Service()
         {
             baseURI = "https://au-personal-safety.herokuapp.com/";
-            sendSMSResourceURI = "rest/sms/send";
+            sendSMSResourceURI = "email/sendtophone";
             helloResourceURI = "rest/greetings";
 			positionResourceURI = "rest/position";
 			emergencyContactResourceURI = "rest/emergecyContact";
         } 
 
-        public async void SendSMSMessage(string message, string recipientPhoneNumber)
+        public async Task<int> SendSMSMessage(string message, string recipientPhoneNumber)
         {
-            var values = new Dictionary<string, string>();
-            values.Add("message", message);
-            var content = new FormUrlEncodedContent(values);
+			String url = "https://au-personal-safety.herokuapp.com/email/sendtophone";
 
-            HttpClient client = new HttpClient();
+			var client = new HttpClient();
 
-            HttpResponseMessage response = await client.PostAsync(baseURI + sendSMSResourceURI + "?message=" + message + "&phoneNumber=" + recipientPhoneNumber, content);
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			dict.Add("recipients", recipientPhoneNumber + "@vtext.com");
+			dict.Add("subject", "none");
+			dict.Add("messageText", message);
+			var json = JsonConvert.SerializeObject(dict);
 
-            response.EnsureSuccessStatusCode();
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
+
         }
 
         public async Task<String> SayHello(string name)

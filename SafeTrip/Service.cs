@@ -209,21 +209,6 @@ namespace SafeTrip
 				List<Plugin.Contacts.Abstractions.Contact> contacts = null;
 				CrossContacts.Current.PreferContactAggregation = false;
 
-				//recommended
-				//run in background
-				//await Task.Run(() =>
-				//{
-				//	if (CrossContacts.Current.Contacts == null)
-				//		return null;
-
-				//	contacts = CrossContacts.Current.Contacts.ToList();
-				//	contacts = contacts.Where(c => c.Phones.Count > 0).ToList();
-				//	contacts = contacts.OrderBy(c => c.LastName).ToList();
-
-				//	//handleContacts(contacts);
-				//	return contacts;
-				//});
-
 
 				if (CrossContacts.Current.Contacts == null)
 				{
@@ -243,19 +228,6 @@ namespace SafeTrip
 			{
 				var contactsList = new ContactsList(null, "Contacts permission failed. Go to Settings to give SafeTrip access to your contacts.");
 				return contactsList;
-			}
-		}
-
-		public void handleContacts(List<Plugin.Contacts.Abstractions.Contact> contacts)
-		{
-			System.Diagnostics.Debug.WriteLine("handleContacts called");
-			contacts = contacts.Where(c => c.Phones.Count > 0).ToList();
-			contacts = contacts.OrderBy(c => c.LastName).ToList();
-
-
-			foreach (var contact in contacts)
-			{
-				//System.Diagnostics.Debug.WriteLine("contact: " + contact.Phones.FirstOrDefault().Number);
 			}
 		}
 

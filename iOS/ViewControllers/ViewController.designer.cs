@@ -18,7 +18,27 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton EmergencyContactsButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton GetPositionButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel LatitudeLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel LongitudeLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField MessageTextBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton PanicButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -34,9 +54,34 @@ namespace SafeTrip.iOS
 
         void ReleaseDesignerOutlets ()
         {
+            if (EmergencyContactsButton != null) {
+                EmergencyContactsButton.Dispose ();
+                EmergencyContactsButton = null;
+            }
+
+            if (GetPositionButton != null) {
+                GetPositionButton.Dispose ();
+                GetPositionButton = null;
+            }
+
+            if (LatitudeLabel != null) {
+                LatitudeLabel.Dispose ();
+                LatitudeLabel = null;
+            }
+
+            if (LongitudeLabel != null) {
+                LongitudeLabel.Dispose ();
+                LongitudeLabel = null;
+            }
+
             if (MessageTextBox != null) {
                 MessageTextBox.Dispose ();
                 MessageTextBox = null;
+            }
+
+            if (PanicButton != null) {
+                PanicButton.Dispose ();
+                PanicButton = null;
             }
 
             if (PhoneNumberTextBox != null) {

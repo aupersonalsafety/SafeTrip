@@ -52,6 +52,11 @@ namespace SafeTrip.iOS
 					NavigationController.PushViewController(emergencyContactsViewController, true);
 				}
 			};
+
+			PanicButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				useCamera();
+			};
 		}
 
 		public async void setCurrentPosition()
@@ -61,6 +66,10 @@ namespace SafeTrip.iOS
 			LongitudeLabel.Text = currentPosition.Longitude.ToString();
 		}
 
+		public async void useCamera()
+		{
+			await service.recordVideo();
+		}
 
 		public override void DidReceiveMemoryWarning()
 		{

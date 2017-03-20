@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Newtonsoft.Json.Linq;
 using Plugin.Contacts;
+using Plugin.Media;
 using Newtonsoft.Json;
 
 namespace SafeTrip
@@ -330,6 +331,29 @@ namespace SafeTrip
 				return -1;
 			}
 		}
+
+		public async Task<int> recordVideo()
+		{
+			
+			if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakeVideoSupported)
+			{
+				
+				// Supply media options for saving our video after it's taken.
+				var mediaOptions = new Plugin.Media.Abstractions.StoreVideoOptions
+				{
+					Directory = "Videos",
+					Name = $"{DateTime.UtcNow}.mp4",
+					DesiredLength = new System.TimeSpan(200)
+				};
+
+				// Record a video
+				var file = await CrossMedia.Current.TakeVideoAsync(mediaOptions);
+				file.GetStream().SetLength(200);
+			}
+
+			return 1;
+		}
+
     }
 
 	public class ContactsList

@@ -20,6 +20,7 @@ namespace SafeTrip.Droid
 			// and attach an event to it
 			Button button = FindViewById<Button>(Resource.Id.myButton);
             Button button2 = FindViewById<Button>(Resource.Id.myButton2);
+			Button recordButton = FindViewById<Button>(Resource.Id.recordVideoButton);
 
             EditText nameEditText = FindViewById<EditText>(Resource.Id.editText1);
             EditText messageEditText = FindViewById<EditText>(Resource.Id.editText2);
@@ -35,6 +36,11 @@ namespace SafeTrip.Droid
             {
 				service.SendSMSMessage(messageEditText.Text, recipientPhoneNumberEditText.Text);
             };
+
+			recordButton.Click += delegate {
+				//service.recordVideo();
+				StartActivity(typeof(RecordVideoActivity));
+			};
 		}
 	}
 }

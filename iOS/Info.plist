@@ -52,5 +52,11 @@
 	<string>SafeTrip uses your location to help emergency contacts know where you are located during an emergency</string>
 	<key>NSContactsUsageDescription</key>
 	<string>SafeTrip needs access to access your contacts so it can display them to you</string>
+	<key>NSCameraUsageDescription</key>
+	<string>SafeTrip accesses your camera in order to record emergency situations</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>SafeTrip would like to access your photo library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>SafeTrip accesses your microphone in order to record emergency situations</string>
 </dict>
 </plist>

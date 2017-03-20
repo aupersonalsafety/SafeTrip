@@ -44,6 +44,9 @@ namespace SafeTrip.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050006
+			public const int PinNumber = 2131034118;
+			
 			// aapt resource value: 0x7f050000
 			public const int editText1 = 2131034112;
 			
@@ -53,11 +56,20 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f050002
 			public const int editText3 = 2131034114;
 			
+			// aapt resource value: 0x7f050007
+			public const int finishRecordingButton = 2131034119;
+			
 			// aapt resource value: 0x7f050001
 			public const int myButton = 2131034113;
 			
 			// aapt resource value: 0x7f050004
 			public const int myButton2 = 2131034116;
+			
+			// aapt resource value: 0x7f050005
+			public const int recordVideoButton = 2131034117;
+			
+			// aapt resource value: 0x7f050008
+			public const int videoView = 2131034120;
 			
 			static Id()
 			{
@@ -74,6 +86,9 @@ namespace SafeTrip.Droid
 			
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int RecordVideo = 2130903041;
 			
 			static Layout()
 			{
@@ -104,11 +119,17 @@ namespace SafeTrip.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040002
-			public const int app_name = 2130968578;
+			// aapt resource value: 0x7f040003
+			public const int app_name = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int finishRecordingButton = 2130968580;
 			
 			// aapt resource value: 0x7f040000
 			public const int hello = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int recordVideo = 2130968578;
 			
 			// aapt resource value: 0x7f040001
 			public const int sms = 2130968577;

@@ -198,6 +198,11 @@ namespace SafeTrip
 				System.Diagnostics.Debug.WriteLine("response is not successful");
 			} 		}
 
+		public async void getTravelTime(String addressIn)
+		{
+
+		}
+
 		public async Task<int> setTimer(int seconds)
 		{
 			try

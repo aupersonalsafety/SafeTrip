@@ -44,32 +44,35 @@ namespace SafeTrip.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050006
-			public const int PinNumber = 2131034118;
-			
-			// aapt resource value: 0x7f050000
-			public const int editText1 = 2131034112;
-			
-			// aapt resource value: 0x7f050003
-			public const int editText2 = 2131034115;
-			
-			// aapt resource value: 0x7f050002
-			public const int editText3 = 2131034114;
-			
 			// aapt resource value: 0x7f050007
-			public const int finishRecordingButton = 2131034119;
+			public const int PinNumber = 2131034119;
+			
+			// aapt resource value: 0x7f050009
+			public const int container = 2131034121;
 			
 			// aapt resource value: 0x7f050001
-			public const int myButton = 2131034113;
+			public const int editText1 = 2131034113;
 			
 			// aapt resource value: 0x7f050004
-			public const int myButton2 = 2131034116;
+			public const int editText2 = 2131034116;
 			
-			// aapt resource value: 0x7f050005
-			public const int recordVideoButton = 2131034117;
+			// aapt resource value: 0x7f050003
+			public const int editText3 = 2131034115;
 			
 			// aapt resource value: 0x7f050008
-			public const int videoView = 2131034120;
+			public const int finishRecordingButton = 2131034120;
+			
+			// aapt resource value: 0x7f050002
+			public const int myButton = 2131034114;
+			
+			// aapt resource value: 0x7f050005
+			public const int myButton2 = 2131034117;
+			
+			// aapt resource value: 0x7f050006
+			public const int recordVideoButton = 2131034118;
+			
+			// aapt resource value: 0x7f050000
+			public const int texture = 2131034112;
 			
 			static Id()
 			{
@@ -85,10 +88,13 @@ namespace SafeTrip.Droid
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int fragment_camera2_video = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int RecordVideo = 2130903041;
+			public const int Main = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int RecordVideo = 2130903042;
 			
 			static Layout()
 			{
@@ -128,11 +134,17 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f040000
 			public const int hello = 2130968576;
 			
+			// aapt resource value: 0x7f040005
+			public const int record = 2130968581;
+			
 			// aapt resource value: 0x7f040002
 			public const int recordVideo = 2130968578;
 			
 			// aapt resource value: 0x7f040001
 			public const int sms = 2130968577;
+			
+			// aapt resource value: 0x7f040006
+			public const int stop = 2130968582;
 			
 			static String()
 			{

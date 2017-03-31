@@ -15,8 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/finishRecordingButton" />
-    <VideoView
+<!--<VideoView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/videoView" />
+        android:id="@+id/videoView"
+        android:paddingRight="20px"
+        android:paddingLeft="20px" />-->
+<!--<TextureView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:rotation="90"
+        android:id="@+id/textureView1" />-->
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000" />
 </LinearLayout>

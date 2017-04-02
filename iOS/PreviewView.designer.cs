@@ -7,24 +7,14 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace SafeTrip.iOS
 {
-    [Register ("CameraViewController")]
-    partial class CameraViewController
+    [Register ("PreviewView")]
+    partial class PreviewView
     {
         void ReleaseDesignerOutlets ()
         {
-            if (PreviewView != null) {
-                PreviewView.Dispose ();
-                PreviewView = null;
-            }
-
-            if (RecordButton != null) {
-                RecordButton.Dispose ();
-                RecordButton = null;
-            }
         }
     }
 }

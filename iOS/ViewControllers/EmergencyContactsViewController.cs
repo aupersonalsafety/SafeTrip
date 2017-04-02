@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Foundation;
 
@@ -9,6 +10,9 @@ namespace SafeTrip.iOS
 {
 	public partial class EmergencyContactsViewController : UITableViewController
 	{
+		Service service;
+		public int userId;
+
 		public EmergencyContactsViewController(IntPtr handle) : base(handle)
 		{
 		}
@@ -17,6 +21,7 @@ namespace SafeTrip.iOS
 		{
 			base.ViewDidLoad();
 
+			service = new Service();
 
 			Title = "Emergency Contacts";
 
@@ -34,9 +39,13 @@ namespace SafeTrip.iOS
 					}
 				})
 			, true);
+		}
 
-			Service service = new Service();
-			TableView.Source = new EmergencyContactsDataSource(service.fetchContacts(), this);
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+
+			refreshContacts();
 		}
 
 		public void DismissUpdateContactViewModel()
@@ -68,6 +77,20 @@ namespace SafeTrip.iOS
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.		
+		}
+
+		public async Task refreshContacts()
+		{
+			var fetchedContacts = await service.fetchContacts(userId);
+			TableView.Source = new EmergencyContactsDataSource(fetchedContacts, this);
+		}
+
+		public async Task removeContact(int contactId)
+		{
+			if (await service.deleteContactFromDatabase(contactId) == -1)
+			{
+				await refreshContacts();
+			}
 		}
 	}
 
@@ -113,27 +136,28 @@ namespace SafeTrip.iOS
 			owner.contactSelected(contacts[indexPath.Row]);
 		}
 
-		//public override bool CanEditRow(UITableView tableView, Foundation.NSIndexPath indexPath)
-		//{
-		//	//return base.CanEditRow(tableView, indexPath);
-		//	return true;
-		//}
+		public override bool CanEditRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			//return base.CanEditRow(tableView, indexPath);
+			return true;
+		}
 
-		//public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, Foundation.NSIndexPath indexPath)
-		//{
-		//	switch (editingStyle)
-		//	{
-		//		case UITableViewCellEditingStyle.Delete:
-		//			// remove the item from the underlying data source
-		//			//tableItems.RemoveAt(indexPath.Row);
-		//			contacts.RemoveAt(indexPath.Row);
-		//			// delete the row from the table
-		//			tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
-		//			break;
-		//		case UITableViewCellEditingStyle.None:
-		//			Console.WriteLine("CommitEditingStyle:None called");
-		//			break;
-		//	}
-		//}
+		public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, Foundation.NSIndexPath indexPath)
+		{
+			switch (editingStyle)
+			{
+				case UITableViewCellEditingStyle.Delete:
+					// remove the item from the underlying data source
+					int contactId = (int)contacts[indexPath.Row].ContactID;
+					owner.removeContact(contactId);
+					contacts.RemoveAt(indexPath.Row);
+					// delete the row from the table
+					tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+					break;
+				case UITableViewCellEditingStyle.None:
+					Console.WriteLine("CommitEditingStyle:None called");
+					break;
+			}
+		}
 	}
 }

@@ -7,42 +7,31 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace SafeTrip.iOS
 {
-    [Register ("ViewController")]
-    partial class ViewController
+    [Register ("HoldMyHandViewController")]
+    partial class HoldMyHandViewController
     {
-        [Outlet]
-        UIKit.UIButton Button { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton EmergencyContactsButton { get; set; }
-
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton HoldMyHandButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton PanicButton { get; set; }
+        UIKit.UITextField PinTextField { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (EmergencyContactsButton != null) {
-                EmergencyContactsButton.Dispose ();
-                EmergencyContactsButton = null;
-            }
-
             if (HoldMyHandButton != null) {
                 HoldMyHandButton.Dispose ();
                 HoldMyHandButton = null;
             }
 
-            if (PanicButton != null) {
-                PanicButton.Dispose ();
-                PanicButton = null;
+            if (PinTextField != null) {
+                PinTextField.Dispose ();
+                PinTextField = null;
             }
         }
     }

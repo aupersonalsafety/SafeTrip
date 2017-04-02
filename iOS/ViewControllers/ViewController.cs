@@ -19,28 +19,18 @@ namespace SafeTrip.iOS
 
 			Title = "SafeTrip";
 
-			// Perform any additional setup after loading the view, typically from a nib.
-			//Button.AccessibilityIdentifier = "myButton";
-			//Button.TouchUpInside += delegate
+			//SubmitButton.AccessibilityIdentifier = "submitTextButton";
+			//SubmitButton.TouchUpInside += delegate
 			//{
-			//	var title = string.Format("{0} clicks!", count++);
-			//	Button.SetTitle(title, UIControlState.Normal);
+			//	ResultLabel.Text = MessageTextBox.Text;
+			//	service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
 			//};
 
+			//GetPositionButton.TouchUpInside += delegate {
+			//	setCurrentPosition();
 
-			SubmitButton.AccessibilityIdentifier = "submitTextButton";
-			SubmitButton.TouchUpInside += delegate
-			{
-				ResultLabel.Text = MessageTextBox.Text;
-				service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
-			};
-
-			GetPositionButton.TouchUpInside += delegate {
-				setCurrentPosition();
-
-				//service.monitorLocation();
-			};
-
+			//	//service.monitorLocation();
+			//};
 
 			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
@@ -62,18 +52,30 @@ namespace SafeTrip.iOS
 				}
 			};
 
+			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				var storyBoard = UIStoryboard.FromName("HoldMyHand", Foundation.NSBundle.MainBundle);
+				HoldMyHandViewController holdMyHandViewController = (HoldMyHandViewController)storyBoard.InstantiateViewController("HoldMyHandViewController");
+
+				if (holdMyHandViewController != null)
+				{
+					NavigationController.PushViewController(holdMyHandViewController, true);
+				}
+			};
+
 			PanicButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				useCamera();
 			};
 		}
 
-		public async void setCurrentPosition()
-		{
-			currentPosition = await service.getGlobalPosition();
-			LatitudeLabel.Text = currentPosition.Latitude.ToString();
-			LongitudeLabel.Text = currentPosition.Longitude.ToString();
-		}
+		//public async void setCurrentPosition()
+		//{
+		//	currentPosition = await service.getGlobalPosition();
+		//	LatitudeLabel.Text = currentPosition.Latitude.ToString();
+		//	LongitudeLabel.Text = currentPosition.Longitude.ToString();
+		//}
+
 
 		public async void useCamera()
 		{

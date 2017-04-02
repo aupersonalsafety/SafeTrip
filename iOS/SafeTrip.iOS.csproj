@@ -140,6 +140,7 @@
     <InterfaceDefinition Include="Storyboards\ModifyContact.storyboard" />
     <InterfaceDefinition Include="Storyboards\ContactsSelector.storyboard" />
     <InterfaceDefinition Include="Storyboards\Camera.storyboard" />
+    <InterfaceDefinition Include="Storyboards\HoldMyHand.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -168,6 +169,10 @@
     </Compile>
     <Compile Include="ViewControllers\CameraViewController.designer.cs">
       <DependentUpon>CameraViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\HoldMyHandViewController.cs" />
+    <Compile Include="ViewControllers\HoldMyHandViewController.designer.cs">
+      <DependentUpon>HoldMyHandViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

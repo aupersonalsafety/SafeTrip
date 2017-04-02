@@ -33,23 +33,19 @@ namespace SafeTrip.iOS
 			{
 				if (PinTextField.Text.Length >= 4)
 				{
-					
-					while (attempts < 5 || !success)
+					if (PinTextField.Text != "1234")
 					{
-						if (PinTextField.Text != "1234")
-						{
-							var test = UIAlertController.Create("Incorrect PIN", "Incorrect PIN", UIAlertControllerStyle.Alert);
-							test.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-							PresentViewController(test, true, null);
-							attempts++;
-						}
-						else
-						{
-							success = true;
-							//Exit
-						}
+						var test = UIAlertController.Create("Incorrect PIN", "Incorrect PIN", UIAlertControllerStyle.Alert);
+						test.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+						PresentViewController(test, true, null);
+						attempts++;
 					}
-					if (!success)
+					else
+					{
+						success = true;
+						//Exit
+					}
+					if (!success && attempts >= 5)
 					{
 						//ALERT EVERYONE
 					}

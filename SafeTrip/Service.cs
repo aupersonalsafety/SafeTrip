@@ -270,7 +270,7 @@ namespace SafeTrip
 			{
 				//reponse not successful
 				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
-				return new List<EmergencyContact>;
+				return new List<EmergencyContact>();
 			}
 		}
 
@@ -278,7 +278,7 @@ namespace SafeTrip
 		//parse this list
 		private List<EmergencyContact> parseContactList(String contactsIn)
 		{
-			return new List<EmergencyContact>;
+			return new List<EmergencyContact>();
 		}
 
 		public async Task<int> postContactToDatabase(EmergencyContact contact, int userId)

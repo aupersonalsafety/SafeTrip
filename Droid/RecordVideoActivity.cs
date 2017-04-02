@@ -6,12 +6,16 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+//using Android.Hardware;
+//using Android.Graphics;
 using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+
+using Android.Hardware.Camera2;
 
 namespace SafeTrip.Droid
 {
@@ -24,6 +28,7 @@ namespace SafeTrip.Droid
 		EditText pinNumber;
 
 		VideoView video;
+		//TextureView video;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -32,11 +37,19 @@ namespace SafeTrip.Droid
 
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.RecordVideo);
+			if (null == savedInstanceState)
+			{
+				FragmentManager.BeginTransaction()
+					.Replace(Resource.Id.container, Camera2VideoFragment.newInstance())
+					.Commit();
+			}
+
 
 			finishRecordingButton = FindViewById<Button>(Resource.Id.finishRecordingButton);
 
 			pinNumber = FindViewById<EditText>(Resource.Id.PinNumber);
-			video = FindViewById<VideoView>(Resource.Id.videoView);
+			//video = FindViewById<VideoView>(Resource.Id.videoView);
+			//video = FindViewById<TextureView>(Resource.Id.textureView1);
 
 			finishRecordingButton.Click += delegate
 			{
@@ -44,7 +57,8 @@ namespace SafeTrip.Droid
 				//showVideoFeed();
 			};
 
-			pinNumber.TextChanged += delegate {
+			pinNumber.TextChanged += delegate
+			{
 				if (pinNumber.Text.Length >= 4)
 				{
 					//Check Password
@@ -68,7 +82,7 @@ namespace SafeTrip.Droid
 		{
 			base.OnResume();
 
-			showVideoFeed();
+			//showVideoFeed();
 		}
 
 		protected override void OnDestroy()
@@ -88,15 +102,39 @@ namespace SafeTrip.Droid
 			string path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/" + "testVideo.mp4";
 
 			recorder = new MediaRecorder();
-			recorder.SetVideoSource(VideoSource.Camera);
-			recorder.SetAudioSource(AudioSource.Mic);
-			recorder.SetOutputFormat(OutputFormat.Default);
-			recorder.SetVideoEncoder(VideoEncoder.Default);
-			recorder.SetAudioEncoder(AudioEncoder.Default);
-			recorder.SetOutputFile(path);
-			recorder.SetPreviewDisplay(video.Holder.Surface);
-			recorder.Prepare();
-			recorder.Start();
+
+			//var test = GetCameraInstance();
+			//test.SetDisplayOrientation(90);
+
+			//var test = Android.Hardware.Camera.Open();
+			//Android.Hardware.Camera.Parameters parameters = test.GetParameters();
+			//parameters.SetRotation(90);
+			//recorder.SetCamera(test);
+
+			//recorder.SetVideoSource(VideoSource.Camera);
+
+
+
+			//CameraManager manager = (CameraManager)GetSystemService(CameraService);
+			//String[] cameras = manager.GetCameraIdList();
+			//manager.OpenCamera(cameras[0], , null);
+			//manager
+
+			//recorder.SetVideoSource(VideoSource.Camera);
+			//recorder.SetAudioSource(AudioSource.Mic);
+			////recorder.SetOutputFormat(OutputFormat.Default);
+			////recorder.SetVideoEncoder(VideoEncoder.Default);
+			////recorder.SetAudioEncoder(AudioEncoder.Default);
+			//recorder.SetOutputFile(path);
+			//recorder.SetPreviewDisplay(video.Holder.Surface);
+			////recorder.SetOrientationHint(0);
+			//CamcorderProfile profile = CamcorderProfile.Get(CamcorderQuality.High);
+			//profile.Duration = 2000;
+			//profile.VideoFrameHeight = video.Height;
+			//profile.VideoFrameWidth = video.Width;
+			//recorder.SetProfile(profile);
+			//recorder.Prepare();
+			//recorder.Start();
 		}
 
 		public static void showKeyboard(EditText mEtSearch, Context context)

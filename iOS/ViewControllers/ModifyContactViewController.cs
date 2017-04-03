@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using Plugin.Contacts.Abstractions;
 
+using BigTed;
+
 using UIKit;
+using System.Text.RegularExpressions;
+
+using Foundation;
 
 namespace SafeTrip.iOS
 {
@@ -37,6 +42,8 @@ namespace SafeTrip.iOS
 
 			var model = new CarrierPickerView(carriersList, 0);
 			carrierPickerView.Model = model;
+
+			PhoneNumberTextField.Delegate = new NumberOnlyTextField();
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
@@ -79,9 +86,18 @@ namespace SafeTrip.iOS
 			{
 				//FIXME
 				//update to userID
-				if (await service.postContactToDatabase(emergencyContactIn, 1234) == 1)
+				BTProgressHUD.Show(status: "Loading...");
+				if (await service.postContactToDatabase(emergencyContactIn, 1) == 1)
 				{
+					BTProgressHUD.Dismiss();
 					emergencyContactsViewController.DismissUpdateContactViewModel();
+				}
+				else
+				{
+					BTProgressHUD.Dismiss();
+					var alert = UIAlertController.Create("Error", "Could not save contact", UIAlertControllerStyle.Alert);
+					alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+					PresentViewController(alert, true, null);
 				}
 			}
 			else
@@ -106,7 +122,7 @@ namespace SafeTrip.iOS
 			LastNameTextField.Text = contact.LastName;
 			if (contact.Phones.Count > 0)
 			{
-				PhoneNumberTextField.Text = contact.Phones[0].Number;
+				PhoneNumberTextField.Text = removeLetters(contact.Phones[0].Number);
 			}
 			if (contact.Emails.Count > 0)
 			{
@@ -119,12 +135,26 @@ namespace SafeTrip.iOS
 			emergencyContactID = emergencyContact.ContactID;
 			FirstNameTextField.Text = emergencyContact.FirstName;
 			LastNameTextField.Text = emergencyContact.LastName;
-			PhoneNumberTextField.Text = emergencyContact.PhoneNumber;
+			PhoneNumberTextField.Text = removeLetters(emergencyContact.PhoneNumber);
 			EmailTextField.Text = emergencyContact.Email;
-			//value = emergencyContact.Carrier;
 			var index = carriersList.IndexOf(emergencyContact.Carrier);
 			carrierPickerView.Select(index, 0, false);
+		}
 
+		private String removeLetters(String phoneNumber)
+		{
+			string resultString = null;
+			try
+			{
+				Regex regexObj = new Regex(@"[^\d]");
+				resultString = regexObj.Replace(phoneNumber, "");
+			}
+			catch (ArgumentException ex)
+			{
+				// Syntax error in the regular expression
+			}
+
+			return resultString;
 		}
 	}
 
@@ -172,6 +202,17 @@ namespace SafeTrip.iOS
 			return selectedCarrier;
 		}
 
+	}
+
+	public partial class NumberOnlyTextField : UITextFieldDelegate
+	{
+		const int maxCharacters = 10;
+		public override bool ShouldChangeCharacters(UITextField textField, Foundation.NSRange range, string replacement)
+		{
+			var newContent = new NSString(textField.Text).Replace(range, new NSString(replacement)).ToString();
+			int number;
+			return newContent.Length <= maxCharacters && (replacement.Length == 0 || int.TryParse(replacement, out number));
+		}
 	}
 
 }

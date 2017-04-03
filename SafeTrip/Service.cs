@@ -292,9 +292,8 @@ namespace SafeTrip
 			dict.Add("lastName", contact.LastName);
 			dict.Add("contactEmail", contact.Email);
 			dict.Add("contactPhone", contact.PhoneNumber);
-			//FIXME
-			//Database needs to be able to update or new
-			//dict.Add("contactID", contact.ContactID);
+			dict.Add("ContactCarrier", contact.Carrier);
+			dict.Add("contactID", contact.ContactID);
 			dict.Add("userID", userId);
 			var json = JsonConvert.SerializeObject(dict);
 
@@ -311,13 +310,13 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return 1;
 			}
 			else
 			{
 				//reponse not successful
-				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + await response.Content.ReadAsStringAsync());
 				return -1;
 			}
 		}

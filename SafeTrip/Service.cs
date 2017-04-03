@@ -292,7 +292,7 @@ namespace SafeTrip
 			dict.Add("lastName", contact.LastName);
 			dict.Add("contactEmail", contact.Email);
 			dict.Add("contactPhone", contact.PhoneNumber);
-			dict.Add("ContactCarrier", contact.Carrier);
+			dict.Add("contactCarrier", contact.Carrier);
 			dict.Add("contactID", contact.ContactID);
 			dict.Add("userID", userId);
 			var json = JsonConvert.SerializeObject(dict);

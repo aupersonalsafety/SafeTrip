@@ -29,7 +29,7 @@ namespace SafeTrip.iOS
 				PinTextField.BecomeFirstResponder();
 			};
 
-			PinTextField.ValueChanged += (object sender, EventArgs e) =>
+			PinTextField.EditingChanged += (object sender, EventArgs e) =>
 			{
 				if (PinTextField.Text.Length >= 4)
 				{

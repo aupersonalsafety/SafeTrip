@@ -132,7 +132,7 @@ namespace SafeTrip.iOS
 
 		public override string GetTitle(UIPickerView picker, nint row, nint component)
 		{
-			return _myItems[row];
+			return _myItems[(int) row];
 		}
 
 		public override void Selected(UIPickerView picker, nint row, nint component)

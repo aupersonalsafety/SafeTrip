@@ -39,23 +39,34 @@ namespace SafeTrip.iOS
 				{
 					if (PinTextField.Text != "1234")
 					{
-						var alert = UIAlertController.Create("Incorrect PIN", "Incorrect PIN", UIAlertControllerStyle.Alert);
-						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-						PresentViewController(alert, true, null);
-						attempts++;
+						if (attempts >= 5)
+						{
+							var alert = UIAlertController.Create("Too many attempts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
+							alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+							PresentViewController(alert, true, null);
+							PinTextField.Text = "";
+							PinTextField.Enabled = false;
+						}
+						else
+						{
+							var alert = UIAlertController.Create("Incorrect PIN", "You have entered an incorrect PIN", UIAlertControllerStyle.Alert);
+							alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+							PresentViewController(alert, true, null);
+							attempts++;
+							PinTextField.Text = "";
+						}
+
+
 					}
 					else
 					{
 						success = true;
-						//Exit
-					}
-					if (!success && attempts >= 5)
-					{
-						var alert = UIAlertController.Create("Contacting Emergency Contacts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
+						var alert = UIAlertController.Create("Success", "Success", UIAlertControllerStyle.Alert);
 						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
 						PresentViewController(alert, true, null);
-						PinTextField.Enabled = false;
-						//ALERT EVERYONE
+						PinTextField.Text = "";
+						attempts = 0;
+						PinTextField.ResignFirstResponder();
 					}
 				}
 			};

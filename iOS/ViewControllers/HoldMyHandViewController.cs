@@ -13,6 +13,10 @@ namespace SafeTrip.iOS
 		{
 		}
 
+		public HoldMyHandViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();

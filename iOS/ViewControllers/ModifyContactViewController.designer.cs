@@ -20,6 +20,10 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIPickerView carrierPickerView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel EmailLabel { get; set; }
 
         [Outlet]
@@ -59,6 +63,11 @@ namespace SafeTrip.iOS
             if (AddressBookButton != null) {
                 AddressBookButton.Dispose ();
                 AddressBookButton = null;
+            }
+
+            if (carrierPickerView != null) {
+                carrierPickerView.Dispose ();
+                carrierPickerView = null;
             }
 
             if (EmailLabel != null) {

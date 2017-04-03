@@ -14,6 +14,8 @@ namespace SafeTrip.iOS
 		public EmergencyContact emergencyContact;
 		SafeTrip.Service service = new SafeTrip.Service();
 		int? emergencyContactID;
+		Dictionary<string, string> carrierDict;
+		List<string> carriersList;
 
 		public ModifyContactViewController(IntPtr handle) : base(handle)
 		{
@@ -21,7 +23,7 @@ namespace SafeTrip.iOS
 
 		public override void ViewDidLoad()
 		{
-			var carrierDict = new Dictionary<String, String>();
+			carrierDict = new Dictionary<String, String>();
 			carrierDict.Add("AT&T", "@txt.att.net");
 			carrierDict.Add("T-Mobile", "@tmomail.net");
 			carrierDict.Add("Virgin Mobile", "@vmobl.com");
@@ -30,12 +32,15 @@ namespace SafeTrip.iOS
 			carrierDict.Add("Verizon", "@vtext.com");
 			carrierDict.Add("Nextel", "@messaging.nextel.com");
 
-			var model = new CarrierPickerView(carrierDict, 0);
+			carriersList = new List<string>();
+			carriersList.AddRange(carrierDict.Keys);
+
+			var model = new CarrierPickerView(carriersList, 0);
 			carrierPickerView.Model = model;
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
-				emergencyContact = new EmergencyContact(emergencyContact.ContactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, test.getSelected());
+				emergencyContact = new EmergencyContact(emergencyContact.ContactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
 				//service.SaveOrUpdateContact(emergencyContact);
 				UpdateContact(emergencyContact);
 
@@ -54,6 +59,7 @@ namespace SafeTrip.iOS
 			};
 
 			LoadEmergencyContact(emergencyContact);
+
 			if (emergencyContact.ContactID == null)
 			{
 				UpdateContactButton.SetTitle("Add Contact", forState: UIControlState.Normal);
@@ -69,11 +75,20 @@ namespace SafeTrip.iOS
 
 		public async void UpdateContact(EmergencyContact emergencyContactIn)
 		{
-			//FIXME
-			//update to userID
-			if (await service.postContactToDatabase(emergencyContactIn, 1234) == 1)
+			if (emergencyContactIn.PhoneNumber.Length == 10)
 			{
-				emergencyContactsViewController.DismissUpdateContactViewModel();
+				//FIXME
+				//update to userID
+				if (await service.postContactToDatabase(emergencyContactIn, 1234) == 1)
+				{
+					emergencyContactsViewController.DismissUpdateContactViewModel();
+				}
+			}
+			else
+			{
+				var alert = UIAlertController.Create("Invalid Contact", "This isn't a valid contact", UIAlertControllerStyle.Alert);
+				alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+				PresentViewController(alert, true, null);
 			}
 		}
 
@@ -106,26 +121,28 @@ namespace SafeTrip.iOS
 			LastNameTextField.Text = emergencyContact.LastName;
 			PhoneNumberTextField.Text = emergencyContact.PhoneNumber;
 			EmailTextField.Text = emergencyContact.Email;
-			value = emergencyContact.Carrier;
+			//value = emergencyContact.Carrier;
+			var index = carriersList.IndexOf(emergencyContact.Carrier);
+			carrierPickerView.Select(index, 0, false);
 
 		}
 	}
 
 	public partial class CarrierPickerView : UIPickerViewModel
 	{
-		Dictionary<String, String> _myItems;
+		List<string> _myItems;
 		protected int selectedIndex = 0;
 		string selectedCarrier;
 
-		public CarrierPickerView(Dictionary<String, String> items, int index)
+		public CarrierPickerView(List<string> carriersList, int index)
 		{
-			_myItems = items;
-			selectedCarrier = new List<String>(_myItems.Keys)[0];
+			_myItems = carriersList;
+			selectedCarrier = _myItems[index];
 		}
 
 		public string SelectedItem
 		{
-			get { return _myItems[selectedIndex]; }
+			get { return selectedCarrier; }
 		}
 
 		public override nint GetComponentCount(UIPickerView picker)
@@ -141,12 +158,13 @@ namespace SafeTrip.iOS
 		public override string GetTitle(UIPickerView picker, nint row, nint component)
 		{
 			return _myItems[(int)row];
+			//return _myItems[(int)row];
 		}
 
 		public override void Selected(UIPickerView picker, nint row, nint component)
 		{
 			selectedIndex = (int)row;
-			selectedCarrier = _myItems[selectedIndex];
+			selectedCarrier = _myItems[(int)row];
 		}
 
 		public string getSelected()

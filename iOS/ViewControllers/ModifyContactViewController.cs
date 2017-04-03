@@ -15,16 +15,23 @@ namespace SafeTrip.iOS
 		SafeTrip.Service service = new SafeTrip.Service();
 		int? emergencyContactID;
 
-		UIPickerView carrierPickerView;
-
 		public ModifyContactViewController(IntPtr handle) : base(handle)
 		{
 		}
 
 		public override void ViewDidLoad()
 		{
-			var test = new CarrierPickerView(new List<string>(), 0);
-			carrierPickerView.Model = test;
+			var carrierDict = new Dictionary<String, String>();
+			carrierDict.Add("AT&T", "@txt.att.net");
+			carrierDict.Add("T-Mobile", "@tmomail.net");
+			carrierDict.Add("Virgin Mobile", "@vmobl.com");
+			carrierDict.Add("Cingular", "@cingularme.com");
+			carrierDict.Add("Sprint", "@messaging.sprintpcs.com");
+			carrierDict.Add("Verizon", "@vtext.com");
+			carrierDict.Add("Nextel", "@messaging.nextel.com");
+
+			var model = new CarrierPickerView(carrierDict, 0);
+			carrierPickerView.Model = model;
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
@@ -103,16 +110,17 @@ namespace SafeTrip.iOS
 
 		}
 	}
-	public class CarrierPickerView : UIPickerViewModel
+
+	public partial class CarrierPickerView : UIPickerViewModel
 	{
-		List<string> _myItems;
+		Dictionary<String, String> _myItems;
 		protected int selectedIndex = 0;
 		string selectedCarrier;
 
-		public CarrierPickerView(List<string> items, int index)
+		public CarrierPickerView(Dictionary<String, String> items, int index)
 		{
 			_myItems = items;
-			selectedCarrier = _myItems[index];
+			selectedCarrier = new List<String>(_myItems.Keys)[0];
 		}
 
 		public string SelectedItem
@@ -132,7 +140,7 @@ namespace SafeTrip.iOS
 
 		public override string GetTitle(UIPickerView picker, nint row, nint component)
 		{
-			return _myItems[(int) row];
+			return _myItems[(int)row];
 		}
 
 		public override void Selected(UIPickerView picker, nint row, nint component)

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Modify Contact View Controller-->
         <scene sceneID="4">
             <objects>
-                <viewController id="5" sceneMemberID="viewController" customClass="ModifyContactViewController" storyboardIdentifier="ModifyContactViewController" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                <viewController storyboardIdentifier="ModifyContactViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5" customClass="ModifyContactViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2"/>
                         <viewControllerLayoutGuide type="bottom" id="3"/>
@@ -15,103 +16,108 @@
                     <view key="view" contentMode="scaleToFill" id="6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="15" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="15">
                                 <rect key="frame" x="70" y="155" width="465" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="16" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                                 <rect key="frame" x="70" y="239" width="465" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="17" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                                 <rect key="frame" x="70" y="320" width="465" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="18" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                                 <rect key="frame" x="70" y="404" width="465" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="19" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19">
                                 <rect key="frame" x="70" y="77" width="236" height="30"/>
                                 <state key="normal" title="Add From Address Book">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="20" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20">
                                 <rect key="frame" x="70" y="481" width="150" height="30"/>
                                 <state key="normal" title="Add/Update">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36">
                                 <rect key="frame" x="70" y="115" width="97" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="37" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37">
                                 <rect key="frame" x="70" y="204" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="38">
                                 <rect key="frame" x="70" y="290" width="124" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="39" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39">
                                 <rect key="frame" x="70" y="375" width="143" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" id="59" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="247" y="438" width="320" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint id="21" firstItem="19" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="57"/>
-                            <constraint id="22" firstItem="19" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="24" firstItem="15" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="25" firstItem="16" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="28" firstItem="17" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="30" firstItem="18" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="31" firstItem="20" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="32" firstItem="20" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="47"/>
-                            <constraint id="40" firstItem="36" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="20"/>
-                            <constraint id="41" firstItem="36" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="42" firstItem="15" firstAttribute="top" secondItem="36" secondAttribute="bottom" constant="10"/>
-                            <constraint id="43" firstItem="37" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="20"/>
-                            <constraint id="44" firstItem="37" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="45" firstItem="16" firstAttribute="top" secondItem="37" secondAttribute="bottom" constant="10"/>
-                            <constraint id="46" firstItem="38" firstAttribute="top" secondItem="16" secondAttribute="bottom" constant="20"/>
-                            <constraint id="47" firstItem="38" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="48" firstItem="17" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="10"/>
-                            <constraint id="49" firstItem="39" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="20"/>
-                            <constraint id="50" firstItem="39" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="51" firstItem="18" firstAttribute="top" secondItem="39" secondAttribute="bottom" constant="10"/>
-                            <constraint id="52" firstItem="6" firstAttribute="trailing" secondItem="15" secondAttribute="trailing" constant="70"/>
-                            <constraint id="53" firstItem="6" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" constant="70"/>
-                            <constraint id="54" firstItem="6" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" constant="70"/>
-                            <constraint id="55" firstItem="6" firstAttribute="trailing" secondItem="18" secondAttribute="trailing" constant="70"/>
+                            <constraint firstItem="19" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="57" id="21"/>
+                            <constraint firstItem="19" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="22"/>
+                            <constraint firstItem="15" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="24"/>
+                            <constraint firstItem="16" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="25"/>
+                            <constraint firstItem="17" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="28"/>
+                            <constraint firstItem="18" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="30"/>
+                            <constraint firstItem="20" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="31"/>
+                            <constraint firstItem="20" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="47" id="32"/>
+                            <constraint firstItem="36" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="20" id="40"/>
+                            <constraint firstItem="36" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="41"/>
+                            <constraint firstItem="15" firstAttribute="top" secondItem="36" secondAttribute="bottom" constant="10" id="42"/>
+                            <constraint firstItem="37" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="20" id="43"/>
+                            <constraint firstItem="37" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="44"/>
+                            <constraint firstItem="16" firstAttribute="top" secondItem="37" secondAttribute="bottom" constant="10" id="45"/>
+                            <constraint firstItem="38" firstAttribute="top" secondItem="16" secondAttribute="bottom" constant="20" id="46"/>
+                            <constraint firstItem="38" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="47"/>
+                            <constraint firstItem="17" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="10" id="48"/>
+                            <constraint firstItem="39" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="20" id="49"/>
+                            <constraint firstItem="39" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70" id="50"/>
+                            <constraint firstItem="18" firstAttribute="top" secondItem="39" secondAttribute="bottom" constant="10" id="51"/>
+                            <constraint firstAttribute="trailing" secondItem="15" secondAttribute="trailing" constant="70" id="52"/>
+                            <constraint firstAttribute="trailing" secondItem="16" secondAttribute="trailing" constant="70" id="53"/>
+                            <constraint firstAttribute="trailing" secondItem="17" secondAttribute="trailing" constant="70" id="54"/>
+                            <constraint firstAttribute="trailing" secondItem="18" secondAttribute="trailing" constant="70" id="55"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="FirstNameTextField" destination="15" id="name-outlet-15"/>
-                        <outlet property="PhoneNumberTextField" destination="17" id="name-outlet-17"/>
-                        <outlet property="EmailTextField" destination="18" id="name-outlet-18"/>
                         <outlet property="AddressBookButton" destination="19" id="name-outlet-19"/>
-                        <outlet property="UpdateContactButton" destination="20" id="name-outlet-20"/>
-                        <outlet property="LastNameTextField" destination="16" id="name-outlet-16"/>
-                        <outlet property="FirstNameLabel" destination="36" id="name-outlet-36"/>
-                        <outlet property="LastName" destination="37" id="name-outlet-37"/>
-                        <outlet property="PhoneNumberLabel" destination="38" id="name-outlet-38"/>
                         <outlet property="EmailLabel" destination="39" id="name-outlet-39"/>
+                        <outlet property="EmailTextField" destination="18" id="name-outlet-18"/>
+                        <outlet property="FirstNameLabel" destination="36" id="name-outlet-36"/>
+                        <outlet property="FirstNameTextField" destination="15" id="name-outlet-15"/>
+                        <outlet property="LastName" destination="37" id="name-outlet-37"/>
+                        <outlet property="LastNameTextField" destination="16" id="name-outlet-16"/>
+                        <outlet property="PhoneNumberLabel" destination="38" id="name-outlet-38"/>
+                        <outlet property="PhoneNumberTextField" destination="17" id="name-outlet-17"/>
+                        <outlet property="UpdateContactButton" destination="20" id="name-outlet-20"/>
+                        <outlet property="carrierPickerView" destination="59" id="name-outlet-59"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7" userLabel="First Responder" sceneMemberID="firstResponder"/>

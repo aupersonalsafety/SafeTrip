@@ -26,6 +26,10 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton LoginButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton PanicButton { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -38,6 +42,11 @@ namespace SafeTrip.iOS
             if (HoldMyHandButton != null) {
                 HoldMyHandButton.Dispose ();
                 HoldMyHandButton = null;
+            }
+
+            if (LoginButton != null) {
+                LoginButton.Dispose ();
+                LoginButton = null;
             }
 
             if (PanicButton != null) {

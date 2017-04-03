@@ -98,9 +98,6 @@
       <HintPath>..\packages\Xam.Plugin.Geolocator.3.0.4\lib\Xamarin.iOS10\Plugin.Geolocator.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Contacts.Abstractions">
       <HintPath>..\packages\Xam.Plugin.Contacts.2.2.0.37-beta\lib\Xamarin.iOS10\Plugin.Contacts.Abstractions.dll</HintPath>
     </Reference>
@@ -115,6 +112,14 @@
     </Reference>
     <Reference Include="BTProgressHUD">
       <HintPath>..\packages\BTProgressHUD.1.2.0.3\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
+    <Reference Include="Auth0Client.iOS">
+      <HintPath>..\Components\Auth0Client-0.5.0\lib\ios-unified\Auth0Client.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\Auth0Client-0.5.0\lib\ios-unified\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Auth.iOS">
+      <HintPath>..\Components\Auth0Client-0.5.0\lib\ios-unified\Xamarin.Auth.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +184,12 @@
     </Compile>
     <Compile Include="PreviewView.cs" />
     <Compile Include="PhotoCaptureDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="Auth0Client">
+      <Version>0.5.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

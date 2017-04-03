@@ -36,6 +36,12 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="256" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="277" y="354" width="46" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -45,12 +51,16 @@
                             <constraint id="249" firstItem="248" firstAttribute="centerY" secondItem="133" secondAttribute="bottom" constant="40"/>
                             <constraint id="250" firstItem="8bC-Xf-vdC" firstAttribute="centerX" secondItem="248" secondAttribute="centerX" constant="1"/>
                             <constraint id="251" firstItem="86" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="95"/>
+                            <constraint id="257" firstItem="256" firstAttribute="top" secondItem="248" secondAttribute="bottom" constant="39"/>
+                            <constraint id="258" firstItem="256" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
+                            <constraint id="259" firstItem="256" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="PanicButton" destination="86" id="name-outlet-86"/>
                         <outlet property="EmergencyContactsButton" destination="133" id="name-outlet-133"/>
                         <outlet property="HoldMyHandButton" destination="248" id="name-outlet-248"/>
+                        <outlet property="LoginButton" destination="256" id="name-outlet-256"/>
                     </connections>
                     <navigationItem title="Title" id="242" key="navigationItem"/>
                 </viewController>

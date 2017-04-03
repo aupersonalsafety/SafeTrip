@@ -1,4 +1,5 @@
 ﻿using System;
+using Auth0.SDK;
 
 using UIKit;
 
@@ -12,6 +13,9 @@ namespace SafeTrip.iOS
 		public ViewController(IntPtr handle) : base(handle)
 		{
 		}
+
+		private Auth0.SDK.Auth0Client client = new Auth0.SDK.Auth0Client("aupersonalsafety.auth0.com",
+																		 "n4kXJEiHpBL3v1e0p0cM6pj8icidoZzo");
 
 		public override void ViewDidLoad()
 		{
@@ -59,6 +63,12 @@ namespace SafeTrip.iOS
 			{
 				useCamera();
 			};
+
+			LoginButton.TouchUpInside += delegate
+			{
+
+				loginWithWidgetButtonClick();
+			};
 		}
 
 		//public async void setCurrentPosition()
@@ -78,6 +88,24 @@ namespace SafeTrip.iOS
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.		
+		}
+
+		private async void loginWithWidgetButtonClick()
+		{
+			try
+			{
+				var user = await this.client.LoginAsync(this);
+				user.Profile["email"].ToString();
+			}
+
+			catch (OperationCanceledException e)
+			{
+				var okCancelAlertController = UIAlertController.Create("Must login before using SafeTrip", "", UIAlertControllerStyle.Alert);
+				okCancelAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, action => loginWithWidgetButtonClick()));
+				PresentViewController(okCancelAlertController, true, null);
+
+				Console.WriteLine("Cancel ex {0}", e.Message);
+			}
 		}
 	}
 }

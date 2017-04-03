@@ -51,6 +51,10 @@ namespace SafeTrip.iOS
 					}
 					if (!success && attempts >= 5)
 					{
+						var alert = UIAlertController.Create("Contacting Emergency Contacts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
+						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+						PresentViewController(alert, true, null);
+						PinTextField.Enabled = false;
 						//ALERT EVERYONE
 					}
 				}

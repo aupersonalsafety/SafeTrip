@@ -79,9 +79,16 @@ namespace SafeTrip.iOS
 		//}
 
 
-		public async void useCamera()
+		public void useCamera()
 		{
-			await service.recordVideo();
+			var storyBoard = UIStoryboard.FromName("Camera", Foundation.NSBundle.MainBundle);
+			CameraViewController cameraViewController = (CameraViewController)storyBoard.InstantiateViewController("CameraViewController");
+			cameraViewController.owner = this;
+
+			if (cameraViewController != null)
+			{
+				NavigationController.PushViewController(cameraViewController, true);
+			}
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -106,6 +113,11 @@ namespace SafeTrip.iOS
 
 				Console.WriteLine("Cancel ex {0}", e.Message);
 			}
+		}
+
+		public void dismissCamera()
+		{
+			NavigationController.PopViewController(true);
 		}
 	}
 }

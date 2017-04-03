@@ -9,7 +9,6 @@ using CoreFoundation;
 using CoreGraphics;
 using AVFoundation;
 using Photos;
-using CoreVideo;
 
 namespace SafeTrip.iOS
 {
@@ -25,9 +24,6 @@ namespace SafeTrip.iOS
 	{
 		[Outlet]
 		PreviewView PreviewView { get; set; }
-
-		[Outlet]
-		UIButton RecordButton { get; set; }
 
 		// Communicate with the session and other session objects on this queue.
 		readonly DispatchQueue sessionQueue = new DispatchQueue("session queue");
@@ -55,6 +51,11 @@ namespace SafeTrip.iOS
 		IDisposable interuptionObserver;
 		IDisposable interuptionEndedObserver;
 
+		int attempts;
+		bool success;
+
+		public ViewController owner;
+
 		public CameraViewController(IntPtr handle)
 			: base(handle)
 		{
@@ -65,7 +66,7 @@ namespace SafeTrip.iOS
 			base.ViewDidLoad();
 
 			// Disable UI. The UI is enabled if and only if the session starts running.
-			RecordButton.Enabled = false;
+			//RecordButton.Enabled = false;
 
 			// Setup the preview view.
 			PreviewView.Session = session;
@@ -104,6 +105,44 @@ namespace SafeTrip.iOS
 			// Because AVCaptureSession.StartRunning is a blocking call which can take a long time. We dispatch session setup to the sessionQueue
 			// so that the main queue isn't blocked, which keeps the UI responsive.
 			sessionQueue.DispatchAsync(ConfigureSession);
+
+			attempts = 0;
+			success = false;
+
+			PinTextField.EditingChanged += (object sender, EventArgs e) =>
+			{
+				if (PinTextField.Text.Length >= 4)
+				{
+					if (PinTextField.Text != "1234")
+					{
+						var alert = UIAlertController.Create("Incorrect PIN", "Incorrect PIN", UIAlertControllerStyle.Alert);
+						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+						PresentViewController(alert, true, null);
+						attempts++;
+						PinTextField.Text = "";
+					}
+					else
+					{
+						success = true;
+						ToggleMovieRecording();
+						owner.dismissCamera();
+						//Exit
+					}
+					if (!success && attempts >= 5)
+					{
+						var alert = UIAlertController.Create("Contacting Emergency Contacts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
+						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+						PresentViewController(alert, true, null);
+						PinTextField.Enabled = false;
+						//ALERT EVERYONE
+					}
+				}
+			};
+
+			FinishRecordingButton.TouchUpInside += (object sender, EventArgs e) => 
+			{
+				PinTextField.BecomeFirstResponder();
+			};
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -172,8 +211,7 @@ namespace SafeTrip.iOS
 
 						DispatchQueue.MainQueue.DispatchAsync(() =>
 						{
-							RecordButton.Enabled = true;
-							ToggleMovieRecording(RecordButton);
+							ToggleMovieRecording();
 						});
 					}
 				});
@@ -359,7 +397,6 @@ namespace SafeTrip.iOS
 		void ChangeCamera(UIButton cameraButton)
 		{
 			cameraButton.Enabled = false;
-			RecordButton.Enabled = false;
 
 			sessionQueue.DispatchAsync(() =>
 			{
@@ -432,7 +469,7 @@ namespace SafeTrip.iOS
 				DispatchQueue.MainQueue.DispatchAsync(() =>
 				{
 					//CameraButton.Enabled = true;
-					RecordButton.Enabled = MovieFileOutput != null;
+					//RecordButton.Enabled = MovieFileOutput != null;
 					//PhotoButton.Enabled = true;
 					//LivePhotoModeButton.Enabled = true;
 					//CaptureModeControl.Enabled = true;
@@ -485,8 +522,8 @@ namespace SafeTrip.iOS
 
 		#region Recording Movies
 
-		[Export("toggleMovieRecording:")]
-		void ToggleMovieRecording(UIButton recordButton)
+		[Export("toggleMovieRecording")]
+		void ToggleMovieRecording()
 		{
 			
 			var output = MovieFileOutput;
@@ -496,8 +533,6 @@ namespace SafeTrip.iOS
 			// Disable the Camera button until recording finishes, and disable
 			// the Record button until recording starts or finishes.
 			// See the AVCaptureFileOutputRecordingDelegate methods.
-
-			recordButton.Enabled = false;
 
 			// Retrieve the video preview layer's video orientation on the main queue
 			// before entering the session queue.We do this to ensure UI elements are
@@ -545,8 +580,8 @@ namespace SafeTrip.iOS
 			// Enable the Record button to let the user stop the recording.
 			DispatchQueue.MainQueue.DispatchAsync(() =>
 			{
-				RecordButton.Enabled = true;
-				RecordButton.SetTitle("Stop", UIControlState.Normal);
+				//RecordButton.Enabled = true;
+				//RecordButton.SetTitle("Stop", UIControlState.Normal);
 			});
 		}
 
@@ -620,8 +655,8 @@ namespace SafeTrip.iOS
 			DispatchQueue.MainQueue.DispatchAsync(() =>
 			{
 				// Only enable the ability to change camera if the device has more than one camera.
-				RecordButton.Enabled = true;
-				RecordButton.SetTitle("Record", UIControlState.Normal);
+				//RecordButton.Enabled = true;
+				//RecordButton.SetTitle("Record", UIControlState.Normal);
 			});
 		}
 
@@ -662,7 +697,7 @@ namespace SafeTrip.iOS
 			DispatchQueue.MainQueue.DispatchAsync(() =>
 			{
 				// Only enable the ability to change camera if the device has more than one camera.
-				RecordButton.Enabled = isSessionRunning && MovieFileOutput != null;
+				//RecordButton.Enabled = isSessionRunning && MovieFileOutput != null;
 			});
 		}
 

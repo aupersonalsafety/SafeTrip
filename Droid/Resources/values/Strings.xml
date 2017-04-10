@@ -2,5 +2,9 @@
 <resources>
 	<string name="hello">Click Me For a Greeting!</string>
   <string name="sms">Click to Send SMS Message!</string>
+	<string name="recordVideo">Record Video!</string>
 	<string name="app_name">SafeTrip.Droid</string>
+	<string name="finishRecordingButton">Finish Recording</string>
+	<string name="record">Record</string>
+	<string name="stop">Stop</string>
 </resources>

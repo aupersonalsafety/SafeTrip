@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -99,14 +98,29 @@
       <HintPath>..\packages\Xam.Plugin.Geolocator.3.0.4\lib\Xamarin.iOS10\Plugin.Geolocator.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Contacts.Abstractions">
       <HintPath>..\packages\Xam.Plugin.Contacts.2.2.0.37-beta\lib\Xamarin.iOS10\Plugin.Contacts.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Contacts">
       <HintPath>..\packages\Xam.Plugin.Contacts.2.2.0.37-beta\lib\Xamarin.iOS10\Plugin.Contacts.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Media.2.6.3.8-beta\lib\Xamarin.iOS10\Plugin.Media.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media">
+      <HintPath>..\packages\Xam.Plugin.Media.2.6.3.8-beta\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="BTProgressHUD">
+      <HintPath>..\packages\BTProgressHUD.1.2.0.3\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
+    </Reference>
+    <Reference Include="Auth0Client.iOS">
+      <HintPath>..\Components\Auth0Client-0.5.0\lib\ios-unified\Auth0Client.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\Auth0Client-0.5.0\lib\ios-unified\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Auth.iOS">
+      <HintPath>..\Components\Auth0Client-0.5.0\lib\ios-unified\Xamarin.Auth.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +148,8 @@
     <InterfaceDefinition Include="Storyboards\EmergencyContactsMenu.storyboard" />
     <InterfaceDefinition Include="Storyboards\ModifyContact.storyboard" />
     <InterfaceDefinition Include="Storyboards\ContactsSelector.storyboard" />
+    <InterfaceDefinition Include="Storyboards\Camera.storyboard" />
+    <InterfaceDefinition Include="Storyboards\HoldMyHand.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -144,6 +160,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="ViewControllers\EmergencyContactsViewController.cs" />
+    <Compile Include="ViewControllers\CameraViewController.cs" />
     <Compile Include="ViewControllers\EmergencyContactsViewController.designer.cs">
       <DependentUpon>EmergencyContactsViewController.cs</DependentUpon>
     </Compile>
@@ -159,6 +176,21 @@
     <Compile Include="ViewControllers\ContactsTableViewController.designer.cs">
       <DependentUpon>ContactsTableViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\CameraViewController.designer.cs">
+      <DependentUpon>CameraViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\HoldMyHandViewController.cs" />
+    <Compile Include="ViewControllers\HoldMyHandViewController.designer.cs">
+      <DependentUpon>HoldMyHandViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewView.cs" />
+    <Compile Include="PhotoCaptureDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="Auth0Client">
+      <Version>0.5.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

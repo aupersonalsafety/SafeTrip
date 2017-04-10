@@ -22,35 +22,15 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton GetPositionButton { get; set; }
+        UIKit.UIButton HoldMyHandButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel LatitudeLabel { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel LongitudeLabel { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField MessageTextBox { get; set; }
+        UIKit.UIButton LoginButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton PanicButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField PhoneNumberTextBox { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel ResultLabel { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton SubmitButton { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -59,44 +39,19 @@ namespace SafeTrip.iOS
                 EmergencyContactsButton = null;
             }
 
-            if (GetPositionButton != null) {
-                GetPositionButton.Dispose ();
-                GetPositionButton = null;
+            if (HoldMyHandButton != null) {
+                HoldMyHandButton.Dispose ();
+                HoldMyHandButton = null;
             }
 
-            if (LatitudeLabel != null) {
-                LatitudeLabel.Dispose ();
-                LatitudeLabel = null;
-            }
-
-            if (LongitudeLabel != null) {
-                LongitudeLabel.Dispose ();
-                LongitudeLabel = null;
-            }
-
-            if (MessageTextBox != null) {
-                MessageTextBox.Dispose ();
-                MessageTextBox = null;
+            if (LoginButton != null) {
+                LoginButton.Dispose ();
+                LoginButton = null;
             }
 
             if (PanicButton != null) {
                 PanicButton.Dispose ();
                 PanicButton = null;
-            }
-
-            if (PhoneNumberTextBox != null) {
-                PhoneNumberTextBox.Dispose ();
-                PhoneNumberTextBox = null;
-            }
-
-            if (ResultLabel != null) {
-                ResultLabel.Dispose ();
-                ResultLabel = null;
-            }
-
-            if (SubmitButton != null) {
-                SubmitButton.Dispose ();
-                SubmitButton = null;
             }
         }
     }

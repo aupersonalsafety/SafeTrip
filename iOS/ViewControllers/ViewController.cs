@@ -1,4 +1,5 @@
 ﻿using System;
+using Auth0.SDK;
 
 using UIKit;
 
@@ -13,59 +14,110 @@ namespace SafeTrip.iOS
 		{
 		}
 
+		private Auth0.SDK.Auth0Client client = new Auth0.SDK.Auth0Client("aupersonalsafety.auth0.com",
+																		 "n4kXJEiHpBL3v1e0p0cM6pj8icidoZzo");
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
 			Title = "SafeTrip";
 
-			// Perform any additional setup after loading the view, typically from a nib.
-			//Button.AccessibilityIdentifier = "myButton";
-			//Button.TouchUpInside += delegate
+			//SubmitButton.AccessibilityIdentifier = "submitTextButton";
+			//SubmitButton.TouchUpInside += delegate
 			//{
-			//	var title = string.Format("{0} clicks!", count++);
-			//	Button.SetTitle(title, UIControlState.Normal);
+			//	ResultLabel.Text = MessageTextBox.Text;
+			//	service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
 			//};
 
+			//GetPositionButton.TouchUpInside += delegate {
+			//	setCurrentPosition();
 
-			SubmitButton.AccessibilityIdentifier = "submitTextButton";
-			SubmitButton.TouchUpInside += delegate
-			{
-				ResultLabel.Text = MessageTextBox.Text;
-				service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
-			};
-
-			GetPositionButton.TouchUpInside += delegate {
-				setCurrentPosition();
-
-				//service.monitorLocation();
-			};
-
+			//	//service.monitorLocation();
+			//};
 
 			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				var storyBoard = UIStoryboard.FromName("EmergencyContactsMenu", Foundation.NSBundle.MainBundle);
 				EmergencyContactsViewController emergencyContactsViewController = (EmergencyContactsViewController) storyBoard.InstantiateViewController("EmergencyContactsViewController");
+				emergencyContactsViewController.userId = 1;
 
 				if (emergencyContactsViewController != null)
 				{
 					NavigationController.PushViewController(emergencyContactsViewController, true);
 				}
 			};
+
+			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				var storyBoard = UIStoryboard.FromName("HoldMyHand", Foundation.NSBundle.MainBundle);
+				HoldMyHandViewController holdMyHandViewController = (HoldMyHandViewController)storyBoard.InstantiateViewController("HoldMyHandViewController");
+
+				if (holdMyHandViewController != null)
+				{
+					NavigationController.PushViewController(holdMyHandViewController, true);
+				}
+			};
+
+			PanicButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				useCamera();
+			};
+
+			LoginButton.TouchUpInside += delegate
+			{
+
+				loginWithWidgetButtonClick();
+			};
 		}
 
-		public async void setCurrentPosition()
+		//public async void setCurrentPosition()
+		//{
+		//	currentPosition = await service.getGlobalPosition();
+		//	LatitudeLabel.Text = currentPosition.Latitude.ToString();
+		//	LongitudeLabel.Text = currentPosition.Longitude.ToString();
+		//}
+
+
+		public void useCamera()
 		{
-			currentPosition = await service.getGlobalPosition();
-			LatitudeLabel.Text = currentPosition.Latitude.ToString();
-			LongitudeLabel.Text = currentPosition.Longitude.ToString();
-		}
+			var storyBoard = UIStoryboard.FromName("Camera", Foundation.NSBundle.MainBundle);
+			CameraViewController cameraViewController = (CameraViewController)storyBoard.InstantiateViewController("CameraViewController");
+			cameraViewController.owner = this;
 
+			if (cameraViewController != null)
+			{
+				NavigationController.PushViewController(cameraViewController, true);
+			}
+		}
 
 		public override void DidReceiveMemoryWarning()
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.		
+		}
+
+		private async void loginWithWidgetButtonClick()
+		{
+			try
+			{
+				var user = await this.client.LoginAsync(this);
+				user.Profile["email"].ToString();
+			}
+
+			catch (OperationCanceledException e)
+			{
+				var okCancelAlertController = UIAlertController.Create("Must login before using SafeTrip", "", UIAlertControllerStyle.Alert);
+				okCancelAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, action => loginWithWidgetButtonClick()));
+				PresentViewController(okCancelAlertController, true, null);
+
+				Console.WriteLine("Cancel ex {0}", e.Message);
+			}
+		}
+
+		public void dismissCamera()
+		{
+			NavigationController.PopViewController(true);
 		}
 	}
 }

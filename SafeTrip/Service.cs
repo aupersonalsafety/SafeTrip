@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Newtonsoft.Json.Linq;
 using Plugin.Contacts;
+using Plugin.Media;
 using Newtonsoft.Json;
 
 namespace SafeTrip
@@ -197,6 +198,11 @@ namespace SafeTrip
 				System.Diagnostics.Debug.WriteLine("response is not successful");
 			} 		}
 
+		public async void getTravelTime(String addressIn)
+		{
+
+		}
+
 		public async Task<int> setTimer(int seconds)
 		{
 			try
@@ -244,15 +250,35 @@ namespace SafeTrip
 			}
 		}
 
-		public List<EmergencyContact> fetchContacts()
+		public async Task<List<EmergencyContact>> fetchContacts(int userId)
 		{
-			//dummy data
-			List<EmergencyContact> list = new List<EmergencyContact>();
-			EmergencyContact temp = new EmergencyContact(55, "Philip", "Sawyer", "555-555-5555", "phil@test.com");
-			list.Add(temp);
-			temp = new EmergencyContact(44, "Aaron", "Scherer", "444-444-4444", "aaron@test.com");
-			list.Add(temp);
-			return list;
+			String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
+
+			var client = new HttpClient();
+
+			url = url + "?userId=" + userId;
+
+			var response = await client.GetAsync(url);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return parseContactList(await response.Content.ReadAsStringAsync());
+			}
+			else
+			{
+				//reponse not successful
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return new List<EmergencyContact>();
+			}
+		}
+
+		//FIXME
+		//parse this list
+		private List<EmergencyContact> parseContactList(String contactsIn)
+		{
+			return new List<EmergencyContact>();
 		}
 
 		public async Task<int> postContactToDatabase(EmergencyContact contact, int userId)
@@ -266,10 +292,43 @@ namespace SafeTrip
 			dict.Add("lastName", contact.LastName);
 			dict.Add("contactEmail", contact.Email);
 			dict.Add("contactPhone", contact.PhoneNumber);
-			//FIXME
-			//Database needs to be able to update or new
-			//dict.Add("contactID", contact.ContactID);
+			dict.Add("contactCarrier", contact.Carrier);
+			dict.Add("contactID", contact.ContactID);
 			dict.Add("userID", userId);
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + await response.Content.ReadAsStringAsync());
+				return -1;
+			}
+		}
+
+		public async Task<int> deleteContactFromDatabase(int contactId)
+		{
+			String url = "https://au-personal-safety.herokuapp.com/contact/deletecontact";
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			dict.Add("contactID", contactId);
 			var json = JsonConvert.SerializeObject(dict);
 
 			System.Diagnostics.Debug.WriteLine("json: " + json);
@@ -330,6 +389,29 @@ namespace SafeTrip
 				return -1;
 			}
 		}
+
+		public async Task<int> recordVideo()
+		{
+			
+			if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakeVideoSupported)
+			{
+				
+				// Supply media options for saving our video after it's taken.
+				var mediaOptions = new Plugin.Media.Abstractions.StoreVideoOptions
+				{
+					Directory = "Videos",
+					Name = $"{DateTime.UtcNow}.mp4",
+					DesiredLength = new System.TimeSpan(200)
+				};
+
+				// Record a video
+				var file = await CrossMedia.Current.TakeVideoAsync(mediaOptions);
+				file.GetStream().SetLength(200);
+			}
+
+			return 1;
+		}
+
     }
 
 	public class ContactsList

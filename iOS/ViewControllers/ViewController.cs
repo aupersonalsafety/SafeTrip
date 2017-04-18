@@ -1,5 +1,6 @@
 ﻿using System;
 using Auth0.SDK;
+using System.Threading.Tasks;
 
 using UIKit;
 
@@ -7,8 +8,10 @@ namespace SafeTrip.iOS
 {
 	public partial class ViewController : UIViewController
 	{
-		SafeTrip.Service service = new SafeTrip.Service();
-		GlobalPosition currentPosition;
+		//SafeTrip.Service service = new SafeTrip.Service();
+		//GlobalPosition currentPosition;
+		String userToken;
+		String userId;
 
 		public ViewController(IntPtr handle) : base(handle)
 		{
@@ -35,6 +38,17 @@ namespace SafeTrip.iOS
 
 			//	//service.monitorLocation();
 			//};
+
+			userToken = "";
+			userId = "";
+
+            this.NavigationItem.SetRightBarButtonItem(
+				new UIBarButtonItem("Sign Out", UIBarButtonItemStyle.Plain, (sender, args) =>
+				{
+					client.Logout();
+					presentLogin();
+				})
+			, true);
 
 			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
@@ -63,12 +77,21 @@ namespace SafeTrip.iOS
 			{
 				useCamera();
 			};
+		}
 
-			LoginButton.TouchUpInside += delegate
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			var tempUser = client.CurrentUser;
+			
+			if (tempUser == null)
 			{
-
-				loginWithWidgetButtonClick();
-			};
+				presentLogin();
+			}
+			else
+			{
+				getUserInfo(null);
+			}
 		}
 
 		//public async void setCurrentPosition()
@@ -97,22 +120,30 @@ namespace SafeTrip.iOS
 			// Release any cached data, images, etc that aren't in use.		
 		}
 
-		private async void loginWithWidgetButtonClick()
+		private async Task presentLogin()
 		{
 			try
 			{
 				var user = await this.client.LoginAsync(this);
-				user.Profile["email"].ToString();
+				getUserInfo(user);
 			}
-
 			catch (OperationCanceledException e)
 			{
-				var okCancelAlertController = UIAlertController.Create("Must login before using SafeTrip", "", UIAlertControllerStyle.Alert);
-				okCancelAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, action => loginWithWidgetButtonClick()));
-				PresentViewController(okCancelAlertController, true, null);
-
-				Console.WriteLine("Cancel ex {0}", e.Message);
+				//var okCancelAlertController = UIAlertController.Create("Must login before using SafeTrip", "", UIAlertControllerStyle.Alert);
+				//okCancelAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, action => loginWithWidgetButtonClick()));
+				//PresentViewController(okCancelAlertController, true, null);
 			}
+		}
+
+		private void getUserInfo(Auth0User userIn)
+		{
+			Auth0User user = userIn;
+			if (user == null)
+			{
+				user = client.CurrentUser;
+			}
+			userToken = user.Auth0AccessToken;
+			userId = user.IdToken;
 		}
 
 		public void dismissCamera()

@@ -143,6 +143,7 @@ namespace SafeTrip.iOS
 				user = client.CurrentUser;
 			}
 			userToken = user.Auth0AccessToken;
+			userId = user.Profile["user_id"].ToString();
 			userId = user.IdToken;
 		}
 

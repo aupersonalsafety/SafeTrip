@@ -34,4 +34,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recordVideoButton" />
+    <Button
+        android:text="Start Timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timerButton" />
+    <TextView
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timerText" />
 </LinearLayout>

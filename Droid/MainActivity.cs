@@ -8,6 +8,7 @@ namespace SafeTrip.Droid
 	public class MainActivity : Activity
 	{
 		int count = 1;
+		Service service = new Service();
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -21,6 +22,9 @@ namespace SafeTrip.Droid
 			Button button = FindViewById<Button>(Resource.Id.myButton);
             Button button2 = FindViewById<Button>(Resource.Id.myButton2);
 			Button recordButton = FindViewById<Button>(Resource.Id.recordVideoButton);
+
+			Button timerButton = FindViewById<Button>(Resource.Id.timerButton);
+
 
             EditText nameEditText = FindViewById<EditText>(Resource.Id.editText1);
             EditText messageEditText = FindViewById<EditText>(Resource.Id.editText2);
@@ -41,6 +45,28 @@ namespace SafeTrip.Droid
 				//service.recordVideo();
 				StartActivity(typeof(RecordVideoActivity));
 			};
+			timerButton.Click += delegate
+			{
+				//service.recordVideo();
+				UseTimer();
+			};
+
+		}
+
+		public async void UseTimer()
+		{
+			TextView timerText = FindViewById<TextView>(Resource.Id.timerText);
+			int finished = await service.setTimer(10);
+			if (finished == 1)
+			{
+				string works = "Works";
+				timerText.SetText(works.ToCharArray(), 0, works.Length);
+			}
+			else
+			{
+				string works = "Doesnt Work";
+				timerText.SetText(works.ToCharArray(), 0, works.Length);
+			}
 		}
 	}
 }

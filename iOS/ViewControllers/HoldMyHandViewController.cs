@@ -9,6 +9,11 @@ namespace SafeTrip.iOS
 	{
 		int attempts;
 		bool success;
+		public string pin;
+		bool timerSet = false;
+
+		public SafeTrip.Service service;
+
 		public HoldMyHandViewController() : base("HoldMyHandViewController", null)
 		{
 		}
@@ -26,22 +31,38 @@ namespace SafeTrip.iOS
 
 			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				PinTextField.BecomeFirstResponder();
+				if (timerSet == false)
+				{
+					PinTextField.BecomeFirstResponder();
+					//Start Timer
+					timerSet = true;
+				}
 			};
 			HoldMyHandButton.TouchUpOutside += (object sender, EventArgs e) =>
 			{
-				PinTextField.BecomeFirstResponder();
+				if (timerSet == false)
+				{
+					PinTextField.BecomeFirstResponder();
+					//Start Timer
+					timerSet = true;
+				}
 			};
 
 			PinTextField.EditingChanged += (object sender, EventArgs e) =>
 			{
 				if (PinTextField.Text.Length >= 4)
 				{
-					if (PinTextField.Text != "1234")
+					if (PinTextField.Text != pin)
 					{
 						if (attempts >= 5)
 						{
 							var alert = UIAlertController.Create("Too many attempts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
+
+							//
+							//Contact Emergency Contacts
+							//service.ContactEmergencyContacts();
+							//
+
 							alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
 							PresentViewController(alert, true, null);
 							PinTextField.Text = "";
@@ -66,6 +87,8 @@ namespace SafeTrip.iOS
 						PresentViewController(alert, true, null);
 						PinTextField.Text = "";
 						attempts = 0;
+						timerSet = false;
+						
 						PinTextField.ResignFirstResponder();
 					}
 				}

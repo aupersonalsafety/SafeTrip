@@ -10,8 +10,11 @@ namespace SafeTrip.iOS
 	{
 		//SafeTrip.Service service = new SafeTrip.Service();
 		//GlobalPosition currentPosition;
+		Service service = new Service();
 		String userToken;
 		String userId;
+
+		String pin = "1234"; 
 
 		public ViewController(IntPtr handle) : base(handle)
 		{
@@ -23,21 +26,10 @@ namespace SafeTrip.iOS
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
 			Title = "SafeTrip";
 
-			//SubmitButton.AccessibilityIdentifier = "submitTextButton";
-			//SubmitButton.TouchUpInside += delegate
-			//{
-			//	ResultLabel.Text = MessageTextBox.Text;
-			//	service.SendSMSMessage(MessageTextBox.Text, PhoneNumberTextBox.Text);
-			//};
-
-			//GetPositionButton.TouchUpInside += delegate {
-			//	setCurrentPosition();
-
-			//	//service.monitorLocation();
-			//};
+			//TODO
+			//LOAD PIN
 
 			userToken = "";
 			userId = "";
@@ -54,6 +46,7 @@ namespace SafeTrip.iOS
 			{
 				var storyBoard = UIStoryboard.FromName("EmergencyContactsMenu", Foundation.NSBundle.MainBundle);
 				EmergencyContactsViewController emergencyContactsViewController = (EmergencyContactsViewController) storyBoard.InstantiateViewController("EmergencyContactsViewController");
+
 				emergencyContactsViewController.userId = 1;
 
 				if (emergencyContactsViewController != null)
@@ -66,11 +59,29 @@ namespace SafeTrip.iOS
 			{
 				var storyBoard = UIStoryboard.FromName("HoldMyHand", Foundation.NSBundle.MainBundle);
 				HoldMyHandViewController holdMyHandViewController = (HoldMyHandViewController)storyBoard.InstantiateViewController("HoldMyHandViewController");
-
+				holdMyHandViewController.service = service;
+				holdMyHandViewController.pin = pin;
 				if (holdMyHandViewController != null)
 				{
 					NavigationController.PushViewController(holdMyHandViewController, true);
 				}
+			};
+
+			SafeTripButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				var storyBoard = UIStoryboard.FromName("SafeTrip", Foundation.NSBundle.MainBundle);
+				SafeTripViewController safeTripViewController = (SafeTripViewController)storyBoard.InstantiateViewController("SafeTripViewController");
+				safeTripViewController.service = service;
+				safeTripViewController.pin = pin;
+				if (safeTripViewController != null)
+				{
+					NavigationController.PushViewController(safeTripViewController, true);
+				}
+			};
+
+			PanicButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				useCamera();
 			};
 
 			PanicButton.TouchUpInside += (object sender, EventArgs e) =>
@@ -107,6 +118,7 @@ namespace SafeTrip.iOS
 			var storyBoard = UIStoryboard.FromName("Camera", Foundation.NSBundle.MainBundle);
 			CameraViewController cameraViewController = (CameraViewController)storyBoard.InstantiateViewController("CameraViewController");
 			cameraViewController.owner = this;
+			cameraViewController.pin = pin;
 
 			if (cameraViewController != null)
 			{
@@ -144,7 +156,6 @@ namespace SafeTrip.iOS
 			}
 			userToken = user.Auth0AccessToken;
 			userId = user.Profile["user_id"].ToString();
-			userId = user.IdToken;
 		}
 
 		public void dismissCamera()

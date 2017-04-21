@@ -19,6 +19,8 @@ namespace SafeTrip.iOS
 		SessionConfigurationFailed
 	}
 
+
+
 	//[Register("CameraViewController")]
 	public partial class CameraViewController : UIViewController, IAVCaptureFileOutputRecordingDelegate
 	{
@@ -53,6 +55,8 @@ namespace SafeTrip.iOS
 
 		int attempts;
 		bool success;
+
+		public string pin;
 
 		public ViewController owner;
 

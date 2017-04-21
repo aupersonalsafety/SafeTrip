@@ -66,6 +66,11 @@ namespace SafeTrip
 
         }
 
+		//public async Task<int> ContactEmergencyContacts()
+		//{
+			
+		//}
+
         public async Task<String> SayHello(string name)
         {
             HttpClient client = new HttpClient();
@@ -191,33 +196,62 @@ namespace SafeTrip
 
 			var address = addressIn.Replace(" ", "+");
  			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + key;  			//var response = await  			//https://developer.xamarin.com/guides/xamarin-forms/web-services/consuming/rest/  			var client = new HttpClient(); 			client.MaxResponseContentBufferSize = 256000;  			var response = await client.GetAsync(url);  			if (response.IsSuccessStatusCode) 			{
-				//response successful 				System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result; 				handleData(result); 			}
+				//response successful 				System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result; 				getLatAndLongFromJson(result); 			}
 			else 
 			{
 				//reponse not successful
 				System.Diagnostics.Debug.WriteLine("response is not successful");
 			} 		}
 
+		public void getLatAndLongFromJson(String result)
+		{
+			var json = JObject.Parse(result);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
+			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
+			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]);
+		}
+
 		public async void getTravelTime(String addressIn)
 		{
 
-		}
+			var key = "AIzaSyAvljVjozDOssgpCqw-FP2VcqbJbQYVspA";
 
-		public async Task<int> setTimer(int seconds)
+			var address = addressIn.Replace(" ", "+");
+
+			GlobalPosition globPosition = await getGlobalPosition();
+
+			String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + address +
+				"&destinations=" + globPosition.Latitude + "," + globPosition.Longitude + "&key=" + key;
+
+			//var response = await 
+			//https://developer.xamarin.com/guides/xamarin-forms/web-services/consuming/rest/
+
+			var client = new HttpClient();
+			client.MaxResponseContentBufferSize = 256000;
+
+			var response = await client.GetAsync(url);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response: " + response);
+				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result);
+				var result = response.Content.ReadAsStringAsync().Result;
+				readTravelTime(result);
+			}
+			else 
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful");
+			}
+
+		} 		public void readTravelTime(string result)
 		{
-			try
-			{
-				int milliseconds = seconds * 1000;
-				await Task.Delay(milliseconds);
-				return 1;
-			}
-			catch 
-			{
-				return -1;
-			}
-		}  		public void handleData(String result) 		{ 			var json = JObject.Parse(result);
-			//System.Diagnostics.Debug.WriteLine("json: " + json); 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
-			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]); 		}
+			var json = JObject.Parse(result);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
+			System.Diagnostics.Debug.WriteLine("timeEstimate: " + json["rows"][0]);
+		}
+ 
 
 		public async Task<ContactsList> getContacts()
 		{
@@ -386,6 +420,19 @@ namespace SafeTrip
 			{
 				//reponse not successful
 				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
+		}
+		public async Task<int> setTimer(int seconds)
+		{
+			try
+			{
+				int milliseconds = seconds * 1000;
+				await Task.Delay(milliseconds);
+				return 1;
+			}
+			catch
+			{
 				return -1;
 			}
 		}

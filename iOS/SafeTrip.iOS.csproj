@@ -20,8 +20,6 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <IOSDebuggerPort>14141</IOSDebuggerPort>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
@@ -36,8 +34,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
@@ -53,8 +49,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
@@ -73,8 +67,6 @@
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
@@ -153,6 +145,9 @@
     <InterfaceDefinition Include="Storyboards\ContactsSelector.storyboard" />
     <InterfaceDefinition Include="Storyboards\Camera.storyboard" />
     <InterfaceDefinition Include="Storyboards\HoldMyHand.storyboard" />
+    <InterfaceDefinition Include="Storyboards\SafeTrip.storyboard" />
+    <InterfaceDefinition Include="Storyboards\EnterPin.storyboard" />
+    <InterfaceDefinition Include="ViewControllers\EnterPinViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -188,6 +183,14 @@
     </Compile>
     <Compile Include="Resources\PhotoCaptureDelegate.cs" />
     <Compile Include="Resources\PreviewView.cs" />
+    <Compile Include="ViewControllers\SafeTripViewController.cs" />
+    <Compile Include="ViewControllers\SafeTripViewController.designer.cs">
+      <DependentUpon>SafeTripViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\EnterPinViewController.cs" />
+    <Compile Include="ViewControllers\EnterPinViewController.designer.cs">
+      <DependentUpon>EnterPinViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="Auth0Client">

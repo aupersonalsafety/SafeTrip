@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="157">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="157">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -17,56 +18,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="86" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86">
                                 <rect key="frame" x="277" y="159" width="46" height="30"/>
                                 <state key="normal" title="Panic">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="133" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="133">
                                 <rect key="frame" x="209" y="219" width="180" height="30"/>
                                 <state key="normal" title="Emergency Contacts">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="248" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="248">
                                 <rect key="frame" x="184" y="285" width="230" height="30"/>
                                 <state key="normal" title="Hold My Hand">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="263" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="193" y="344" width="236" height="30"/>
+                                <state key="normal" title="SafeTrip">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint id="89" firstItem="8bC-Xf-vdC" firstAttribute="centerX" secondItem="86" secondAttribute="centerX" constant="5"/>
-                            <constraint id="143" firstItem="8bC-Xf-vdC" firstAttribute="centerX" secondItem="133" secondAttribute="centerX" constant="8"/>
-                            <constraint id="146" firstItem="133" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="34"/>
-                            <constraint id="249" firstItem="248" firstAttribute="centerY" secondItem="133" secondAttribute="bottom" constant="40"/>
-                            <constraint id="250" firstItem="8bC-Xf-vdC" firstAttribute="centerX" secondItem="248" secondAttribute="centerX" constant="1"/>
-                            <constraint id="251" firstItem="86" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="95"/>
+                            <constraint firstAttribute="centerX" secondItem="86" secondAttribute="centerX" constant="5" id="89"/>
+                            <constraint firstAttribute="centerX" secondItem="133" secondAttribute="centerX" constant="8" id="143"/>
+                            <constraint firstItem="133" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="34" id="146"/>
+                            <constraint firstItem="248" firstAttribute="centerY" secondItem="133" secondAttribute="bottom" constant="40" id="249"/>
+                            <constraint firstAttribute="centerX" secondItem="248" secondAttribute="centerX" constant="1" id="250"/>
+                            <constraint firstItem="86" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="95" id="251"/>
+                            <constraint id="264" firstItem="263" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="11"/>
+                            <constraint id="265" firstItem="263" firstAttribute="top" secondItem="248" secondAttribute="bottom" constant="29"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="242"/>
                     <connections>
-                        <outlet property="PanicButton" destination="86" id="name-outlet-86"/>
                         <outlet property="EmergencyContactsButton" destination="133" id="name-outlet-133"/>
                         <outlet property="HoldMyHandButton" destination="248" id="name-outlet-248"/>
+                        <outlet property="PanicButton" destination="86" id="name-outlet-86"/>
+                        <outlet property="SafeTripButton" destination="263" id="name-outlet-263"/>
                     </connections>
-                    <navigationItem title="Title" id="242" key="navigationItem"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="744" y="28"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="156">
             <objects>
-                <navigationController id="157" sceneMemberID="viewController" storyboardIdentifier="MainNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                <navigationController storyboardIdentifier="MainNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="157" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="159">
                         <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue id="243" destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="243"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="160" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Newtonsoft.Json.Linq;
 using Plugin.Contacts;
-using Plugin.Media;
 using Newtonsoft.Json;
 
 namespace SafeTrip

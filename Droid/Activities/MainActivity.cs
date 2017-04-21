@@ -1,4 +1,6 @@
-﻿using Android.App;
+﻿using System;
+
+using Android.App;
 using Android.Widget;
 using Android.OS;
 
@@ -29,11 +31,13 @@ namespace SafeTrip.Droid
             EditText nameEditText = FindViewById<EditText>(Resource.Id.editText1);
             EditText messageEditText = FindViewById<EditText>(Resource.Id.editText2);
             EditText recipientPhoneNumberEditText = FindViewById<EditText>(Resource.Id.editText3);
-            Service service = new Service();
 
-            button.Click += async delegate {                
-                string greeting = await service.SayHello(nameEditText.Text);
-                Toast.MakeText(this, greeting, ToastLength.Long).Show();
+            button.Click += async delegate {
+				//string greeting = await service.SayHello(nameEditText.Text);
+				//Toast.MakeText(this, greeting, ToastLength.Long).Show();
+
+				ContactsList list = await service.getContacts();
+				Console.WriteLine("list: " + list.getContacts());
             };
 
             button2.Click += delegate

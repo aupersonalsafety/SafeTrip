@@ -144,7 +144,6 @@ namespace SafeTrip.iOS
 			}
 			userToken = user.Auth0AccessToken;
 			userId = user.Profile["user_id"].ToString();
-			userId = user.IdToken;
 		}
 
 		public void dismissCamera()

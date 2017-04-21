@@ -72,14 +72,20 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070002
 			public const int HoldMyHand = 2131165186;
 			
-			// aapt resource value: 0x7f07000c
-			public const int PinNumber = 2131165196;
+			// aapt resource value: 0x7f070016
+			public const int PinNumber = 2131165206;
 			
 			// aapt resource value: 0x7f070003
 			public const int SafeTripButton = 2131165187;
 			
-			// aapt resource value: 0x7f07000e
-			public const int container = 2131165198;
+			// aapt resource value: 0x7f07000c
+			public const int button1 = 2131165196;
+			
+			// aapt resource value: 0x7f070015
+			public const int button2 = 2131165205;
+			
+			// aapt resource value: 0x7f070018
+			public const int container = 2131165208;
 			
 			// aapt resource value: 0x7f070004
 			public const int editText1 = 2131165188;
@@ -90,14 +96,14 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070006
 			public const int editText3 = 2131165190;
 			
-			// aapt resource value: 0x7f07000d
-			public const int finishRecordingButton = 2131165197;
+			// aapt resource value: 0x7f070017
+			public const int finishRecordingButton = 2131165207;
 			
 			// aapt resource value: 0x7f070001
 			public const int imageButton1 = 2131165185;
 			
-			// aapt resource value: 0x7f07000f
-			public const int menu_add = 2131165199;
+			// aapt resource value: 0x7f070019
+			public const int menu_add = 2131165209;
 			
 			// aapt resource value: 0x7f070005
 			public const int myButton = 2131165189;
@@ -107,6 +113,30 @@ namespace SafeTrip.Droid
 			
 			// aapt resource value: 0x7f070009
 			public const int recordVideoButton = 2131165193;
+			
+			// aapt resource value: 0x7f07000d
+			public const int textView1 = 2131165197;
+			
+			// aapt resource value: 0x7f07000f
+			public const int textView2 = 2131165199;
+			
+			// aapt resource value: 0x7f07000e
+			public const int textView3 = 2131165198;
+			
+			// aapt resource value: 0x7f070010
+			public const int textView4 = 2131165200;
+			
+			// aapt resource value: 0x7f070011
+			public const int textView5 = 2131165201;
+			
+			// aapt resource value: 0x7f070013
+			public const int textView6 = 2131165203;
+			
+			// aapt resource value: 0x7f070012
+			public const int textView7 = 2131165202;
+			
+			// aapt resource value: 0x7f070014
+			public const int textView8 = 2131165204;
 			
 			// aapt resource value: 0x7f070000
 			public const int texture = 2131165184;
@@ -140,7 +170,10 @@ namespace SafeTrip.Droid
 			public const int Main = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int RecordVideo = 2130968579;
+			public const int ModifyContactLayout = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int RecordVideo = 2130968580;
 			
 			static Layout()
 			{

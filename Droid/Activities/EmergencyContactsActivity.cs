@@ -1,16 +1,12 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using System.Threading.Tasks;
 
 
 namespace SafeTrip.Droid
@@ -36,7 +32,7 @@ namespace SafeTrip.Droid
 
 		public async Task fetchContacts()
 		{
-			List<EmergencyContact> list = await service.fetchContacts(1234);
+			//List<EmergencyContact> list = await service.fetchContacts(1234);
 			string[] arr = {"philip", "andrew"};
 			//ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, list.Select(x=>x.FirstName + " " + x.LastName).ToList());
 			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, arr);
@@ -50,6 +46,13 @@ namespace SafeTrip.Droid
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
 			//Open new contact activity
+
+			//FIXME
+			//find better way of getting selected menu item
+			//if (item.TitleFormatted.Equals("+"))
+			//{
+				StartActivity(typeof(ModifyContactActivity));
+			//}
 			return base.OnOptionsItemSelected(item);
 		}
 	}

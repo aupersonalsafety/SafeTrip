@@ -92,6 +92,7 @@
     <Compile Include="Helpers\MySurfaceTextureListener.cs" />
     <Compile Include="Helpers\PreviewCaptureStateCallback.cs" />
     <Compile Include="Helpers\AutoFitTextureView.cs" />
+    <Compile Include="Activities\EmergencyContactsActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -116,11 +117,13 @@
     <AndroidResource Include="Resources\drawable\DefaultButton.xml" />
     <AndroidResource Include="Resources\drawable\temppanicbutton.png" />
     <AndroidResource Include="Resources\drawable\Background.xml" />
+    <AndroidResource Include="Resources\menu\AddMenu.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
     <Folder Include="Activities\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

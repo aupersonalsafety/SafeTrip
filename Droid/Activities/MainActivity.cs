@@ -32,12 +32,11 @@ namespace SafeTrip.Droid
             EditText messageEditText = FindViewById<EditText>(Resource.Id.editText2);
             EditText recipientPhoneNumberEditText = FindViewById<EditText>(Resource.Id.editText3);
 
-            button.Click += async delegate {
+            button.Click += delegate {
 				//string greeting = await service.SayHello(nameEditText.Text);
 				//Toast.MakeText(this, greeting, ToastLength.Long).Show();
 
-				ContactsList list = await service.getContacts();
-				Console.WriteLine("list: " + list.getContacts());
+				StartActivity(typeof(EmergencyContactsActivity));
             };
 
             button2.Click += delegate

@@ -54,6 +54,10 @@ namespace SafeTrip.Droid
 			{
 				modify.PutExtra("phoneNumber", contacts[position].PhoneNumber);
 			}
+			if (contacts[position].ContactID != null)
+			{
+				modify.PutExtra("contactId", contacts[position].ContactID ?? -1);
+			}
 			StartActivity(modify);
 		}
 

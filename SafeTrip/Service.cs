@@ -312,12 +312,14 @@ namespace SafeTrip
 			contact.LastName = "sawyer";
 			contact.Email = "phil@test.com";
 			contact.PhoneNumber = "5555555555";
+			contact.ContactID = 12345;
 
 			var contact2 = new EmergencyContact();
 			contact.FirstName = "john";
 			contact.LastName = "smith";
 			contact.Email = "john@test.com";
 			contact.PhoneNumber = "4444444444";
+			contact.ContactID = 76343;
 
 			var list = new List<EmergencyContact>();
 			list.Add(contact);

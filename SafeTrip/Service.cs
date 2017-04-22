@@ -285,26 +285,44 @@ namespace SafeTrip
 
 		public async Task<List<EmergencyContact>> fetchContacts(int userId)
 		{
-			String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
+			//String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
 
-			var client = new HttpClient();
+			//var client = new HttpClient();
 
-			url = url + "?userId=" + userId;
+			//url = url + "?userId=" + userId;
 
-			var response = await client.GetAsync(url);
+			//var response = await client.GetAsync(url);
 
-			if (response.IsSuccessStatusCode)
-			{
-				//response successful
-				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
-				return parseContactList(await response.Content.ReadAsStringAsync());
-			}
-			else
-			{
-				//reponse not successful
-				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
-				return new List<EmergencyContact>();
-			}
+			//if (response.IsSuccessStatusCode)
+			//{
+			//	//response successful
+			//	//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+			//	return parseContactList(await response.Content.ReadAsStringAsync());
+			//}
+			//else
+			//{
+			//	//reponse not successful
+			//	//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+			//	return new List<EmergencyContact>();
+			//}
+
+
+			var contact = new EmergencyContact();
+			contact.FirstName = "philip";
+			contact.LastName = "sawyer";
+			contact.Email = "phil@test.com";
+			contact.PhoneNumber = "5555555555";
+
+			var contact2 = new EmergencyContact();
+			contact.FirstName = "john";
+			contact.LastName = "smith";
+			contact.Email = "john@test.com";
+			contact.PhoneNumber = "4444444444";
+
+			var list = new List<EmergencyContact>();
+			list.Add(contact);
+			list.Add(contact2);
+			return list;
 		}
 
 		//FIXME

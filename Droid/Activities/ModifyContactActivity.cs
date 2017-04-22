@@ -31,6 +31,23 @@ namespace SafeTrip.Droid
 			lastNameEditText = FindViewById<EditText>(Resource.Id.lastNameEditText);
 			phoneNumberEditText = FindViewById<EditText>(Resource.Id.phoneNumberEditText);
 			emailEditText = FindViewById<EditText>(Resource.Id.emailEditText);
+
+			if (Intent.HasExtra("firstName"))
+			{
+				firstNameEditText.Text = Intent.GetStringExtra("firstName");
+			}
+			if (Intent.HasExtra("lastName"))
+			{
+				lastNameEditText.Text = Intent.GetStringExtra("lastName");
+			}
+			if (Intent.HasExtra("phoneNumber"))
+			{
+				phoneNumberEditText.Text = Intent.GetStringExtra("phoneNumber");
+			}
+			if (Intent.HasExtra("email"))
+			{
+				emailEditText.Text = Intent.GetStringExtra("email");
+			}
 		}
 
 		public override View OnCreateView(string name, Android.Content.Context context, Android.Util.IAttributeSet attrs)

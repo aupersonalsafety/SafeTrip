@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Android.Content;
 
 
 namespace SafeTrip.Droid
@@ -15,7 +17,7 @@ namespace SafeTrip.Droid
 	public class EmergencyContactsActivity : ListActivity
 	{
 		Service service = new Service();
-		//List<Plugin.Contacts.Abstractions.Contact> contacts;
+		List<EmergencyContact> contacts;
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
@@ -32,15 +34,27 @@ namespace SafeTrip.Droid
 
 		public async Task fetchContacts()
 		{
-			//List<EmergencyContact> list = await service.fetchContacts(1234);
-			string[] arr = {"philip", "andrew"};
-			//ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, list.Select(x=>x.FirstName + " " + x.LastName).ToList());
-			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, arr);
+			contacts = await service.fetchContacts(1234);
+
+			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, contacts.Select(x=>x.FirstName + " " + x.LastName).ToList());
 		}
 
 		protected override void OnListItemClick(ListView l, View v, int position, long id)
 		{
 			base.OnListItemClick(l, v, position, id);
+
+			Intent modify = new Intent(this, typeof(ModifyContactActivity));
+			modify.PutExtra("firstName", contacts[position].FirstName);
+			modify.PutExtra("lastName", contacts[position].LastName);
+			if (contacts[position].Email != null)
+			{
+				modify.PutExtra("email", contacts[position].Email);
+			}
+			if (contacts[position].PhoneNumber != null)
+			{
+				modify.PutExtra("phoneNumber", contacts[position].PhoneNumber);
+			}
+			StartActivity(modify);
 		}
 
 		public override bool OnOptionsItemSelected(IMenuItem item)

@@ -36,7 +36,8 @@ namespace SafeTrip.Droid
 				//string greeting = await service.SayHello(nameEditText.Text);
 				//Toast.MakeText(this, greeting, ToastLength.Long).Show();
 
-				StartActivity(typeof(EmergencyContactsActivity));
+				//StartActivity(typeof(EmergencyContactsActivity));
+				StartActivity(typeof(PinActivity));
             };
 
             button2.Click += delegate

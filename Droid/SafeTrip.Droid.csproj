@@ -95,6 +95,7 @@
     <Compile Include="Activities\EmergencyContactsActivity.cs" />
     <Compile Include="Activities\ModifyContactActivity.cs" />
     <Compile Include="Activities\AddressBookActivity.cs" />
+    <Compile Include="Activities\PinActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -121,6 +122,7 @@
     <AndroidResource Include="Resources\drawable\Background.xml" />
     <AndroidResource Include="Resources\menu\AddMenu.xml" />
     <AndroidResource Include="Resources\layout\ModifyContactLayout.axml" />
+    <AndroidResource Include="Resources\layout\PinLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

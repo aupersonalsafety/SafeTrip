@@ -9,7 +9,6 @@ namespace SafeTrip.Droid
 	[Activity(Label = "SafeTrip", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity
 	{
-		int count = 1;
 		Service service = new Service();
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -17,44 +16,22 @@ namespace SafeTrip.Droid
 			base.OnCreate(savedInstanceState);
 
 			// Set our view from the "main" layout resource
-			SetContentView(Resource.Layout.Main);
+			SetContentView(Resource.Layout.HomeScreen);
 
-			// Get our button from the layout resource,
-			// and attach an event to it
-			Button button = FindViewById<Button>(Resource.Id.myButton);
-            Button button2 = FindViewById<Button>(Resource.Id.myButton2);
-			Button recordButton = FindViewById<Button>(Resource.Id.recordVideoButton);
-
-			Button timerButton = FindViewById<Button>(Resource.Id.timerButton);
-
-
-            EditText nameEditText = FindViewById<EditText>(Resource.Id.editText1);
-            EditText messageEditText = FindViewById<EditText>(Resource.Id.editText2);
-            EditText recipientPhoneNumberEditText = FindViewById<EditText>(Resource.Id.editText3);
-
-            button.Click += delegate {
-				//string greeting = await service.SayHello(nameEditText.Text);
-				//Toast.MakeText(this, greeting, ToastLength.Long).Show();
-
-				//StartActivity(typeof(EmergencyContactsActivity));
-				StartActivity(typeof(PinActivity));
-            };
-
-            button2.Click += delegate
-            {
-				service.SendSMSMessage(messageEditText.Text, recipientPhoneNumberEditText.Text);
-            };
-
-			recordButton.Click += delegate {
-				//service.recordVideo();
-				StartActivity(typeof(RecordVideoActivity));
-			};
-			timerButton.Click += delegate
-			{
-				//service.recordVideo();
-				UseTimer();
+			Button panicButton = FindViewById<Button>(Resource.Id.panicButton);
+			panicButton.Click += delegate {
+				
 			};
 
+			Button holdMyHandButton = FindViewById<Button>(Resource.Id.holdMyHandButton);
+			holdMyHandButton.Click += delegate {
+				
+			};
+
+			Button safeTripButton = FindViewById<Button>(Resource.Id.safeTripButton);
+			safeTripButton.Click += delegate {
+				
+			};
 		}
 
 		public async void UseTimer()

@@ -69,14 +69,8 @@ namespace SafeTrip.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070002
-			public const int HoldMyHand = 2131165186;
-			
 			// aapt resource value: 0x7f070018
 			public const int PinNumber = 2131165208;
-			
-			// aapt resource value: 0x7f070003
-			public const int SafeTripButton = 2131165187;
 			
 			// aapt resource value: 0x7f07000c
 			public const int addFromAddressBookButton = 2131165196;
@@ -105,8 +99,8 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f07000e
 			public const int firstNameEditText = 2131165198;
 			
-			// aapt resource value: 0x7f070001
-			public const int imageButton1 = 2131165185;
+			// aapt resource value: 0x7f070002
+			public const int holdMyHandButton = 2131165186;
 			
 			// aapt resource value: 0x7f070010
 			public const int lastNameEditText = 2131165200;
@@ -120,6 +114,9 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070008
 			public const int myButton2 = 2131165192;
 			
+			// aapt resource value: 0x7f070001
+			public const int panicButton = 2131165185;
+			
 			// aapt resource value: 0x7f070012
 			public const int phoneNumberEditText = 2131165202;
 			
@@ -128,6 +125,9 @@ namespace SafeTrip.Droid
 			
 			// aapt resource value: 0x7f070009
 			public const int recordVideoButton = 2131165193;
+			
+			// aapt resource value: 0x7f070003
+			public const int safeTripButton = 2131165187;
 			
 			// aapt resource value: 0x7f07000d
 			public const int textView1 = 2131165197;

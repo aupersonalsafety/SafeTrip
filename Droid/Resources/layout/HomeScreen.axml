@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
-                    android:id="@+id/imageButton1"
+                    android:id="@+id/panicButton"
                     android:scaleType="fitCenter"
                     android:cropToPadding="true"
                     android:adjustViewBounds="true" />
@@ -35,14 +35,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/HoldMyHand"
+                    android:id="@+id/holdMyHandButton"
                     android:background="@drawable/warningbutton" />
                 <Button
                     android:text="Safe Trip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/SafeTripButton"
+                    android:id="@+id/safeTripButton"
                     android:background="@drawable/defaultbutton" />
             </LinearLayout>
         </RelativeLayout>

@@ -147,7 +147,6 @@
     <InterfaceDefinition Include="Storyboards\HoldMyHand.storyboard" />
     <InterfaceDefinition Include="Storyboards\SafeTrip.storyboard" />
     <InterfaceDefinition Include="Storyboards\EnterPin.storyboard" />
-    <InterfaceDefinition Include="ViewControllers\EnterPinViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

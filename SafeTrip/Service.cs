@@ -190,27 +190,36 @@ namespace SafeTrip
 			}
 		}
 
-		public async void getLatLongFromAddress(String addressIn) 		{
+		public async Task<GlobalPosition> getLatLongFromAddress(String addressIn) 		{
 			var key = "AIzaSyBwyE2TJ5l5VB-VygdMiWFB4kWPJj4WG58";
 
 			var address = addressIn.Replace(" ", "+");
  			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + key;  			//var response = await  			//https://developer.xamarin.com/guides/xamarin-forms/web-services/consuming/rest/  			var client = new HttpClient(); 			client.MaxResponseContentBufferSize = 256000;  			var response = await client.GetAsync(url);  			if (response.IsSuccessStatusCode) 			{
-				//response successful 				System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result; 				getLatAndLongFromJson(result); 			}
+				//response successful 				System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result;
+ 				GlobalPosition globalPosition = getLatAndLongFromJson(result);
+				return globalPosition; 			}
 			else 
 			{
 				//reponse not successful
 				System.Diagnostics.Debug.WriteLine("response is not successful");
+				return null;
 			} 		}
 
-		public void getLatAndLongFromJson(String result)
+		public GlobalPosition getLatAndLongFromJson(String result)
 		{
 			var json = JObject.Parse(result);
 			//System.Diagnostics.Debug.WriteLine("json: " + json);
 			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
 			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]);
+
+			GlobalPosition globalPosition = new GlobalPosition();
+			globalPosition.Latitude = (double)(json["results"][0]["geometry"]["location"]["lat"]);
+			globalPosition.Longitude = (double)(json["results"][0]["geometry"]["location"]["lng"]);
+			return globalPosition;
 		}
 
-		public async void getTravelTime(String addressIn)
+
+		public async Task<int> getTravelTime(String addressIn)
 		{
 
 			var key = "AIzaSyAvljVjozDOssgpCqw-FP2VcqbJbQYVspA";
@@ -236,19 +245,21 @@ namespace SafeTrip
 				System.Diagnostics.Debug.WriteLine("response: " + response);
 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result);
 				var result = response.Content.ReadAsStringAsync().Result;
-				readTravelTime(result);
+				return readTravelTime(result);
 			}
 			else 
 			{
 				//reponse not successful
 				System.Diagnostics.Debug.WriteLine("response is not successful");
+				return -1;
 			}
 
-		} 		public void readTravelTime(string result)
+		} 		public int readTravelTime(string result)
 		{
 			var json = JObject.Parse(result);
 			//System.Diagnostics.Debug.WriteLine("json: " + json);
-			System.Diagnostics.Debug.WriteLine("timeEstimate: " + json["rows"][0]);
+			System.Diagnostics.Debug.WriteLine("timeEstimate: " + json["rows"][0]["elements"][0]["duration"]["value"]);
+			return (int)(json["rows"][0]["elements"][0]["duration"]["value"]);
 		}
  
 

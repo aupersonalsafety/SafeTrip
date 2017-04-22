@@ -60,13 +60,12 @@ namespace SafeTrip.Droid
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
 			//Open new contact activity
-
-			//FIXME
-			//find better way of getting selected menu item
-			//if (item.TitleFormatted.Equals("+"))
-			//{
-				StartActivity(typeof(ModifyContactActivity));
-			//}
+			switch (item.ItemId)
+			{
+				case Resource.Id.menu_add:
+					StartActivity(typeof(ModifyContactActivity));
+					break;
+			}
 			return base.OnOptionsItemSelected(item);
 		}
 	}

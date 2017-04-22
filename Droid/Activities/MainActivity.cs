@@ -18,7 +18,7 @@ namespace SafeTrip.Droid
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.HomeScreen);
 
-			Button panicButton = FindViewById<Button>(Resource.Id.panicButton);
+			ImageButton panicButton = FindViewById<ImageButton>(Resource.Id.panicButton);
 			panicButton.Click += delegate {
 				
 			};
@@ -32,6 +32,23 @@ namespace SafeTrip.Droid
 			safeTripButton.Click += delegate {
 				
 			};
+		}
+
+		public override bool OnCreateOptionsMenu(Android.Views.IMenu menu)
+		{
+			MenuInflater.Inflate(Resource.Menu.MainActivityMenu, menu);
+			return base.OnCreateOptionsMenu(menu);
+		}
+
+		public override bool OnOptionsItemSelected(Android.Views.IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Resource.Id.main_activity_menu:
+					StartActivity(typeof(EmergencyContactsActivity));
+					break;
+			}
+			return base.OnOptionsItemSelected(item);
 		}
 
 		public async void UseTimer()

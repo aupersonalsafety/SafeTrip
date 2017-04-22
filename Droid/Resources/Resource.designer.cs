@@ -105,6 +105,9 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070010
 			public const int lastNameEditText = 2131165200;
 			
+			// aapt resource value: 0x7f07001c
+			public const int main_activity_menu = 2131165212;
+			
 			// aapt resource value: 0x7f07001b
 			public const int menu_add = 2131165211;
 			
@@ -199,6 +202,9 @@ namespace SafeTrip.Droid
 			
 			// aapt resource value: 0x7f060000
 			public const int AddMenu = 2131099648;
+			
+			// aapt resource value: 0x7f060001
+			public const int MainActivityMenu = 2131099649;
 			
 			static Menu()
 			{

@@ -7,52 +7,51 @@
         android:text="Add From Address Book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button1"
-        android:onClick="choseFromAddressBook" />
+        android:id="@+id/addFromAddressBookButton" />
     <TextView
         android:text="First name"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
-    <TextView
-        android:text="firstName"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
+        android:hint="Enter First Name Here"
+        android:id="@+id/firstNameEditText" />
     <TextView
         android:text="Last name"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2" />
-    <TextView
-        android:text="lastName"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4" />
+        android:hint="Enter Last Name Here"
+        android:id="@+id/lastNameEditText" />
     <TextView
         android:text="Phone Number"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView5" />
-    <TextView
-        android:text="phoneNumber"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView7" />
+        android:hint="Enter Phone Number Here"
+        android:id="@+id/phoneNumberEditText" />
     <TextView
         android:text="Email Address"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView6" />
-    <TextView
-        android:text="emailAddress"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView8" />
+        android:hint="Enter Email Here"
+        android:id="@+id/emailEditText" />
     <Button
         android:text="Save"
         android:layout_width="match_parent"

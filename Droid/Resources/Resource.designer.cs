@@ -79,7 +79,7 @@ namespace SafeTrip.Droid
 			public const int SafeTripButton = 2131165187;
 			
 			// aapt resource value: 0x7f07000c
-			public const int button1 = 2131165196;
+			public const int addFromAddressBookButton = 2131165196;
 			
 			// aapt resource value: 0x7f070015
 			public const int button2 = 2131165205;
@@ -96,11 +96,20 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070006
 			public const int editText3 = 2131165190;
 			
+			// aapt resource value: 0x7f070014
+			public const int emailEditText = 2131165204;
+			
 			// aapt resource value: 0x7f070017
 			public const int finishRecordingButton = 2131165207;
 			
+			// aapt resource value: 0x7f07000e
+			public const int firstNameEditText = 2131165198;
+			
 			// aapt resource value: 0x7f070001
 			public const int imageButton1 = 2131165185;
+			
+			// aapt resource value: 0x7f070010
+			public const int lastNameEditText = 2131165200;
 			
 			// aapt resource value: 0x7f070019
 			public const int menu_add = 2131165209;
@@ -111,6 +120,9 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070008
 			public const int myButton2 = 2131165192;
 			
+			// aapt resource value: 0x7f070012
+			public const int phoneNumberEditText = 2131165202;
+			
 			// aapt resource value: 0x7f070009
 			public const int recordVideoButton = 2131165193;
 			
@@ -120,23 +132,11 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f07000f
 			public const int textView2 = 2131165199;
 			
-			// aapt resource value: 0x7f07000e
-			public const int textView3 = 2131165198;
-			
-			// aapt resource value: 0x7f070010
-			public const int textView4 = 2131165200;
-			
 			// aapt resource value: 0x7f070011
 			public const int textView5 = 2131165201;
 			
 			// aapt resource value: 0x7f070013
 			public const int textView6 = 2131165203;
-			
-			// aapt resource value: 0x7f070012
-			public const int textView7 = 2131165202;
-			
-			// aapt resource value: 0x7f070014
-			public const int textView8 = 2131165204;
 			
 			// aapt resource value: 0x7f070000
 			public const int texture = 2131165184;

@@ -44,33 +44,7 @@ namespace SafeTrip.iOS
 				}
 				else
 				{
-					string textfieldText = "";
-					UITextField AddTimeTextField = new UITextField();
-					var alert = UIAlertController.Create(title: "Extend Time", message: "Enter the amount of time you wish to add on.", preferredStyle: UIAlertControllerStyle.Alert);
-					alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, (field) => {
-						int addedMinutes;
-						bool isNumber = Int32.TryParse(textfieldText, out addedMinutes);
-						if (isNumber)
-						{
-							estimatedArrivalTime = estimatedArrivalTime.AddMinutes(addedMinutes);
-							TimerSetLabel.Text = "Expected Arival Time: " + estimatedArrivalTime.ToShortTimeString() + " " + estimatedArrivalTime.ToShortDateString();
-							//Extend Server Timer
-						}
-						else
-						{
-							
-						}
-					}));
-
-					alert.AddTextField((field) => {
-						//field = AddTimeTextField;
-						field.KeyboardType = UIKeyboardType.NumberPad;
-						field.EditingChanged += delegate {
-							textfieldText = field.Text;
-						};
-					});
-					PresentViewController(alert, true, null);
-
+					displayPinAlert(true);
 				}
 			};
 
@@ -78,7 +52,6 @@ namespace SafeTrip.iOS
 
 		public async void getTravelTime()
 		{
-			
 			int estimatedTime = await service.getTravelTime(DesinationTextField.Text);
 			EstimatedTravelTimeLabel.Text = "Estimated Travel Time: " + estimatedTime + " minutes";
 			UserTimeEstimateTextField.Text = estimatedTime.ToString();
@@ -86,8 +59,10 @@ namespace SafeTrip.iOS
 
 		public async void StartSafeTrip()
 		{
+			
 			int time;
 			bool successfulParse = Int32.TryParse(UserTimeEstimateTextField.Text, out time);
+			UserTimeEstimateTextField.Text = "";
 			if (successfulParse)
 			{
 				DateTime now = DateTime.Now;
@@ -103,19 +78,140 @@ namespace SafeTrip.iOS
 				}
 
 				//Show pin screen
-
-				var alert = UIAlertController.Create("Time expired", "Time has expired.", UIAlertControllerStyle.Alert);
-				alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-				PresentViewController(alert, true, null);
+				displayPinAlert(false);
 			}
 			else
 			{
 				var alert = UIAlertController.Create("Invalid Time", "Please enter the number of minutes you think it will take as a whole number.", UIAlertControllerStyle.Alert);
 				alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
 				PresentViewController(alert, true, null);
-				UserTimeEstimateTextField.Text = "";
 			}
-			
+
+		}
+		public void displayContactingEmergencyContacts()
+		{
+			var alert = UIAlertController.Create("Contacting emergency contacts", "Too many attempts have been made or time has expired. Contacting Emergency Contacts.", UIAlertControllerStyle.Alert);
+			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			PresentViewController(alert, true, null);
+			UserTimeEstimateTextField.Text = "";
+		}
+
+		public void displayExtendTimeAlert()
+		{
+			string textfieldText = "";
+			var alert = UIAlertController.Create(title: "Extend Time", message: "Enter the amount of time you wish to add on.", preferredStyle: UIAlertControllerStyle.Alert);
+			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, (field) =>
+			{
+				int addedMinutes;
+				bool isNumber = Int32.TryParse(textfieldText, out addedMinutes);
+				if (isNumber)
+				{
+					estimatedArrivalTime = estimatedArrivalTime.AddMinutes(addedMinutes);
+					TimerSetLabel.Text = "Expected Arival Time: " + estimatedArrivalTime.ToShortTimeString() + " " + estimatedArrivalTime.ToShortDateString();
+					//Extend Server Timer
+				}
+				else
+				{
+
+				}
+			}));
+
+			alert.AddTextField((field) =>
+			{
+				//field = AddTimeTextField;
+				field.KeyboardType = UIKeyboardType.NumberPad;
+				field.EditingChanged += delegate
+				{
+					textfieldText = field.Text;
+				};
+			});
+			PresentViewController(alert, true, null);
+		}
+
+		public void displayPinAlert(bool unlimitedAttempts)
+		{
+			var alert = new UIAlertController();
+			if (unlimitedAttempts)
+			{
+				alert = UIAlertController.Create(title: "Enter Pin", message: "Please enter your pin number.",
+													 preferredStyle: UIAlertControllerStyle.Alert);
+				alert.AddTextField((field) =>
+					{
+						field.KeyboardType = UIKeyboardType.NumberPad;
+						field.SecureTextEntry = true;
+						field.EditingChanged += delegate
+						{
+							string pinTextFieldText = field.Text;
+							if (pinTextFieldText.Length >= 4)
+							{
+								if (pinTextFieldText == pin)
+								{
+									DismissViewController(true, () =>
+									{
+										displayExtendTimeAlert();
+									});
+								}
+								else
+								{
+									attempts++;
+									field.Text = "";
+								}
+							}
+
+						};
+					});
+				alert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (okayButton) =>
+				{
+
+				}));
+			}
+			else
+			{
+				alert = UIAlertController.Create(title: "Enter Pin", message: "Please enter your pin number. (You have a limited amount of attempts and time to complete this action)",
+													 preferredStyle: UIAlertControllerStyle.Alert);
+				alert.AddTextField((field) =>
+				{
+					field.KeyboardType = UIKeyboardType.NumberPad;
+					field.SecureTextEntry = true;
+					field.EditingChanged += delegate
+					{
+						string pinTextFieldText = field.Text;
+						if (pinTextFieldText.Length >= 4)
+						{
+							if (pinTextFieldText == pin)
+							{
+								DismissViewController(true, null);
+								attempts = 0;
+								TimerSetLabel.Text = "";
+								StartSafeTripButton.SetTitle("Start SafeTrip Timer", UIControlState.Normal);
+								timerSet = false;
+							}
+							else
+							{
+								if (attempts >= 5)
+								{
+									DismissViewController(true, () =>
+										{
+											attempts = 0;
+											TimerSetLabel.Text = "";
+											StartSafeTripButton.SetTitle("Start SafeTrip Timer", UIControlState.Normal);
+											timerSet = false;
+											displayContactingEmergencyContacts();
+										});
+								}
+								else
+								{
+									attempts++;
+									field.Text = "";
+								}
+
+							}
+						}
+
+					};
+				});
+			}
+            PresentViewController(alert, true, null);
 		}
 
 

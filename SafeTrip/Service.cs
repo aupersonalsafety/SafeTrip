@@ -501,6 +501,42 @@ namespace SafeTrip
 			}
 		}
 
+		public async Task<int> updatePin(String userId, String pin)
+		{
+			//FIXME
+			//update this url
+			String url = "https://au-personal-safety.herokuapp.com/users/pin/" + userId;
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			dict.Add("pin", pin);
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
+		}
+
 		public async Task<int> setServerTimer(int seconds)
 		{
 			try

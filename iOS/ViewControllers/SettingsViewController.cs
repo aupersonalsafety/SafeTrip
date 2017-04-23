@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 using UIKit;
 using Foundation;
+using BigTed;
 
 namespace SafeTrip.iOS
 {
@@ -13,6 +15,8 @@ namespace SafeTrip.iOS
 		public Auth0.SDK.Auth0Client client;
 		public ViewController presentingViewController;
 		public string userId;
+
+		Service service = new Service();
 
 		public SettingsViewController() : base("SettingsViewController", null)
 		{
@@ -131,8 +135,12 @@ namespace SafeTrip.iOS
 			PresentViewController(alert, true, null);
 		}
 
-		private void updatePin(string newPin)
+		private async Task updatePin(string newPin)
 		{
+			BTProgressHUD.Show(status: "Loading...");
+			await service.updatePin(userId, newPin);
+			BTProgressHUD.Dismiss();
+
 			presentingViewController.updatePin(newPin);
 		}
 

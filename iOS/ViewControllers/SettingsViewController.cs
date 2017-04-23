@@ -1,12 +1,16 @@
 ﻿using System;
 
 using UIKit;
+using Foundation;
 
 namespace SafeTrip.iOS
 {
 	public partial class SettingsViewController : UITableViewController
 	{
 		string[] tableData;
+
+		const int pin = 1234;
+
 		public SettingsViewController() : base("SettingsViewController", null)
 		{
 		}
@@ -23,7 +27,7 @@ namespace SafeTrip.iOS
 			Title = "Settings";
 
 			tableData = getTableData();
-			TableView.Source = new TableSource(tableData);
+			TableView.Source = new TableSource(tableData, this);
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -39,12 +43,96 @@ namespace SafeTrip.iOS
 
 		public void openEmergencyContacts()
 		{
-
+			var storyBoard = UIStoryboard.FromName("EmergencyContactsMenu", Foundation.NSBundle.MainBundle);
+			EmergencyContactsViewController emergencyContactsVC = (EmergencyContactsViewController)storyBoard.InstantiateViewController("EmergencyContactsViewController");
+			if (emergencyContactsVC != null)
+			{
+				NavigationController.PushViewController(emergencyContactsVC, true);
+			}
 		}
 
 		public void updatePinNumber()
 		{
+			UIAlertController alert = UIAlertController.Create("Update Pin", "Please enter your old pin and confirm your new pin numbers. Pins are 4 numbers", UIAlertControllerStyle.Alert);
+			string oldPin = "";
+			string newPin = "";
+			string confirmNewPin = "";
+			alert.AddTextField((UITextField obj) =>
+			{
+				obj.Placeholder = "Enter old pin";
+				obj.SecureTextEntry = true;
+				obj.KeyboardType = UIKeyboardType.NumberPad;
 
+				obj.EditingChanged += delegate
+				{
+					oldPin = obj.Text;
+				};
+
+				obj.ShouldChangeCharacters = (UITextField textField, NSRange range, string replacementString) =>
+				{
+					var length = textField.Text.Length - range.Length + replacementString.Length;
+					return length <= 4;
+				};
+			});
+
+			alert.AddTextField((obj) =>
+			{
+				obj.Placeholder = "Enter new pin";
+				obj.SecureTextEntry = true;
+				obj.KeyboardType = UIKeyboardType.NumberPad;
+
+				obj.EditingChanged += delegate {
+					newPin = obj.Text;
+				};
+
+				obj.ShouldChangeCharacters = (UITextField textField, NSRange range, string replacementString) =>
+				{
+					var length = textField.Text.Length - range.Length + replacementString.Length;
+					return length <= 4;
+				};
+			});
+
+			alert.AddTextField((UITextField obj) =>
+			{
+				obj.Placeholder = "Confirm new pin";
+				obj.SecureTextEntry = true;
+				obj.KeyboardType = UIKeyboardType.NumberPad;
+
+				obj.EditingChanged += delegate {
+					confirmNewPin = obj.Text;
+				};
+
+				obj.ShouldChangeCharacters = (UITextField textField, NSRange range, string replacementString) =>
+				{
+					var length = textField.Text.Length - range.Length + replacementString.Length;
+					return length <= 4;
+				};
+			});
+
+			var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
+			var updateAction = UIAlertAction.Create("Update", UIAlertActionStyle.Default, (obj) =>
+			{
+				if (Int32.Parse(oldPin) == pin && newPin.Equals(confirmNewPin))
+				{
+					updatePin(newPin);
+				}
+				else
+				{
+					updatePinNumber();
+				}
+			});
+
+			alert.AddAction(cancelAction);
+			alert.AddAction(updateAction);
+
+			PresentViewController(alert, true, null);
+		}
+
+		private void updatePin(string newPin)
+		{
+			//TODO
+			//save new pin to device
+			Console.WriteLine("newPin: " + newPin);
 		}
 
 		public void signOut()
@@ -109,7 +197,7 @@ namespace SafeTrip.iOS
 		{
 			tableView.DeselectRow(indexPath, true);
 
-			switch (indexPath.Row)
+			switch (indexPath.Section)
 			{
 				case 0:
 					owner.openEmergencyContacts();

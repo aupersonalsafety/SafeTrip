@@ -32,19 +32,15 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField PinTextField { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton StartSafeTripButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField UserTimeEstimateTextField { get; set; }
+        UIKit.UILabel TimerSetLabel { get; set; }
 
-        [Action ("StartSafeTripButton_TouchUpInside:")]
+        [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void StartSafeTripButton_TouchUpInside (UIKit.UIButton sender);
+        UIKit.UITextField UserTimeEstimateTextField { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -68,14 +64,14 @@ namespace SafeTrip.iOS
                 EstimatedTravelTimeLabel = null;
             }
 
-            if (PinTextField != null) {
-                PinTextField.Dispose ();
-                PinTextField = null;
-            }
-
             if (StartSafeTripButton != null) {
                 StartSafeTripButton.Dispose ();
                 StartSafeTripButton = null;
+            }
+
+            if (TimerSetLabel != null) {
+                TimerSetLabel.Dispose ();
+                TimerSetLabel = null;
             }
 
             if (UserTimeEstimateTextField != null) {

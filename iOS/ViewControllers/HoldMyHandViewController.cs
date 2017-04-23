@@ -33,18 +33,36 @@ namespace SafeTrip.iOS
 			{
 				if (timerSet == false)
 				{
-					PinTextField.BecomeFirstResponder();
+
+					var storyBoard = UIStoryboard.FromName("EnterPin", Foundation.NSBundle.MainBundle);
+					EnterPinViewController enterPinViewController = (EnterPinViewController)storyBoard.InstantiateViewController("EnterPinViewController");
+					enterPinViewController.service = service;
+					enterPinViewController.pin = pin;
+					if (enterPinViewController != null)
+					{
+						NavigationController.PushViewController(enterPinViewController, true);
+					}
+
+					//PinTextField.BecomeFirstResponder();
 					//Start Timer
-					timerSet = true;
+					//timerSet = true;
 				}
 			};
 			HoldMyHandButton.TouchUpOutside += (object sender, EventArgs e) =>
 			{
 				if (timerSet == false)
 				{
-					PinTextField.BecomeFirstResponder();
+					var storyBoard = UIStoryboard.FromName("EnterPin", Foundation.NSBundle.MainBundle);
+					EnterPinViewController enterPinViewController = (EnterPinViewController)storyBoard.InstantiateViewController("EnterPinViewController");
+					enterPinViewController.service = service;
+					enterPinViewController.pin = pin;
+					if (enterPinViewController != null)
+					{
+						NavigationController.PushViewController(enterPinViewController, true);
+					}
+					//PinTextField.BecomeFirstResponder();
 					//Start Timer
-					timerSet = true;
+					//timerSet = true;
 				}
 			};
 

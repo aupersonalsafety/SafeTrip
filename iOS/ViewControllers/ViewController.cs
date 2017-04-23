@@ -35,10 +35,16 @@ namespace SafeTrip.iOS
 			userId = "";
 
             this.NavigationItem.SetRightBarButtonItem(
-				new UIBarButtonItem("Sign Out", UIBarButtonItemStyle.Plain, (sender, args) =>
+				new UIBarButtonItem("Settings", UIBarButtonItemStyle.Plain, (sender, args) =>
 				{
-					client.Logout();
-					presentLogin();
+					//client.Logout();
+					//presentLogin();
+					var storyBoard = UIStoryboard.FromName("SettingsStoryboard", Foundation.NSBundle.MainBundle);
+					SettingsViewController settingsViewController = (SettingsViewController) storyBoard.InstantiateViewController("SettingsViewController");
+					if (settingsViewController != null)
+					{
+						NavigationController.PushViewController(settingsViewController, true);
+					}
 				})
 			, true);
 
@@ -93,16 +99,16 @@ namespace SafeTrip.iOS
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-			var tempUser = client.CurrentUser;
+			//var tempUser = client.CurrentUser;
 			
-			if (tempUser == null)
-			{
-				presentLogin();
-			}
-			else
-			{
-				getUserInfo(null);
-			}
+			//if (tempUser == null)
+			//{
+			//	presentLogin();
+			//}
+			//else
+			//{
+			//	getUserInfo(null);
+			//}
 		}
 
 		//public async void setCurrentPosition()

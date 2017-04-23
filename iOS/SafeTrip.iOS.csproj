@@ -147,6 +147,8 @@
     <InterfaceDefinition Include="Storyboards\HoldMyHand.storyboard" />
     <InterfaceDefinition Include="Storyboards\SafeTrip.storyboard" />
     <InterfaceDefinition Include="Storyboards\EnterPin.storyboard" />
+    <InterfaceDefinition Include="ViewControllers\SettingsViewController.xib" />
+    <InterfaceDefinition Include="Storyboards\SettingsStoryboard.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -189,6 +191,10 @@
     <Compile Include="ViewControllers\EnterPinViewController.cs" />
     <Compile Include="ViewControllers\EnterPinViewController.designer.cs">
       <DependentUpon>EnterPinViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\SettingsViewController.cs" />
+    <Compile Include="ViewControllers\SettingsViewController.designer.cs">
+      <DependentUpon>SettingsViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -18,10 +18,6 @@ namespace SafeTrip.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton EmergencyContactsButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton HoldMyHandButton { get; set; }
 
         [Outlet]
@@ -32,13 +28,12 @@ namespace SafeTrip.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton SafeTripButton { get; set; }
 
+        [Action ("HoldMyHandButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void HoldMyHandButton_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
-            if (EmergencyContactsButton != null) {
-                EmergencyContactsButton.Dispose ();
-                EmergencyContactsButton = null;
-            }
-
             if (HoldMyHandButton != null) {
                 HoldMyHandButton.Dispose ();
                 HoldMyHandButton = null;

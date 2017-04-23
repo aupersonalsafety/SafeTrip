@@ -13,7 +13,8 @@ namespace SafeTrip.iOS
 		bool timerSet = false;
 		DateTime estimatedArrivalTime;
 
-		public SafeTrip.Service service;
+		public string userId;
+		public Service service;
 
 		public SafeTripViewController() : base("SafeTripViewController", null)
 		{

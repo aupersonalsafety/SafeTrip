@@ -35,6 +35,8 @@ namespace SafeTrip.iOS
 		AVCaptureMovieFileOutput MovieFileOutput;
 		readonly AVCapturePhotoOutput photoOutput = new AVCapturePhotoOutput();
 
+		public string userId;
+
 		readonly Dictionary<long, PhotoCaptureDelegate> inProgressPhotoCaptureDelegates = new Dictionary<long, PhotoCaptureDelegate>();
 
 		readonly AVCaptureDeviceDiscoverySession videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession.Create(

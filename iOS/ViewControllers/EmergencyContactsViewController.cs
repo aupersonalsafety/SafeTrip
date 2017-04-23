@@ -11,7 +11,7 @@ namespace SafeTrip.iOS
 	public partial class EmergencyContactsViewController : UITableViewController
 	{
 		Service service;
-		public int userId;
+		public string userId;
 
 		public EmergencyContactsViewController(IntPtr handle) : base(handle)
 		{
@@ -33,6 +33,7 @@ namespace SafeTrip.iOS
 
 					if (modifyContactViewController != null)
 					{
+						modifyContactViewController.userId = userId;
 						modifyContactViewController.emergencyContact = new EmergencyContact();
 						modifyContactViewController.emergencyContactsViewController = this;
 						NavigationController.PushViewController(modifyContactViewController, true);

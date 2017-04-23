@@ -12,6 +12,7 @@ namespace SafeTrip.iOS
 		public string pin;
 		public Auth0.SDK.Auth0Client client;
 		public ViewController presentingViewController;
+		public string userId;
 
 		public SettingsViewController() : base("SettingsViewController", null)
 		{

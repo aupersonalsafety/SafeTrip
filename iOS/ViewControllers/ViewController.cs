@@ -43,23 +43,11 @@ namespace SafeTrip.iOS
 						settingsViewController.presentingViewController = this;
 						settingsViewController.client = client;
 						settingsViewController.pin = pin;
+						settingsViewController.userId = userId;
 						NavigationController.PushViewController(settingsViewController, true);
 					}
 				})
 			, true);
-
-			EmergencyContactsButton.TouchUpInside += (object sender, EventArgs e) =>
-			{
-				var storyBoard = UIStoryboard.FromName("EmergencyContactsMenu", Foundation.NSBundle.MainBundle);
-				EmergencyContactsViewController emergencyContactsViewController = (EmergencyContactsViewController) storyBoard.InstantiateViewController("EmergencyContactsViewController");
-
-				emergencyContactsViewController.userId = 1;
-
-				if (emergencyContactsViewController != null)
-				{
-					NavigationController.PushViewController(emergencyContactsViewController, true);
-				}
-			};
 
 			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
@@ -67,6 +55,7 @@ namespace SafeTrip.iOS
 				HoldMyHandViewController holdMyHandViewController = (HoldMyHandViewController)storyBoard.InstantiateViewController("HoldMyHandViewController");
 				holdMyHandViewController.service = service;
 				holdMyHandViewController.pin = pin;
+				holdMyHandViewController.userId = userId;
 				if (holdMyHandViewController != null)
 				{
 					NavigationController.PushViewController(holdMyHandViewController, true);
@@ -79,6 +68,7 @@ namespace SafeTrip.iOS
 				SafeTripViewController safeTripViewController = (SafeTripViewController)storyBoard.InstantiateViewController("SafeTripViewController");
 				safeTripViewController.service = service;
 				safeTripViewController.pin = pin;
+				safeTripViewController.userId = userId;
 				if (safeTripViewController != null)
 				{
 					NavigationController.PushViewController(safeTripViewController, true);
@@ -111,19 +101,12 @@ namespace SafeTrip.iOS
 			}
 		}
 
-		//public async void setCurrentPosition()
-		//{
-		//	currentPosition = await service.getGlobalPosition();
-		//	LatitudeLabel.Text = currentPosition.Latitude.ToString();
-		//	LongitudeLabel.Text = currentPosition.Longitude.ToString();
-		//}
-
-
 		public void useCamera()
 		{
 			var storyBoard = UIStoryboard.FromName("Camera", Foundation.NSBundle.MainBundle);
 			CameraViewController cameraViewController = (CameraViewController)storyBoard.InstantiateViewController("CameraViewController");
 			cameraViewController.owner = this;
+			cameraViewController.userId = userId;
 			cameraViewController.pin = pin;
 
 			if (cameraViewController != null)
@@ -175,7 +158,7 @@ namespace SafeTrip.iOS
 
 		public async Task getPin()
 		{
-			string fetchedPin = await service.getPin("1234");
+			string fetchedPin = await service.getPin(userId);
 			if (fetchedPin != "-1")
 			{
 				pin = fetchedPin;

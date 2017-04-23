@@ -18,26 +18,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86">
-                                <rect key="frame" x="277" y="159" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86">
+                                <rect key="frame" x="276" y="159" width="38" height="30"/>
                                 <state key="normal" title="Panic">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="133">
-                                <rect key="frame" x="209" y="219" width="180" height="30"/>
-                                <state key="normal" title="Emergency Contacts">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="248">
-                                <rect key="frame" x="184" y="285" width="230" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="248">
+                                <rect key="frame" x="250" y="285" width="98" height="30"/>
                                 <state key="normal" title="Hold My Hand">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="HoldMyHandButton_TouchUpInside:" destination="BYZ-38-t0r" id="275" eventType="touchUpInside"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="263" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="272" y="337" width="56" height="30"/>
+                                <rect key="frame" x="272" y="344" width="56" height="30"/>
                                 <state key="normal" title="SafeTrip">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -46,18 +43,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="86" secondAttribute="centerX" constant="5" id="89"/>
-                            <constraint firstAttribute="centerX" secondItem="133" secondAttribute="centerX" constant="8" id="143"/>
-                            <constraint firstItem="133" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="34" id="146"/>
-                            <constraint firstItem="248" firstAttribute="centerY" secondItem="133" secondAttribute="bottom" constant="40" id="249"/>
                             <constraint firstAttribute="centerX" secondItem="248" secondAttribute="centerX" constant="1" id="250"/>
                             <constraint firstItem="86" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="95" id="251"/>
                             <constraint id="265" firstItem="263" firstAttribute="top" secondItem="248" secondAttribute="bottom" constant="29"/>
                             <constraint id="270" firstItem="263" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
+                            <constraint id="276" firstItem="248" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="96"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="242"/>
                     <connections>
-                        <outlet property="EmergencyContactsButton" destination="133" id="name-outlet-133"/>
                         <outlet property="HoldMyHandButton" destination="248" id="name-outlet-248"/>
                         <outlet property="PanicButton" destination="86" id="name-outlet-86"/>
                         <outlet property="SafeTripButton" destination="263" id="name-outlet-263"/>

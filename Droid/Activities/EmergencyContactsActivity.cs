@@ -34,7 +34,7 @@ namespace SafeTrip.Droid
 
 		public async Task fetchContacts()
 		{
-			contacts = await service.fetchContacts(1234);
+			contacts = await service.fetchContacts("1234");
 
 			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, contacts.Select(x=>x.FirstName + " " + x.LastName).ToList());
 		}

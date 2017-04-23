@@ -129,7 +129,7 @@ namespace SafeTrip.Droid
 				//FIXME
 				//update to userID
 				AndroidHUD.AndHUD.Shared.Show(this, "Loading", maskType: AndroidHUD.MaskType.Clear);
-				if (await service.postContactToDatabase(emergencyContactIn, 1) == 1)
+				if (await service.postContactToDatabase(emergencyContactIn, "1") == 1)
 				{
 					AndroidHUD.AndHUD.Shared.Dismiss(this);
 					Finish();

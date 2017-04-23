@@ -13,14 +13,14 @@ namespace SafeTrip.iOS
 {
 	public partial class ModifyContactViewController : UIViewController
 	{
-		string value = "test";
 		public EmergencyContactsViewController emergencyContactsViewController;
-
+		public string userId;
 		public EmergencyContact emergencyContact;
-		SafeTrip.Service service = new SafeTrip.Service();
-		int? emergencyContactID;
+
+		Service service = new Service();
 		Dictionary<string, string> carrierDict;
 		List<string> carriersList;
+		int? emergencyContactID;
 
 		public ModifyContactViewController(IntPtr handle) : base(handle)
 		{
@@ -48,7 +48,6 @@ namespace SafeTrip.iOS
 			UpdateContactButton.TouchUpInside += delegate
 			{
 				emergencyContact = new EmergencyContact(emergencyContact.ContactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
-				//service.SaveOrUpdateContact(emergencyContact);
 				UpdateContact(emergencyContact);
 
 			};
@@ -87,7 +86,7 @@ namespace SafeTrip.iOS
 				//FIXME
 				//update to userID
 				BTProgressHUD.Show(status: "Loading...");
-				if (await service.postContactToDatabase(emergencyContactIn, 1) == 1)
+				if (await service.postContactToDatabase(emergencyContactIn, userId) == 1)
 				{
 					BTProgressHUD.Dismiss();
 					emergencyContactsViewController.DismissUpdateContactViewModel();

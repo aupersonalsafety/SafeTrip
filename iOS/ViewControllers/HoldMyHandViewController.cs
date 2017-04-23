@@ -8,11 +8,11 @@ namespace SafeTrip.iOS
 	public partial class HoldMyHandViewController : UIViewController
 	{
 		int attempts;
-		bool success;
 		public string pin;
 		bool timerSet = false;
 
-		public SafeTrip.Service service;
+		public Service service;
+		public string userId;
 
 		public HoldMyHandViewController() : base("HoldMyHandViewController", null)
 		{
@@ -27,7 +27,6 @@ namespace SafeTrip.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			attempts = 0;
-			success = false;
 
 			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
 			{

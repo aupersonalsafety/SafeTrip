@@ -295,7 +295,7 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<List<EmergencyContact>> fetchContacts(int userId)
+		public async Task<List<EmergencyContact>> fetchContacts(string userId)
 		{
 			//String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
 
@@ -348,7 +348,7 @@ namespace SafeTrip
 			return new List<EmergencyContact>();
 		}
 
-		public async Task<int> postContactToDatabase(EmergencyContact contact, int userId)
+		public async Task<int> postContactToDatabase(EmergencyContact contact, string userId)
 		{
 			String url = "https://au-personal-safety.herokuapp.com/contact/sendtodb";
 

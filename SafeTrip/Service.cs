@@ -319,6 +319,8 @@ namespace SafeTrip
 			//}
 
 
+			//TODO
+			//remove dummy data
 			var contact = new EmergencyContact();
 			contact.FirstName = "philip";
 			contact.LastName = "sawyer";
@@ -466,6 +468,31 @@ namespace SafeTrip
 			{
 				return -1;
 			}
+		}
+
+		public async Task<int> getPin(String userId)
+		{
+			String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
+
+			var client = new HttpClient();
+
+			url = url + "?userId=" + userId;
+
+			var response = await client.GetAsync(url);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return parseContactList(await response.Content.ReadAsStringAsync());
+			}
+			else
+			{
+				//reponse not successful
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return new List<EmergencyContact>();
+			}
+			return 1;
 		}
     }
 

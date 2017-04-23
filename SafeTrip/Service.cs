@@ -467,6 +467,19 @@ namespace SafeTrip
 				return -1;
 			}
 		}
+		public async Task<int> setServerTimer(int seconds)
+		{
+			try
+			{
+				//await serverset!
+				await Task.Delay(1);
+				return 1;
+			}
+			catch
+			{
+				return -1;
+			}
+		}
     }
 
 	public class ContactsList

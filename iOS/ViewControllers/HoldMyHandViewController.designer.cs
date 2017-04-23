@@ -18,20 +18,11 @@ namespace SafeTrip.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton HoldMyHandButton { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField PinTextField { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
             if (HoldMyHandButton != null) {
                 HoldMyHandButton.Dispose ();
                 HoldMyHandButton = null;
-            }
-
-            if (PinTextField != null) {
-                PinTextField.Dispose ();
-                PinTextField = null;
             }
         }
     }

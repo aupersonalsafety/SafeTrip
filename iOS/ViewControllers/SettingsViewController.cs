@@ -9,8 +9,7 @@ namespace SafeTrip.iOS
 	{
 		string[] tableData;
 
-		const int pin = 1234;
-
+		public string pin;
 		public Auth0.SDK.Auth0Client client;
 		public ViewController presentingViewController;
 
@@ -115,7 +114,7 @@ namespace SafeTrip.iOS
 			var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
 			var updateAction = UIAlertAction.Create("Update", UIAlertActionStyle.Default, (obj) =>
 			{
-				if (Int32.Parse(oldPin) == pin && newPin.Equals(confirmNewPin))
+				if (oldPin.Equals(pin) && newPin.Equals(confirmNewPin))
 				{
 					updatePin(newPin);
 				}
@@ -133,9 +132,7 @@ namespace SafeTrip.iOS
 
 		private void updatePin(string newPin)
 		{
-			//TODO
-			//save new pin to device
-			Console.WriteLine("newPin: " + newPin);
+			presentingViewController.updatePin(newPin);
 		}
 
 		public void signOut()

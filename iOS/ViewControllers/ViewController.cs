@@ -14,7 +14,7 @@ namespace SafeTrip.iOS
 		String userToken;
 		String userId;
 
-		String pin = "1234"; 
+		private string pin = "-1"; 
 
 		public ViewController(IntPtr handle) : base(handle)
 		{
@@ -28,8 +28,7 @@ namespace SafeTrip.iOS
 			base.ViewDidLoad();
 			Title = "SafeTrip";
 
-			//TODO
-			//LOAD PIN
+			getPin();
 
 			userToken = "";
 			userId = "";
@@ -43,6 +42,7 @@ namespace SafeTrip.iOS
 					{
 						settingsViewController.presentingViewController = this;
 						settingsViewController.client = client;
+						settingsViewController.pin = pin;
 						NavigationController.PushViewController(settingsViewController, true);
 					}
 				})
@@ -147,9 +147,7 @@ namespace SafeTrip.iOS
 			}
 			catch (OperationCanceledException e)
 			{
-				//var okCancelAlertController = UIAlertController.Create("Must login before using SafeTrip", "", UIAlertControllerStyle.Alert);
-				//okCancelAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, action => loginWithWidgetButtonClick()));
-				//PresentViewController(okCancelAlertController, true, null);
+				displayError(e.Message);
 			}
 		}
 
@@ -173,6 +171,31 @@ namespace SafeTrip.iOS
 		{
 			NavigationController.PopViewController(true);
 			presentLogin();
+		}
+
+		public async Task getPin()
+		{
+			string fetchedPin = await service.getPin("1234");
+			if (fetchedPin != "-1")
+			{
+				pin = fetchedPin;
+			}
+			else
+			{
+				displayError("Could not fetch pin. Please close app and try again.");
+			}
+		}
+
+		private void displayError(String error)
+		{
+			var alert = UIAlertController.Create("Error", error, UIAlertControllerStyle.Alert);
+			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			PresentViewController(alert, true, null);
+		}
+
+		public void updatePin(String pinIn)
+		{
+			pin = pinIn;
 		}
 	}
 }

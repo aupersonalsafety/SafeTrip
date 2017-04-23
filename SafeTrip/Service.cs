@@ -470,9 +470,16 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<int> getPin(String userId)
+		public async Task<string> getPin(String userId)
 		{
-			String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
+			//FIXME
+			//delete this test code
+			return "1234";
+
+
+			//TODO
+			//update this url
+			String url = "https://au-personal-safety.herokuapp.com/users/getpin";
 
 			var client = new HttpClient();
 
@@ -484,15 +491,14 @@ namespace SafeTrip
 			{
 				//response successful
 				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
-				return parseContactList(await response.Content.ReadAsStringAsync());
+				return "1234";
 			}
 			else
 			{
 				//reponse not successful
 				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
-				return new List<EmergencyContact>();
+				return "-1";
 			}
-			return 1;
 		}
 
 		public async Task<int> setServerTimer(int seconds)

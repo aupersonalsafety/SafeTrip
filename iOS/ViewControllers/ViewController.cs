@@ -37,12 +37,12 @@ namespace SafeTrip.iOS
             this.NavigationItem.SetRightBarButtonItem(
 				new UIBarButtonItem("Settings", UIBarButtonItemStyle.Plain, (sender, args) =>
 				{
-					//client.Logout();
-					//presentLogin();
 					var storyBoard = UIStoryboard.FromName("SettingsStoryboard", Foundation.NSBundle.MainBundle);
 					SettingsViewController settingsViewController = (SettingsViewController) storyBoard.InstantiateViewController("SettingsViewController");
 					if (settingsViewController != null)
 					{
+						settingsViewController.presentingViewController = this;
+						settingsViewController.client = client;
 						NavigationController.PushViewController(settingsViewController, true);
 					}
 				})
@@ -99,16 +99,16 @@ namespace SafeTrip.iOS
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-			//var tempUser = client.CurrentUser;
+			var tempUser = client.CurrentUser;
 			
-			//if (tempUser == null)
-			//{
-			//	presentLogin();
-			//}
-			//else
-			//{
-			//	getUserInfo(null);
-			//}
+			if (tempUser == null)
+			{
+				presentLogin();
+			}
+			else
+			{
+				getUserInfo(null);
+			}
 		}
 
 		//public async void setCurrentPosition()
@@ -167,6 +167,12 @@ namespace SafeTrip.iOS
 		public void dismissCamera()
 		{
 			NavigationController.PopViewController(true);
+		}
+
+		public void dismissSettings()
+		{
+			NavigationController.PopViewController(true);
+			presentLogin();
 		}
 	}
 }

@@ -11,6 +11,9 @@ namespace SafeTrip.iOS
 
 		const int pin = 1234;
 
+		public Auth0.SDK.Auth0Client client;
+		public ViewController presentingViewController;
+
 		public SettingsViewController() : base("SettingsViewController", null)
 		{
 		}
@@ -137,7 +140,8 @@ namespace SafeTrip.iOS
 
 		public void signOut()
 		{
-
+			client.Logout();
+			presentingViewController.dismissSettings();
 		}
 	}
 

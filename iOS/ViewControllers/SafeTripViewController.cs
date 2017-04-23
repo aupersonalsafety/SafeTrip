@@ -176,7 +176,7 @@ namespace SafeTrip.iOS
 					field.EditingChanged += delegate
 					{
 						string pinTextFieldText = field.Text;
-						if (pinTextFieldText.Length >= 4)
+						if (pinTextFieldText.Length >= 4 && attempts < 6)
 						{
 							if (pinTextFieldText == pin)
 							{
@@ -192,11 +192,12 @@ namespace SafeTrip.iOS
 								{
 									DismissViewController(true, () =>
 										{
-											attempts = 0;
+											//attempts = 0;
 											TimerSetLabel.Text = "";
 											StartSafeTripButton.SetTitle("Start SafeTrip Timer", UIControlState.Normal);
 											timerSet = false;
 											displayContactingEmergencyContacts();
+											attempts++;
 										});
 								}
 								else

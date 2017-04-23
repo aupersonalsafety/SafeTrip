@@ -113,40 +113,97 @@ namespace SafeTrip.iOS
 			attempts = 0;
 			success = false;
 
-			PinTextField.EditingChanged += (object sender, EventArgs e) =>
-			{
-				if (PinTextField.Text.Length >= 4)
-				{
-					if (PinTextField.Text != "1234")
-					{
-						var alert = UIAlertController.Create("Incorrect PIN", "Incorrect PIN", UIAlertControllerStyle.Alert);
-						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-						PresentViewController(alert, true, null);
-						attempts++;
-						PinTextField.Text = "";
-					}
-					else
-					{
-						success = true;
-						ToggleMovieRecording();
-						owner.dismissCamera();
-						//Exit
-					}
-					if (!success && attempts >= 5)
-					{
-						var alert = UIAlertController.Create("Contacting Emergency Contacts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
-						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-						PresentViewController(alert, true, null);
-						PinTextField.Enabled = false;
-						//ALERT EVERYONE
-					}
-				}
-			};
+			//PinTextField.EditingChanged += (object sender, EventArgs e) =>
+			//{
+			//	if (PinTextField.Text.Length >= 4)
+			//	{
+			//		if (PinTextField.Text != "1234")
+			//		{
+			//			var alert = UIAlertController.Create("Incorrect PIN", "Incorrect PIN", UIAlertControllerStyle.Alert);
+			//			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			//			PresentViewController(alert, true, null);
+			//			attempts++;
+			//			PinTextField.Text = "";
+			//		}
+			//		else
+			//		{
+			//			success = true;
+			//			ToggleMovieRecording();
+			//			owner.dismissCamera();
+			//			//Exit
+			//		}
+			//		if (!success && attempts >= 5)
+			//		{
+			//			var alert = UIAlertController.Create("Contacting Emergency Contacts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
+			//			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			//			PresentViewController(alert, true, null);
+			//			PinTextField.Enabled = false;
+			//			//ALERT EVERYONE
+			//		}
+			//	}
+			//};
 
 			FinishRecordingButton.TouchUpInside += (object sender, EventArgs e) => 
 			{
-				PinTextField.BecomeFirstResponder();
+				//PinTextField.BecomeFirstResponder();
+				displayPinAlert();
 			};
+		}
+
+		public void displayPinAlert()
+		{
+			var alert = UIAlertController.Create(title: "Enter Pin", message: "Please enter your pin number. (You have a limited amount of attempts and time to complete this action)",
+												 preferredStyle: UIAlertControllerStyle.Alert);
+			alert.AddTextField((field) =>
+			{
+				field.KeyboardType = UIKeyboardType.NumberPad;
+				field.SecureTextEntry = true;
+				field.EditingChanged += delegate
+				{
+					string pinTextFieldText = field.Text;
+					if (pinTextFieldText.Length >= 4 && attempts < 6)
+					{
+						if (pinTextFieldText == pin)
+						{
+							DismissViewController(true, null);
+							attempts = 0;
+							success = true;
+							ToggleMovieRecording();
+							owner.dismissCamera();
+							//TODO
+							//Cancel Timer
+							//Dismiss Action
+						}
+						else
+						{
+							if (attempts >= 5)
+							{
+								attempts++;
+								DismissViewController(true, () =>
+									{
+										displayContactingEmergencyContacts();
+									});
+							}
+							else
+							{
+								attempts++;
+								field.Text = "";
+							}
+
+						}
+					}
+
+				};
+			});
+
+			PresentViewController(alert, true, null);
+		}
+
+		public void displayContactingEmergencyContacts()
+		{
+			var alert = UIAlertController.Create("Contacting emergency contacts", "Too many attempts have been made. Contacting Emergency Contacts.", UIAlertControllerStyle.Alert);
+			//alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			PresentViewController(alert, true, null);
 		}
 
 		public override void ViewWillAppear(bool animated)

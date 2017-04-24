@@ -3,6 +3,7 @@ using Auth0.SDK;
 using System.Threading.Tasks;
 
 using UIKit;
+using Foundation;
 
 namespace SafeTrip.iOS
 {
@@ -30,8 +31,17 @@ namespace SafeTrip.iOS
 
 			getPin();
 
-			userToken = "";
-			userId = "";
+			var defaults = NSUserDefaults.StandardUserDefaults;
+
+			if (defaults.StringForKey("userId") != null && defaults.StringForKey("userToken") != null)
+			{
+				userId = defaults.StringForKey("userId");
+				userToken = defaults.StringForKey("userToken");
+			}
+			else
+			{
+				presentLogin();
+			}
 
             this.NavigationItem.SetRightBarButtonItem(
 				new UIBarButtonItem("Settings", UIBarButtonItemStyle.Plain, (sender, args) =>
@@ -89,18 +99,6 @@ namespace SafeTrip.iOS
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-			var tempUser = client.CurrentUser;
-			
-			if (tempUser == null)
-			{
-				presentLogin();
-				displayDefaultPinMsg("The default pin is 1234. You can reset it in settings.");
-			}
-			else
-			{
-				getUserInfo(null);
-                displayDefaultPinMsg("The default pin is 1234. You can reset it in settings.");
-			}
 		}
 
 		public void useCamera()
@@ -136,15 +134,15 @@ namespace SafeTrip.iOS
 			}
 		}
 
-		private async void getUserInfo(Auth0User userIn)
+		private async void getUserInfo(Auth0User user)
 		{
-			Auth0User user = userIn;
-			if (user == null)
-			{
-				user = client.CurrentUser;
-			}
 			userToken = user.Auth0AccessToken;
 			userId = user.Profile["user_id"].ToString();
+			var defaults = NSUserDefaults.StandardUserDefaults;
+			defaults.SetString(userId, "userId");
+			defaults.SetString(userToken, "userToken");
+			defaults.Synchronize();
+
 			await service.createUser(userId);
 		}
 

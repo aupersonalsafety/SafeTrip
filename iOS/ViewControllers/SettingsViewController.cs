@@ -146,6 +146,10 @@ namespace SafeTrip.iOS
 
 		public void signOut()
 		{
+			var defaults = NSUserDefaults.StandardUserDefaults;
+			defaults.RemoveObject("userId");
+			defaults.RemoveObject("userToken");
+			defaults.Synchronize();
 			client.Logout();
 			presentingViewController.dismissSettings();
 		}

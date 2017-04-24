@@ -28,10 +28,6 @@ namespace SafeTrip.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton SafeTripButton { get; set; }
 
-        [Action ("HoldMyHandButton_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void HoldMyHandButton_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
             if (HoldMyHandButton != null) {

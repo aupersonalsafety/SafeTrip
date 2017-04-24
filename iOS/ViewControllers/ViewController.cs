@@ -141,10 +141,11 @@ namespace SafeTrip.iOS
 			var defaults = NSUserDefaults.StandardUserDefaults;
 			defaults.SetString(userId, "userId");
 			defaults.SetString(userToken, "userToken");
-			defaults.Synchronize();
+			defaults.Synchronize(); 
 
 			await service.createUser(userId);
 			await service.updatePin(userId, "1234");
+			getPin();
 		}
 
 		public void dismissCamera()

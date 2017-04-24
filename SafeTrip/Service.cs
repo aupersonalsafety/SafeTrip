@@ -307,48 +307,26 @@ namespace SafeTrip
 
 		public async Task<List<EmergencyContact>> fetchContacts(string userId)
 		{
-			//String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
+			String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
 
-			//var client = new HttpClient();
+			var client = new HttpClient();
 
-			//url = url + "?userId=" + userId;
+			url = url + "?userId=" + userId;
 
-			//var response = await client.GetAsync(url);
+			var response = await client.GetAsync(url);
 
-			//if (response.IsSuccessStatusCode)
-			//{
-			//	//response successful
-			//	//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
-			//	return parseContactList(await response.Content.ReadAsStringAsync());
-			//}
-			//else
-			//{
-			//	//reponse not successful
-			//	//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
-			//	return new List<EmergencyContact>();
-			//}
-
-
-			//TODO
-			//remove dummy data
-			var contact = new EmergencyContact();
-			contact.FirstName = "philip";
-			contact.LastName = "sawyer";
-			contact.Email = "phil@test.com";
-			contact.PhoneNumber = "5555555555";
-			contact.ContactID = 12345;
-
-			var contact2 = new EmergencyContact();
-			contact.FirstName = "john";
-			contact.LastName = "smith";
-			contact.Email = "john@test.com";
-			contact.PhoneNumber = "4444444444";
-			contact.ContactID = 76343;
-
-			var list = new List<EmergencyContact>();
-			list.Add(contact);
-			list.Add(contact2);
-			return list;
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return parseContactList(await response.Content.ReadAsStringAsync());
+			}
+			else
+			{
+				//reponse not successful
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return new List<EmergencyContact>();
+			}
 		}
 
 		//FIXME
@@ -483,11 +461,11 @@ namespace SafeTrip
 
 		public async Task<string> getPin(String userId)
 		{
-			String url = "https://au-personal-safety.herokuapp.com/user/getPin?userName=" + userId;
+			String url = "https://au-personal-safety.herokuapp.com/user/getPin/" + userId;
 
 			var client = new HttpClient();
 
-			var response = await client.GetAsync(url);
+			var response = await client.PostAsync(url, null);
 
 			if (response.IsSuccessStatusCode)
 			{

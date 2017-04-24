@@ -482,9 +482,6 @@ namespace SafeTrip
 
 		public async Task<string> getPin(String userId)
 		{
-			//TODO
-			//remove this
-			return "1234";
 			String url = "https://au-personal-safety.herokuapp.com/user/getPin?userName=" + userId;
 
 			var client = new HttpClient();

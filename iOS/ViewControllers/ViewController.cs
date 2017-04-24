@@ -144,6 +144,7 @@ namespace SafeTrip.iOS
 			defaults.Synchronize();
 
 			await service.createUser(userId);
+			await service.updatePin(userId, "1234");
 		}
 
 		public void dismissCamera()

@@ -101,6 +101,7 @@ namespace SafeTrip.iOS
 			var alert = UIAlertController.Create("Contacting emergency contacts", "Too many attempts have been made or time has expired. Contacting Emergency Contacts.", UIAlertControllerStyle.Alert);
 			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
 			PresentViewController(alert, true, null);
+			service.ContactEmergencyContacts();
 		}
 
 		public override void DidReceiveMemoryWarning()

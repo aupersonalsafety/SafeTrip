@@ -12,24 +12,24 @@ using Newtonsoft.Json;
 
 namespace SafeTrip
 {
-    public class Service
-    {
-        private string baseURI;
-        private string sendSMSResourceURI;
-        private string helloResourceURI;
+	public class Service
+	{
+		private string baseURI;
+		private string sendSMSResourceURI;
+		private string helloResourceURI;
 		private string positionResourceURI;
 		private string emergencyContactResourceURI;
-		private string userId;
+		public string userId;
 
-        public Service()
-        {
+		public Service()
+		{
 			userId = "-1";
-            baseURI = "https://au-personal-safety.herokuapp.com/";
-            sendSMSResourceURI = "email/sendtophone";
-            helloResourceURI = "rest/greetings";
+			baseURI = "https://au-personal-safety.herokuapp.com/";
+			sendSMSResourceURI = "email/sendtophone";
+			helloResourceURI = "rest/greetings";
 			positionResourceURI = "rest/position";
 			emergencyContactResourceURI = "rest/emergecyContact";
-        }
+		}
 
 		public Service(String userIdIn)
 		{
@@ -39,10 +39,10 @@ namespace SafeTrip
 			helloResourceURI = "rest/greetings";
 			positionResourceURI = "rest/position";
 			emergencyContactResourceURI = "rest/emergecyContact";
-		} 
+		}
 
-        public async Task<int> SendSMSMessage(string message, string recipientPhoneNumber)
-        {
+		public async Task<int> SendSMSMessage(string message, string recipientPhoneNumber)
+		{
 			String url = "https://au-personal-safety.herokuapp.com/email/sendtophone";
 
 			var client = new HttpClient();
@@ -76,12 +76,42 @@ namespace SafeTrip
 				return -1;
 			}
 
-        }
+		}
 
-		//public async Task<int> ContactEmergencyContacts()
-		//{
-			
-		//}
+		public async Task<int> ContactEmergencyContacts()
+		{
+
+			String url = "https://au-personal-safety.herokuapp.com/alertcontacts";
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			dict.Add("userID", userId);
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
+		}
 
         public async Task<String> SayHello(string name)
         {
@@ -305,14 +335,21 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<List<EmergencyContact>> fetchContacts(string userId)
+		public async Task<List<EmergencyContact>> fetchContacts()
 		{
+<<<<<<< HEAD
 			String url = "https://au-personal-safety.herokuapp.com/users/getcontacts";
 
 			var client = new HttpClient();
 
 			url = url + "?userId=" + userId;
 
+=======
+			String url = "https://au-personal-safety.herokuapp.com/contact/getcontacts/" + userId;
+
+			var client = new HttpClient();
+
+>>>>>>> 12bfec18a51976e279556459754541490091ebf0
 			var response = await client.GetAsync(url);
 
 			if (response.IsSuccessStatusCode)
@@ -327,6 +364,31 @@ namespace SafeTrip
 				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return new List<EmergencyContact>();
 			}
+<<<<<<< HEAD
+=======
+
+
+			//TODO
+			//remove dummy data
+			//var contact = new EmergencyContact();
+			//contact.FirstName = "philip";
+			//contact.LastName = "sawyer";
+			//contact.Email = "phil@test.com";
+			//contact.PhoneNumber = "5555555555";
+			//contact.ContactID = 12345;
+
+			//var contact2 = new EmergencyContact();
+			//contact.FirstName = "john";
+			//contact.LastName = "smith";
+			//contact.Email = "john@test.com";
+			//contact.PhoneNumber = "4444444444";
+			//contact.ContactID = 76343;
+
+			//var list = new List<EmergencyContact>();
+			//list.Add(contact);
+			//list.Add(contact2);
+			//return list;
+>>>>>>> 12bfec18a51976e279556459754541490091ebf0
 		}
 
 		//FIXME
@@ -336,7 +398,7 @@ namespace SafeTrip
 			return new List<EmergencyContact>();
 		}
 
-		public async Task<int> postContactToDatabase(EmergencyContact contact, string userId)
+		public async Task<int> postContactToDatabase(EmergencyContact contact)
 		{
 			String url = "https://au-personal-safety.herokuapp.com/contact/sendtodb/" + userId;
 
@@ -459,7 +521,7 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<string> getPin(String userId)
+		public async Task<string> getPin()
 		{
 			String url = "https://au-personal-safety.herokuapp.com/user/getPin/" + userId;
 
@@ -481,7 +543,7 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<int> updatePin(String userId, String pin)
+		public async Task<int> updatePin(String pin)
 		{
 			String url = "https://au-personal-safety.herokuapp.com/user/setPin/" + userId + "/" + pin;
 
@@ -514,21 +576,43 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<int> setServerTimer(int seconds)
+		//public async Task<int> extendServerTimer
+
+		public async Task<int> setServerTimer(int seconds, string userID)
 		{
-			try
+			seconds = seconds + 60;
+			String url = "https://au-personal-safety.herokuapp.com/starttimer/" + seconds + "/" + userID;
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
 			{
-				//await serverset!
-				await Task.Delay(1);
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return 1;
 			}
-			catch
+			else
 			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}
 
-		public async Task<int> createUser(String userId)
+		public async Task<int> createUser()
 		{
 			String url = "https://au-personal-safety.herokuapp.com/user/createuser/" + userId;
 

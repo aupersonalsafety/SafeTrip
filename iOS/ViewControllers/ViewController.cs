@@ -48,6 +48,7 @@ namespace SafeTrip.iOS
 				{
 					var storyBoard = UIStoryboard.FromName("SettingsStoryboard", Foundation.NSBundle.MainBundle);
 					SettingsViewController settingsViewController = (SettingsViewController) storyBoard.InstantiateViewController("SettingsViewController");
+					settingsViewController.service = service;
 					if (settingsViewController != null)
 					{
 						settingsViewController.presentingViewController = this;
@@ -58,7 +59,7 @@ namespace SafeTrip.iOS
 					}
 				})
 			, true);
-
+			
 			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				var storyBoard = UIStoryboard.FromName("HoldMyHand", Foundation.NSBundle.MainBundle);
@@ -108,6 +109,7 @@ namespace SafeTrip.iOS
 			cameraViewController.owner = this;
 			cameraViewController.userId = userId;
 			cameraViewController.pin = pin;
+			cameraViewController.service = service;
 
 			if (cameraViewController != null)
 			{
@@ -138,14 +140,15 @@ namespace SafeTrip.iOS
 		{
 			userToken = user.Auth0AccessToken;
 			userId = user.Profile["user_id"].ToString();
+			service.userId = userId;
 			var defaults = NSUserDefaults.StandardUserDefaults;
 			defaults.SetString(userId, "userId");
 			defaults.SetString(userToken, "userToken");
 			defaults.Synchronize(); 
 
-			await service.createUser(userId);
-			await service.updatePin(userId, "1234");
-			getPin();
+			await service.createUser();
+			await service.updatePin("1234");
+            getPin();
 		}
 
 		public void dismissCamera()
@@ -161,7 +164,7 @@ namespace SafeTrip.iOS
 
 		public async Task getPin()
 		{
-			string fetchedPin = await service.getPin(userId);
+			string fetchedPin = await service.getPin();
 			if (fetchedPin != "-1")
 			{
 				pin = fetchedPin;

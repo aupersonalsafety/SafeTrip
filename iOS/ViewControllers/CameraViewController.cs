@@ -36,6 +36,7 @@ namespace SafeTrip.iOS
 		readonly AVCapturePhotoOutput photoOutput = new AVCapturePhotoOutput();
 
 		public string userId;
+		public Service service;
 
 		readonly Dictionary<long, PhotoCaptureDelegate> inProgressPhotoCaptureDelegates = new Dictionary<long, PhotoCaptureDelegate>();
 

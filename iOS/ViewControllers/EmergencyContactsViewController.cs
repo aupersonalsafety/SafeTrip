@@ -10,7 +10,7 @@ namespace SafeTrip.iOS
 {
 	public partial class EmergencyContactsViewController : UITableViewController
 	{
-		Service service;
+		public Service service;
 		public string userId;
 		public Auth0.SDK.Auth0Client client;
 		public ViewController presentingViewController;
@@ -23,8 +23,6 @@ namespace SafeTrip.iOS
 		{
 			base.ViewDidLoad();
 
-			service = new Service();
-
 			Title = "Emergency Contacts";
 
 			this.NavigationItem.SetRightBarButtonItem(
@@ -32,11 +30,11 @@ namespace SafeTrip.iOS
 				{
 					var storyBoard = UIStoryboard.FromName("ModifyContact", Foundation.NSBundle.MainBundle);
 					ModifyContactViewController modifyContactViewController = (ModifyContactViewController)storyBoard.InstantiateViewController("ModifyContactViewController");
-					modifyContactViewController.client = client;
-					modifyContactViewController.userId = userId;
 					if (modifyContactViewController != null)
 					{
+						modifyContactViewController.client = client;
 						modifyContactViewController.userId = userId;
+						modifyContactViewController.service = service;
 						modifyContactViewController.emergencyContact = new EmergencyContact();
 						modifyContactViewController.emergencyContactsViewController = this;
 						NavigationController.PushViewController(modifyContactViewController, true);
@@ -71,6 +69,7 @@ namespace SafeTrip.iOS
 				modifyContactViewController.emergencyContact.PhoneNumber = emergencyContact.PhoneNumber;
 				modifyContactViewController.emergencyContact.Email = emergencyContact.Email;
 				modifyContactViewController.emergencyContactsViewController = this;
+				modifyContactViewController.service = service;
 				NavigationController.PushViewController(modifyContactViewController, true);
 				//modifyContactViewController.LoadEmergencyContact(modifyContactViewController.emergencyContact);
 				
@@ -85,7 +84,7 @@ namespace SafeTrip.iOS
 
 		public async Task refreshContacts()
 		{
-			var fetchedContacts = await service.fetchContacts(userId);
+			var fetchedContacts = await service.fetchContacts();
 			TableView.Source = new EmergencyContactsDataSource(fetchedContacts, this);
 		}
 

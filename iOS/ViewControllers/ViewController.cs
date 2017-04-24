@@ -134,7 +134,7 @@ namespace SafeTrip.iOS
 			}
 		}
 
-		private void getUserInfo(Auth0User userIn)
+		private async void getUserInfo(Auth0User userIn)
 		{
 			Auth0User user = userIn;
 			if (user == null)
@@ -143,6 +143,7 @@ namespace SafeTrip.iOS
 			}
 			userToken = user.Auth0AccessToken;
 			userId = user.Profile["user_id"].ToString();
+			await service.createUser(userId);
 		}
 
 		public void dismissCamera()

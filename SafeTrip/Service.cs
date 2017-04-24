@@ -19,15 +19,27 @@ namespace SafeTrip
         private string helloResourceURI;
 		private string positionResourceURI;
 		private string emergencyContactResourceURI;
+		private string userId;
 
         public Service()
         {
+			userId = "-1";
             baseURI = "https://au-personal-safety.herokuapp.com/";
             sendSMSResourceURI = "email/sendtophone";
             helloResourceURI = "rest/greetings";
 			positionResourceURI = "rest/position";
 			emergencyContactResourceURI = "rest/emergecyContact";
-        } 
+        }
+
+		public Service(String userIdIn)
+		{
+			userId = userIdIn;
+			baseURI = "https://au-personal-safety.herokuapp.com/";
+			sendSMSResourceURI = "email/sendtophone";
+			helloResourceURI = "rest/greetings";
+			positionResourceURI = "rest/position";
+			emergencyContactResourceURI = "rest/emergecyContact";
+		} 
 
         public async Task<int> SendSMSMessage(string message, string recipientPhoneNumber)
         {
@@ -148,9 +160,7 @@ namespace SafeTrip
 
 			System.Diagnostics.Debug.WriteLine("globalPostion:D " + globalPosition);
 
-			//FIXME
-			//add actual user id
-			postLocationToDatabase(globalPosition, 1234);
+			postLocationToDatabase(globalPosition, userId);
 		}
 
 		public void positionErrorChanged(object sender, Plugin.Geolocator.Abstractions.PositionErrorEventArgs e)
@@ -185,7 +195,7 @@ namespace SafeTrip
 				globalPosition.Latitude = 32.607722;
 				globalPosition.Longitude = -85.489545;
 
-				postLocationToDatabase(globalPosition, 5678);
+				postLocationToDatabase(globalPosition, userId);
 
 				return globalPosition;
 			}
@@ -422,7 +432,7 @@ namespace SafeTrip
 			}
 		}
 
-		public async Task<int> postLocationToDatabase(GlobalPosition position, int userID)
+		public async Task<int> postLocationToDatabase(GlobalPosition position, string userID)
 		{
 			String url = "https://au-personal-safety.herokuapp.com/location/store/" + userID;
 
@@ -472,45 +482,36 @@ namespace SafeTrip
 
 		public async Task<string> getPin(String userId)
 		{
-			//FIXME
-			//delete this test code
-			return "1234";
-
-
 			//TODO
-			//update this url
-			String url = "https://au-personal-safety.herokuapp.com/users/getpin";
+			//remove this
+			return "1234";
+			String url = "https://au-personal-safety.herokuapp.com/user/getPin?userName=" + userId;
 
 			var client = new HttpClient();
-
-			url = url + "?userId=" + userId;
 
 			var response = await client.GetAsync(url);
 
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return "1234";
 			}
 			else
 			{
 				//reponse not successful
-				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return "-1";
 			}
 		}
 
 		public async Task<int> updatePin(String userId, String pin)
 		{
-			//FIXME
-			//update this url
-			String url = "https://au-personal-safety.herokuapp.com/users/pin/" + userId;
+			String url = "https://au-personal-safety.herokuapp.com/user/setPin/" + userId + "/" + pin;
 
 			var client = new HttpClient();
 
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
-			dict.Add("pin", pin);
 			var json = JsonConvert.SerializeObject(dict);
 
 			System.Diagnostics.Debug.WriteLine("json: " + json);
@@ -547,6 +548,39 @@ namespace SafeTrip
 			}
 			catch
 			{
+				return -1;
+			}
+		}
+
+		public async Task<int> createUser(String userId)
+		{
+			String url = "https://au-personal-safety.herokuapp.com/user/createuser/" + userId;
+
+			var client = new HttpClient();
+
+			Dictionary<String, Object> dict = new Dictionary<String, Object>();
+			var json = JsonConvert.SerializeObject(dict);
+
+			System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var content = new StringContent(
+					json,
+					Encoding.UTF8,
+					"application/json"
+				);
+
+			var response = await client.PostAsync(url, content);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}

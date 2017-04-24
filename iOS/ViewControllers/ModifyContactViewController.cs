@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Plugin.Contacts.Abstractions;
 
 using BigTed;
@@ -29,6 +30,8 @@ namespace SafeTrip.iOS
 
 		public override void ViewDidLoad()
 		{
+			base.ViewDidLoad();
+
 			carrierDict = new Dictionary<String, String>();
 			carrierDict.Add("AT&T", "@txt.att.net");
 			carrierDict.Add("T-Mobile", "@tmomail.net");
@@ -43,10 +46,6 @@ namespace SafeTrip.iOS
 
 			var model = new CarrierPickerView(carriersList, 0);
 			carrierPickerView.Model = model;
-
-			PhoneNumberTextField.Delegate = new NumberOnlyTextField();
-
-
 
 			this.NavigationItem.SetRightBarButtonItem(
 				new UIBarButtonItem("Address Book", UIBarButtonItemStyle.Plain, (sender, args) =>
@@ -67,20 +66,7 @@ namespace SafeTrip.iOS
 			{
 				emergencyContact = new EmergencyContact(emergencyContact.contactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
 				UpdateContact(emergencyContact);
-
 			};
-
-			//AddressBookButton.TouchUpInside += (object sender, EventArgs e) =>
-			//{
-			//	var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
-			//	ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
-			//	contactsTableViewController.modifyContactsViewController = this;
-
-			//	if (contactsTableViewController != null)
-			//	{
-			//		NavigationController.PushViewController(contactsTableViewController, true);
-			//	}
-			//};
 
 			LoadEmergencyContact(emergencyContact);
 
@@ -93,16 +79,36 @@ namespace SafeTrip.iOS
 				UpdateContactButton.SetTitle("Save Changes", forState: UIControlState.Normal);
 			}
 
-			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			FirstNameTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
+
+			LastNameTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
+
+			PhoneNumberTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
+
+			EmailTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
 		}
 
-		public async void UpdateContact(EmergencyContact emergencyContactIn)
+		public async Task UpdateContact(EmergencyContact emergencyContactIn)
 		{
 			if (emergencyContactIn.contactPhone.Length == 10)
 			{
-				//FIXME
-				//update to userID
 				BTProgressHUD.Show(status: "Loading...");
 				if (await service.postContactToDatabase(emergencyContactIn) == 1)
 				{

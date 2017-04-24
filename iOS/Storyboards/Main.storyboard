@@ -19,33 +19,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86">
-                                <rect key="frame" x="276" y="159" width="38" height="30"/>
-                                <state key="normal" title="Panic">
+                                <rect key="frame" x="150" y="104" width="300" height="300"/>
+                                <state key="normal" backgroundImage="temppanicbutton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="248">
-                                <rect key="frame" x="250" y="285" width="98" height="30"/>
+                                <rect key="frame" x="150" y="434" width="300" height="30"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.94509803921568625" green="0.76470588235294112" blue="0.058823529411764705" alpha="1"/>
                                 <state key="normal" title="Hold My Hand">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                 </state>
                                 <connections/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="263" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="272" y="344" width="56" height="30"/>
+                                <rect key="frame" x="150" y="493" width="300" height="30"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.17254901960784313" green="0.77254901960784317" blue="0.36470588235294116" alpha="1"/>
                                 <state key="normal" title="SafeTrip">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                 </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="86" secondAttribute="centerX" constant="5" id="89"/>
-                            <constraint firstAttribute="centerX" secondItem="248" secondAttribute="centerX" constant="1" id="250"/>
-                            <constraint firstItem="86" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="95" id="251"/>
-                            <constraint id="265" firstItem="263" firstAttribute="top" secondItem="248" secondAttribute="bottom" constant="29"/>
+                            <constraint firstItem="86" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="251"/>
                             <constraint id="270" firstItem="263" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
-                            <constraint id="276" firstItem="248" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="96"/>
+                            <constraint id="289" firstItem="248" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
+                            <constraint id="290" firstItem="248" firstAttribute="leading" secondItem="86" secondAttribute="leading"/>
+                            <constraint id="291" firstItem="86" firstAttribute="trailing" secondItem="248" secondAttribute="trailing"/>
+                            <constraint id="292" firstItem="248" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="30"/>
+                            <constraint id="293" firstItem="263" firstAttribute="leading" secondItem="248" secondAttribute="leading"/>
+                            <constraint id="294" firstItem="248" firstAttribute="trailing" secondItem="263" secondAttribute="trailing"/>
+                            <constraint id="297" firstItem="263" firstAttribute="top" secondItem="248" secondAttribute="bottom" constant="29"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="242"/>
@@ -76,4 +83,7 @@
             <point key="canvasLocation" x="36" y="15"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="temppanicbutton.png" width="300" height="300"/>
+    </resources>
 </document>

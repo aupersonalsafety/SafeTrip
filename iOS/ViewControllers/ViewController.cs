@@ -94,10 +94,12 @@ namespace SafeTrip.iOS
 			if (tempUser == null)
 			{
 				presentLogin();
+				displayDefaultPinMsg("The default pin is 1234. You can reset it in settings.");
 			}
 			else
 			{
 				getUserInfo(null);
+                displayDefaultPinMsg("The default pin is 1234. You can reset it in settings.");
 			}
 		}
 
@@ -175,6 +177,13 @@ namespace SafeTrip.iOS
 			var alert = UIAlertController.Create("Error", error, UIAlertControllerStyle.Alert);
 			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
 			PresentViewController(alert, true, null);
+		}
+
+		private void displayDefaultPinMsg(String defaultMsg)
+		{
+			var defMsg = UIAlertController.Create("Note: ", defaultMsg, UIAlertControllerStyle.Alert);
+			defMsg.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
+			PresentViewController(defMsg, true, null);
 		}
 
 		public void updatePin(String pinIn)

@@ -16,6 +16,7 @@ namespace SafeTrip.iOS
 		public EmergencyContactsViewController emergencyContactsViewController;
 		public string userId;
 		public EmergencyContact emergencyContact;
+		public Auth0.SDK.Auth0Client client;
 
 		Service service = new Service();
 		Dictionary<string, string> carrierDict;
@@ -45,6 +46,23 @@ namespace SafeTrip.iOS
 
 			PhoneNumberTextField.Delegate = new NumberOnlyTextField();
 
+
+
+			this.NavigationItem.SetRightBarButtonItem(
+				new UIBarButtonItem("Address Book", UIBarButtonItemStyle.Plain, (sender, args) =>
+				{
+					var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
+					ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
+					contactsTableViewController.modifyContactsViewController = this;
+
+					if (contactsTableViewController != null)
+					{
+						NavigationController.PushViewController(contactsTableViewController, true);
+					}
+				})
+			, true);
+
+
 			UpdateContactButton.TouchUpInside += delegate
 			{
 				emergencyContact = new EmergencyContact(emergencyContact.ContactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
@@ -52,17 +70,17 @@ namespace SafeTrip.iOS
 
 			};
 
-			AddressBookButton.TouchUpInside += (object sender, EventArgs e) =>
-			{
-				var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
-				ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
-				contactsTableViewController.modifyContactsViewController = this;
+			//AddressBookButton.TouchUpInside += (object sender, EventArgs e) =>
+			//{
+			//	var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
+			//	ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
+			//	contactsTableViewController.modifyContactsViewController = this;
 
-				if (contactsTableViewController != null)
-				{
-					NavigationController.PushViewController(contactsTableViewController, true);
-				}
-			};
+			//	if (contactsTableViewController != null)
+			//	{
+			//		NavigationController.PushViewController(contactsTableViewController, true);
+			//	}
+			//};
 
 			LoadEmergencyContact(emergencyContact);
 

@@ -12,6 +12,8 @@ namespace SafeTrip.iOS
 	{
 		Service service;
 		public string userId;
+		public Auth0.SDK.Auth0Client client;
+		public ViewController presentingViewController;
 
 		public EmergencyContactsViewController(IntPtr handle) : base(handle)
 		{
@@ -30,7 +32,8 @@ namespace SafeTrip.iOS
 				{
 					var storyBoard = UIStoryboard.FromName("ModifyContact", Foundation.NSBundle.MainBundle);
 					ModifyContactViewController modifyContactViewController = (ModifyContactViewController)storyBoard.InstantiateViewController("ModifyContactViewController");
-
+					modifyContactViewController.client = client;
+					modifyContactViewController.userId = userId;
 					if (modifyContactViewController != null)
 					{
 						modifyContactViewController.userId = userId;

@@ -360,19 +360,20 @@ namespace SafeTrip
 
 		public async Task<int> postContactToDatabase(EmergencyContact contact, string userId)
 		{
-			String url = "https://au-personal-safety.herokuapp.com/contact/sendtodb";
+			String url = "https://au-personal-safety.herokuapp.com/contact/sendtodb/" + userId;
 
 			var client = new HttpClient();
 
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
-			dict.Add("firstName", contact.FirstName);
-			dict.Add("lastName", contact.LastName);
-			dict.Add("contactEmail", contact.Email);
-			dict.Add("contactPhone", contact.PhoneNumber);
-			dict.Add("contactCarrier", contact.Carrier);
-			dict.Add("contactID", contact.ContactID);
-			dict.Add("userID", userId);
-			var json = JsonConvert.SerializeObject(dict);
+			dict.Add("FirstName", contact.FirstName);
+			dict.Add("LastName", contact.LastName);
+			dict.Add("ContactEmail", contact.Email);
+			dict.Add("ContactPhone", contact.PhoneNumber);
+			dict.Add("ContactCarrier", contact.Carrier);
+			dict.Add("ContactID", contact.ContactID);
+
+			//dict.Add("UserID", userId);
+			string json = JsonConvert.SerializeObject(dict, Formatting.None);
 
 			System.Diagnostics.Debug.WriteLine("json: " + json);
 

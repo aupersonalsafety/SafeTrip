@@ -18,6 +18,11 @@ namespace SafeTrip.Droid
 	{
 		Service service = new Service();
 		List<EmergencyContact> contacts;
+
+
+		public string pin;
+		public string userId;
+
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);

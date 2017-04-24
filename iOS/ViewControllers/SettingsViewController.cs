@@ -52,6 +52,8 @@ namespace SafeTrip.iOS
 		{
 			var storyBoard = UIStoryboard.FromName("EmergencyContactsMenu", Foundation.NSBundle.MainBundle);
 			EmergencyContactsViewController emergencyContactsVC = (EmergencyContactsViewController)storyBoard.InstantiateViewController("EmergencyContactsViewController");
+			emergencyContactsVC.userId = userId;
+			emergencyContactsVC.client = client;
 			if (emergencyContactsVC != null)
 			{
 				NavigationController.PushViewController(emergencyContactsVC, true);

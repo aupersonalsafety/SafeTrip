@@ -16,7 +16,7 @@ namespace SafeTrip.iOS
 		public ViewController presentingViewController;
 		public string userId;
 
-		Service service = new Service();
+		public Service service;
 
 		public SettingsViewController() : base("SettingsViewController", null)
 		{
@@ -54,6 +54,7 @@ namespace SafeTrip.iOS
 			EmergencyContactsViewController emergencyContactsVC = (EmergencyContactsViewController)storyBoard.InstantiateViewController("EmergencyContactsViewController");
 			emergencyContactsVC.userId = userId;
 			emergencyContactsVC.client = client;
+			emergencyContactsVC.service = service;
 			if (emergencyContactsVC != null)
 			{
 				NavigationController.PushViewController(emergencyContactsVC, true);
@@ -140,7 +141,7 @@ namespace SafeTrip.iOS
 		private async Task updatePin(string newPin)
 		{
 			BTProgressHUD.Show(status: "Loading...");
-			await service.updatePin(userId, newPin);
+			await service.updatePin(newPin);
 			BTProgressHUD.Dismiss();
 
 			presentingViewController.updatePin(newPin);

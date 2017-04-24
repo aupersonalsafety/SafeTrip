@@ -18,7 +18,7 @@ namespace SafeTrip.iOS
 		public EmergencyContact emergencyContact;
 		public Auth0.SDK.Auth0Client client;
 
-		Service service = new Service();
+		public Service service;
 		Dictionary<string, string> carrierDict;
 		List<string> carriersList;
 		int? emergencyContactID;
@@ -54,7 +54,7 @@ namespace SafeTrip.iOS
 					var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
 					ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
 					contactsTableViewController.modifyContactsViewController = this;
-
+					contactsTableViewController.service = service;
 					if (contactsTableViewController != null)
 					{
 						NavigationController.PushViewController(contactsTableViewController, true);
@@ -104,7 +104,7 @@ namespace SafeTrip.iOS
 				//FIXME
 				//update to userID
 				BTProgressHUD.Show(status: "Loading...");
-				if (await service.postContactToDatabase(emergencyContactIn, userId) == 1)
+				if (await service.postContactToDatabase(emergencyContactIn) == 1)
 				{
 					BTProgressHUD.Dismiss();
 					emergencyContactsViewController.DismissUpdateContactViewModel();

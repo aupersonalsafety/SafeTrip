@@ -345,13 +345,13 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return parseContactList(await response.Content.ReadAsStringAsync());
 			}
 			else
 			{
 				//reponse not successful
-				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return new List<EmergencyContact>();
 			}
 		}
@@ -360,7 +360,8 @@ namespace SafeTrip
 		//parse this list
 		private List<EmergencyContact> parseContactList(String contactsIn)
 		{
-			return new List<EmergencyContact>();
+			List<EmergencyContact> list = JsonConvert.DeserializeObject<List<EmergencyContact>>(contactsIn);
+			return list;
 		}
 
 		public async Task<int> postContactToDatabase(EmergencyContact contact)
@@ -372,10 +373,10 @@ namespace SafeTrip
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
 			dict.Add("FirstName", contact.FirstName);
 			dict.Add("LastName", contact.LastName);
-			dict.Add("ContactEmail", contact.Email);
-			dict.Add("ContactPhone", contact.PhoneNumber);
-			dict.Add("ContactCarrier", contact.Carrier);
-			dict.Add("ContactID", contact.ContactID);
+			dict.Add("ContactEmail", contact.contactEmail);
+			dict.Add("ContactPhone", contact.contactPhone);
+			dict.Add("ContactCarrier", contact.contactCarrier);
+			dict.Add("ContactID", contact.contactID);
 
 			//dict.Add("UserID", userId);
 			string json = JsonConvert.SerializeObject(dict, Formatting.None);
@@ -497,8 +498,8 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
-				return "1234";
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content.ReadAsStringAsync().Result);
+				return response.Content.ReadAsStringAsync().Result;
 			}
 			else
 			{

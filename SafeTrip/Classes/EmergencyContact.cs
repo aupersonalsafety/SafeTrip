@@ -7,21 +7,21 @@ namespace SafeTrip
 		{
 		}
 
-		public EmergencyContact(int? contactID, string firstName, string lastName, string phoneNumber, string email, string carrier)
+		public EmergencyContact(int? contactIDIn, string firstName, string lastName, string phoneNumber, string email, string carrier)
 		{
-			ContactID = contactID;
+			contactID = contactIDIn;
 			FirstName = firstName;
 			LastName = lastName;
-			PhoneNumber = phoneNumber;
-			Email = email;
-			Carrier = carrier;
+			contactPhone = phoneNumber;
+			contactEmail = email;
+			contactCarrier = carrier;
 		}
 
-		public int? ContactID { get; set; }
+		public int? contactID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public string PhoneNumber { get; set;}
-		public string Email { get; set;}
-		public string Carrier { get; set; }
+		public string contactPhone { get; set;}
+		public string contactEmail { get; set;}
+		public string contactCarrier { get; set; }
 	}
 }

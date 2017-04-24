@@ -29,14 +29,14 @@ namespace SafeTrip.iOS
 			base.ViewDidLoad();
 			Title = "SafeTrip";
 
-			getPin();
-
 			var defaults = NSUserDefaults.StandardUserDefaults;
 
 			if (defaults.StringForKey("userId") != null && defaults.StringForKey("userToken") != null)
 			{
 				userId = defaults.StringForKey("userId");
+				service.userId = userId;
 				userToken = defaults.StringForKey("userToken");
+                getPin();
 			}
 			else
 			{

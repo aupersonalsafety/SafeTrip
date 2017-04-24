@@ -65,7 +65,7 @@ namespace SafeTrip.iOS
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
-				emergencyContact = new EmergencyContact(emergencyContact.ContactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
+				emergencyContact = new EmergencyContact(emergencyContact.contactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
 				UpdateContact(emergencyContact);
 
 			};
@@ -84,7 +84,7 @@ namespace SafeTrip.iOS
 
 			LoadEmergencyContact(emergencyContact);
 
-			if (emergencyContact.ContactID == null)
+			if (emergencyContact.contactID == null)
 			{
 				UpdateContactButton.SetTitle("Add Contact", forState: UIControlState.Normal);
 			}
@@ -99,7 +99,7 @@ namespace SafeTrip.iOS
 
 		public async void UpdateContact(EmergencyContact emergencyContactIn)
 		{
-			if (emergencyContactIn.PhoneNumber.Length == 10)
+			if (emergencyContactIn.contactPhone.Length == 10)
 			{
 				//FIXME
 				//update to userID
@@ -149,12 +149,12 @@ namespace SafeTrip.iOS
 
 		public void LoadEmergencyContact(EmergencyContact emergencyContact)
 		{
-			emergencyContactID = emergencyContact.ContactID;
+			emergencyContactID = emergencyContact.contactID;
 			FirstNameTextField.Text = emergencyContact.FirstName;
 			LastNameTextField.Text = emergencyContact.LastName;
-			PhoneNumberTextField.Text = removeLetters(emergencyContact.PhoneNumber);
-			EmailTextField.Text = emergencyContact.Email;
-			var index = carriersList.IndexOf(emergencyContact.Carrier);
+			PhoneNumberTextField.Text = removeLetters(emergencyContact.contactPhone);
+			EmailTextField.Text = emergencyContact.contactEmail;
+			var index = carriersList.IndexOf(emergencyContact.contactCarrier);
 			carrierPickerView.Select(index, 0, false);
 		}
 

@@ -144,6 +144,8 @@ namespace SafeTrip.iOS
 			await service.updatePin(newPin);
 			BTProgressHUD.Dismiss();
 
+			pin = newPin;
+
 			presentingViewController.updatePin(newPin);
 		}
 

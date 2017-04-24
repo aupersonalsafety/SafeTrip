@@ -63,11 +63,11 @@ namespace SafeTrip.iOS
 			if (modifyContactViewController != null)
 			{
 				modifyContactViewController.emergencyContact = new EmergencyContact();
-				modifyContactViewController.emergencyContact.ContactID = emergencyContact.ContactID;
+				modifyContactViewController.emergencyContact.contactID = emergencyContact.contactID;
 				modifyContactViewController.emergencyContact.FirstName = emergencyContact.FirstName;
 				modifyContactViewController.emergencyContact.LastName = emergencyContact.LastName;
-				modifyContactViewController.emergencyContact.PhoneNumber = emergencyContact.PhoneNumber;
-				modifyContactViewController.emergencyContact.Email = emergencyContact.Email;
+				modifyContactViewController.emergencyContact.contactPhone = emergencyContact.contactPhone;
+				modifyContactViewController.emergencyContact.contactEmail = emergencyContact.contactEmail;
 				modifyContactViewController.emergencyContactsViewController = this;
 				modifyContactViewController.service = service;
 				NavigationController.PushViewController(modifyContactViewController, true);
@@ -86,6 +86,7 @@ namespace SafeTrip.iOS
 		{
 			var fetchedContacts = await service.fetchContacts();
 			TableView.Source = new EmergencyContactsDataSource(fetchedContacts, this);
+			TableView.ReloadData();
 		}
 
 		public async Task removeContact(int contactId)
@@ -151,7 +152,7 @@ namespace SafeTrip.iOS
 			{
 				case UITableViewCellEditingStyle.Delete:
 					// remove the item from the underlying data source
-					int contactId = (int)contacts[indexPath.Row].ContactID;
+					int contactId = (int)contacts[indexPath.Row].contactID;
 					owner.removeContact(contactId);
 					contacts.RemoveAt(indexPath.Row);
 					// delete the row from the table

@@ -79,6 +79,7 @@ namespace SafeTrip.iOS
 									displayContactingEmergencyContacts();
 									attempts++;
 									//timerSet = false;
+									service.ContactEmergencyContacts();
 								});
 							}
 							else

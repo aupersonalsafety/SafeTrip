@@ -81,23 +81,19 @@ namespace SafeTrip
 		public async Task<int> ContactEmergencyContacts()
 		{
 
-			String url = "https://au-personal-safety.herokuapp.com/alertcontacts";
+			String url = "https://au-personal-safety.herokuapp.com/alertcontacts/" + userId;
 
 			var client = new HttpClient();
 
-			Dictionary<String, Object> dict = new Dictionary<String, Object>();
-			dict.Add("userID", userId);
-			var json = JsonConvert.SerializeObject(dict);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//var content = new StringContent(
+			//		json,
+			//		Encoding.UTF8,
+			//		"application/json"
+			//	);
 
-			var content = new StringContent(
-					json,
-					Encoding.UTF8,
-					"application/json"
-				);
-
-			var response = await client.PostAsync(url, content);
+			var response = await client.PostAsync(url, null);
 
 			if (response.IsSuccessStatusCode)
 			{

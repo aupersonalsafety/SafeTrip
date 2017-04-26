@@ -53,7 +53,7 @@ namespace SafeTrip.iOS
 
 		public async void getTravelTime()
 		{
-			int estimatedTime = await service.getTravelTime(DesinationTextField.Text);
+			int estimatedTime = (int)Math.Round((Convert.ToDouble(await service.getTravelTime(DesinationTextField.Text))/60), 0);
 			EstimatedTravelTimeLabel.Text = "Estimated Travel Time: " + estimatedTime + " minutes";
 			UserTimeEstimateTextField.Text = estimatedTime.ToString();
 		}

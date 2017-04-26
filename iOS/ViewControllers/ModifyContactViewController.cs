@@ -64,8 +64,43 @@ namespace SafeTrip.iOS
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
-				emergencyContact = new EmergencyContact(emergencyContact.contactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
-				UpdateContact(emergencyContact);
+				bool valid = true;
+				string phoneNumber = PhoneNumberTextField.Text;
+				long phoneNumberInt;
+				if (Int64.TryParse(phoneNumber, out phoneNumberInt))
+				{
+					if (phoneNumber.Length == 11)
+					{
+						if (phoneNumber[0] == '1')
+						{
+							phoneNumber = phoneNumber.Substring(1);
+						}
+						else
+						{
+							valid = false;
+						}
+					}
+					else if (phoneNumber.Length != 10)
+					{
+						valid = false;
+					}
+				}
+				else
+				{
+					valid = false;	
+				}
+				if (valid)
+				{
+					emergencyContact = new EmergencyContact(emergencyContact.contactID, FirstNameTextField.Text, LastNameTextField.Text, phoneNumber, EmailTextField.Text, carrierDict[model.getSelected()]);
+					UpdateContact(emergencyContact);
+				}
+				else
+				{
+					var alert = UIAlertController.Create("Error", "This is not a valid phonenumber. Please enter a valid phone number to continue.", UIAlertControllerStyle.Alert);
+					alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+					PresentViewController(alert, true, null);
+				}
+
 			};
 
 			LoadEmergencyContact(emergencyContact);

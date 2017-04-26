@@ -18,88 +18,86 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                                <rect key="frame" x="70" y="96" width="285" height="30"/>
+                                <rect key="frame" x="20" y="81" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                                <rect key="frame" x="70" y="175" width="285" height="30"/>
+                                <rect key="frame" x="20" y="152" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="17">
-                                <rect key="frame" x="70" y="266" width="285" height="30"/>
+                                <rect key="frame" x="20" y="223" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18">
-                                <rect key="frame" x="70" y="347" width="285" height="30"/>
+                                <rect key="frame" x="20" y="294" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                <rect key="frame" x="146" y="577" width="83" height="30"/>
+                                <rect key="frame" x="146" y="565" width="83" height="30"/>
                                 <state key="normal" title="Add/Update">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36">
-                                <rect key="frame" x="70" y="55" width="83" height="21"/>
+                                <rect key="frame" x="20" y="55" width="83" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37" misplaced="YES">
-                                <rect key="frame" x="70" y="134" width="82" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37">
+                                <rect key="frame" x="20" y="126" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="38">
-                                <rect key="frame" x="70" y="225" width="115" height="21"/>
+                                <rect key="frame" x="20" y="197" width="115" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39">
-                                <rect key="frame" x="70" y="316" width="108" height="21"/>
+                                <rect key="frame" x="20" y="268" width="108" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" id="59" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="70" y="377" width="274" height="216"/>
-                                <constraints>
-                                    <constraint id="113" firstAttribute="width" constant="274"/>
-                                </constraints>
+                                <rect key="frame" x="28" y="329" width="320" height="216"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint id="116" firstItem="16" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
                             <constraint id="117" firstItem="36" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
-                            <constraint id="118" firstItem="37" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="20"/>
                             <constraint id="119" firstItem="17" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
                             <constraint id="120" firstItem="18" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
                             <constraint id="121" firstItem="38" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
                             <constraint id="122" firstItem="39" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
-                            <constraint id="123" firstItem="59" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
                             <constraint id="124" firstItem="36" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="35"/>
-                            <constraint id="125" firstItem="36" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="70"/>
-                            <constraint id="126" firstItem="15" firstAttribute="top" secondItem="36" secondAttribute="bottom" constant="20"/>
-                            <constraint id="127" firstItem="37" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="8"/>
-                            <constraint id="128" firstItem="16" firstAttribute="top" secondItem="37" secondAttribute="bottom" constant="20"/>
-                            <constraint id="129" firstItem="38" firstAttribute="top" secondItem="16" secondAttribute="bottom" constant="20"/>
-                            <constraint id="130" firstItem="17" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="20"/>
-                            <constraint id="132" firstItem="39" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="20"/>
-                            <constraint id="133" firstItem="18" firstAttribute="top" secondItem="39" secondAttribute="bottom" constant="10"/>
-                            <constraint id="135" firstItem="59" firstAttribute="top" secondItem="18" secondAttribute="bottom"/>
+                            <constraint id="126" firstItem="15" firstAttribute="top" secondItem="36" secondAttribute="bottom" constant="5"/>
+                            <constraint id="127" firstItem="37" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="15"/>
+                            <constraint id="128" firstItem="16" firstAttribute="top" secondItem="37" secondAttribute="bottom" constant="5"/>
+                            <constraint id="129" firstItem="38" firstAttribute="top" secondItem="16" secondAttribute="bottom" constant="15"/>
+                            <constraint id="130" firstItem="17" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="5"/>
+                            <constraint id="132" firstItem="39" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="15"/>
+                            <constraint id="133" firstItem="18" firstAttribute="top" secondItem="39" secondAttribute="bottom" constant="5"/>
                             <constraint id="141" firstItem="6" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" constant="20"/>
                             <constraint id="142" firstItem="6" firstAttribute="trailing" secondItem="18" secondAttribute="trailing" constant="20"/>
                             <constraint id="143" firstItem="6" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" constant="20"/>
                             <constraint id="144" firstItem="6" firstAttribute="trailing" secondItem="15" secondAttribute="trailing" constant="20"/>
-                            <constraint id="151" firstItem="59" firstAttribute="bottom" secondItem="20" secondAttribute="top" constant="16"/>
                             <constraint id="156" firstItem="6" firstAttribute="centerX" secondItem="20" secondAttribute="centerX"/>
+                            <constraint id="160" firstItem="37" firstAttribute="leading" secondItem="15" secondAttribute="leading"/>
+                            <constraint id="161" firstItem="36" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20"/>
+                            <constraint id="162" firstItem="15" firstAttribute="leading" secondItem="36" secondAttribute="leading"/>
+                            <constraint id="172" firstItem="6" firstAttribute="centerX" secondItem="59" secondAttribute="centerX"/>
+                            <constraint id="173" firstItem="20" firstAttribute="top" secondItem="59" secondAttribute="bottom" constant="20"/>
+                            <constraint id="174" firstItem="59" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="5"/>
                         </constraints>
                     </view>
                     <connections>

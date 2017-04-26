@@ -49,33 +49,33 @@ namespace SafeTrip.Droid
 			}
 			if (Intent.HasExtra("phoneNumber"))
 			{
-				emergencyContact.PhoneNumber = Intent.GetStringExtra("phoneNumber");
+				emergencyContact.contactPhone = Intent.GetStringExtra("phoneNumber");
 			}
 			if (Intent.HasExtra("email"))
 			{
-				emergencyContact.Email = Intent.GetStringExtra("email");
+				emergencyContact.contactEmail = Intent.GetStringExtra("email");
 			}
 			if (Intent.HasExtra("contactId"))
 			{
 				int contactId = Intent.GetIntExtra("contactId", -1);
 				if (contactId == -1)
 				{
-					emergencyContact.ContactID = null;
+					emergencyContact.contactID = null;
 				}
 				else
 				{
-					emergencyContact.ContactID = contactId;
+					emergencyContact.contactID = contactId;
 				}
 			}
 			else
 			{
-				emergencyContact.ContactID = null;
+				emergencyContact.contactID = null;
 			}
 
 			insertUser();
 
 			saveContactButton.Click += delegate {
-				emergencyContact = new EmergencyContact(emergencyContact.ContactID, firstNameEditText.Text, lastNameEditText.Text, phoneNumberEditText.Text, emailEditText.Text, "Verizon");
+				emergencyContact = new EmergencyContact(emergencyContact.contactID, firstNameEditText.Text, lastNameEditText.Text, phoneNumberEditText.Text, emailEditText.Text, "Verizon");
 				UpdateContact(emergencyContact);
 			};
 		}
@@ -98,9 +98,9 @@ namespace SafeTrip.Droid
 			{
 				emergencyContact.FirstName = data.GetStringExtra("firstName");
 				emergencyContact.LastName = data.GetStringExtra("lastName");
-				emergencyContact.PhoneNumber = data.GetStringExtra("phoneNumber");
-				emergencyContact.Email = data.GetStringExtra("email");
-				emergencyContact.ContactID = null;
+				emergencyContact.contactPhone = data.GetStringExtra("phoneNumber");
+				emergencyContact.contactEmail = data.GetStringExtra("email");
+				emergencyContact.contactID = null;
 
 				insertUser();
 			}
@@ -110,9 +110,9 @@ namespace SafeTrip.Droid
 		{
 			firstNameEditText.Text = emergencyContact.FirstName;
 			lastNameEditText.Text = emergencyContact.LastName;
-			phoneNumberEditText.Text = emergencyContact.PhoneNumber;
-			emailEditText.Text = emergencyContact.Email;
-			if (emergencyContact.ContactID == null)
+			phoneNumberEditText.Text = emergencyContact.contactPhone;
+			emailEditText.Text = emergencyContact.contactEmail;
+			if (emergencyContact.contactID == null)
 			{
 				saveContactButton.Text = "Save Contact";
 			}
@@ -124,7 +124,7 @@ namespace SafeTrip.Droid
 
 		private async void UpdateContact(EmergencyContact emergencyContactIn)
 		{
-			if (emergencyContactIn.PhoneNumber.Length == 10)
+			if (emergencyContactIn.contactPhone.Length == 10)
 			{
 				//FIXME
 				//update to userID

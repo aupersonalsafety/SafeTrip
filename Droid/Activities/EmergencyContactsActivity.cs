@@ -51,17 +51,17 @@ namespace SafeTrip.Droid
 			Intent modify = new Intent(this, typeof(ModifyContactActivity));
 			modify.PutExtra("firstName", contacts[position].FirstName);
 			modify.PutExtra("lastName", contacts[position].LastName);
-			if (contacts[position].Email != null)
+			if (contacts[position].contactEmail != null)
 			{
-				modify.PutExtra("email", contacts[position].Email);
+				modify.PutExtra("email", contacts[position].contactEmail);
 			}
-			if (contacts[position].PhoneNumber != null)
+			if (contacts[position].contactPhone != null)
 			{
-				modify.PutExtra("phoneNumber", contacts[position].PhoneNumber);
+				modify.PutExtra("phoneNumber", contacts[position].contactPhone);
 			}
-			if (contacts[position].ContactID != null)
+			if (contacts[position].contactID != null)
 			{
-				modify.PutExtra("contactId", contacts[position].ContactID ?? -1);
+				modify.PutExtra("contactId", contacts[position].contactID ?? -1);
 			}
 			StartActivity(modify);
 		}

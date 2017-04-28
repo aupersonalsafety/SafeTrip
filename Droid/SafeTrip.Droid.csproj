@@ -108,6 +108,8 @@
     <Compile Include="Activities\ModifyContactActivity.cs" />
     <Compile Include="Activities\AddressBookActivity.cs" />
     <Compile Include="Activities\PinActivity.cs" />
+    <Compile Include="Activities\SettingsActivity.cs" />
+    <Compile Include="Helpers\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -136,6 +138,7 @@
     <AndroidResource Include="Resources\layout\ModifyContactLayout.axml" />
     <AndroidResource Include="Resources\layout\PinLayout.axml" />
     <AndroidResource Include="Resources\menu\MainActivityMenu.xml" />
+    <AndroidResource Include="Resources\layout\SettingsLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

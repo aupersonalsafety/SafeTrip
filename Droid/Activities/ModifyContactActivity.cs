@@ -18,7 +18,9 @@ namespace SafeTrip.Droid
 		EditText emailEditText;
 		Button saveContactButton;
 		EmergencyContact emergencyContact;
-		Service service = new Service();
+		Service service;
+
+		String userId;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -26,6 +28,10 @@ namespace SafeTrip.Droid
 
 			// Create your application here
 			SetContentView(Resource.Layout.ModifyContactLayout);
+
+			userId = Intent.GetStringExtra("userId");
+
+			service = new Service(userId);
 
 			Button addressBookButton = FindViewById<Button>(Resource.Id.addFromAddressBookButton);
 			addressBookButton.Click += delegate
@@ -126,8 +132,6 @@ namespace SafeTrip.Droid
 		{
 			if (emergencyContactIn.contactPhone.Length == 10)
 			{
-				//FIXME
-				//update to userID
 				AndroidHUD.AndHUD.Shared.Show(this, "Loading", maskType: AndroidHUD.MaskType.Clear);
 				if (await service.postContactToDatabase(emergencyContactIn) == 1)
 				{

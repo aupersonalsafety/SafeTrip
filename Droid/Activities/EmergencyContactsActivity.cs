@@ -16,7 +16,7 @@ namespace SafeTrip.Droid
 	[Activity(Label = "EmergencyContactsActivity")]
 	public class EmergencyContactsActivity : ListActivity
 	{
-		Service service = new Service();
+		Service service;
 		List<EmergencyContact> contacts;
 
 
@@ -28,6 +28,11 @@ namespace SafeTrip.Droid
 			base.OnCreate(savedInstanceState);
 
 			// Create your application here
+
+			userId = Intent.GetStringExtra("userId");
+
+			service = new Service(userId);
+
 			fetchContacts();
 		}
 
@@ -72,7 +77,9 @@ namespace SafeTrip.Droid
 			switch (item.ItemId)
 			{
 				case Resource.Id.menu_add:
-					StartActivity(typeof(ModifyContactActivity));
+					var modifyContactIntent = new Intent(this, typeof(ModifyContactActivity));
+					modifyContactIntent.PutExtra("userId", userId);
+					StartActivity(modifyContactIntent);
 					break;
 			}
 			return base.OnOptionsItemSelected(item);

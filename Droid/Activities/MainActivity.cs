@@ -14,12 +14,12 @@ namespace SafeTrip.Droid
 
 	public class MainActivity : Activity
 	{
-		Service service = new Service();
-		const String PREF_NAME = "SafeTrip";
+		Service service;
 		String userId;
 		String userToken;
 		ISharedPreferences prefs;
 		ISharedPreferencesEditor editor;
+		String pin;
 
 		private Auth0.SDK.Auth0Client client = new Auth0.SDK.Auth0Client("aupersonalsafety.auth0.com", "n4kXJEiHpBL3v1e0p0cM6pj8icidoZzo");
 
@@ -31,7 +31,7 @@ namespace SafeTrip.Droid
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.HomeScreen);
 
-			prefs = GetSharedPreferences(PREF_NAME, FileCreationMode.Private);
+			prefs = GetSharedPreferences(Constants.PREF_NAME, FileCreationMode.Private);
 			editor = prefs.Edit();
 
 			setupUI();
@@ -49,10 +49,28 @@ namespace SafeTrip.Droid
 			switch (item.ItemId)
 			{
 				case Resource.Id.main_activity_menu:
-					StartActivity(typeof(EmergencyContactsActivity));
+					StartActivityForResult(typeof(SettingsActivity), 0);
 					break;
 			}
 			return base.OnOptionsItemSelected(item);
+		}
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+
+			if (resultCode == Result.Ok)
+			{
+				if (data.GetBooleanExtra("signOut", false) == true)
+				{
+					fetchLoginInfo();
+				}
+
+				if (data.GetBooleanExtra("pinUpdated", false) == true) 
+				{
+					fetchPin();
+				}
+			}
 		}
 
 		private async Task fetchLoginInfo()
@@ -62,7 +80,7 @@ namespace SafeTrip.Droid
 
 			if (userId == null || userToken == null)
 			{
-				try 
+				try
 				{
 					var user = await this.client.LoginAsync(this);
 					userToken = user.Auth0AccessToken;
@@ -77,6 +95,11 @@ namespace SafeTrip.Droid
 				{
 					displayError(e.Message);
 				}
+			}
+			else
+			{
+				service = new Service(userId);
+				fetchPin();
 			}
 		}
 
@@ -119,6 +142,11 @@ namespace SafeTrip.Droid
 			editor.PutString("userId", userId);
 			editor.PutString("userToken", userToken);
 			editor.Apply();
+		}
+
+		private async Task fetchPin()
+		{
+			pin = await service.getPin();
 		}
 
 		private void displayError(String message)

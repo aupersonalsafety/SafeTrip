@@ -5,6 +5,8 @@ using UIKit;
 using Foundation;
 using BigTed;
 
+using Auth0.SDK;
+
 namespace SafeTrip.iOS
 {
 	public partial class SettingsViewController : UITableViewController
@@ -12,7 +14,7 @@ namespace SafeTrip.iOS
 		string[] tableData;
 
 		public string pin;
-		public Auth0.SDK.Auth0Client client;
+		public Auth0Client client;
 		public ViewController presentingViewController;
 		public string userId;
 

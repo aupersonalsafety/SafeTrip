@@ -63,6 +63,7 @@ namespace SafeTrip.Droid
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::SafeTrip.Droid.Resource.Styleable.ProgressWheel_ahText;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::SafeTrip.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::SafeTrip.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
+			global::Auth0.SDK.Resource.String.library_name = global::SafeTrip.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Attribute

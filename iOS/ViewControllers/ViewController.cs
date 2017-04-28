@@ -21,7 +21,7 @@ namespace SafeTrip.iOS
 		{
 		}
 
-		private Auth0.SDK.Auth0Client client = new Auth0.SDK.Auth0Client("aupersonalsafety.auth0.com",
+		private Auth0Client client = new Auth0.SDK.Auth0Client("aupersonalsafety.auth0.com",
 																		 "n4kXJEiHpBL3v1e0p0cM6pj8icidoZzo");
 
 		public override void ViewDidLoad()

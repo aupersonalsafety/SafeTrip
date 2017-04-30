@@ -78,18 +78,21 @@ namespace SafeTrip.Droid
 			oldPinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			oldPinEditText.Hint = "Enter Old Pin";
 			oldPinEditText.SetFilters(lengthFilter);
+			oldPinEditText.InputType = InputTypes.NumberVariationPassword;
 			layout.AddView(oldPinEditText);
 
 			EditText newPinEditText = new EditText(this);
 			newPinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			newPinEditText.Hint = "Enter New Pin";
 			newPinEditText.SetFilters(lengthFilter);
+			newPinEditText.InputType = InputTypes.NumberVariationPassword;
 			layout.AddView(newPinEditText);
 
 			EditText confirmNewPinEditText = new EditText(this);
 			confirmNewPinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			confirmNewPinEditText.Hint = "Confirm New Pin";
 			confirmNewPinEditText.SetFilters(lengthFilter);
+			confirmNewPinEditText.InputType = InputTypes.NumberVariationPassword;
 			layout.AddView(confirmNewPinEditText);
 
 			alert.SetView(layout);

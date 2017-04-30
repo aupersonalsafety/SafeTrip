@@ -3,13 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <EditText
-        android:inputType="numberPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/PinNumber"
-        android:maxLength="4"
-        android:numeric="integer" />
     <Button
         android:text="@string/finishRecordingButton"
         android:layout_width="match_parent"

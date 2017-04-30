@@ -1,21 +1,12 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 using Android.App;
 using Android.Content;
-//using Android.Hardware;
-//using Android.Graphics;
 using Android.Media;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-
-using Android.Hardware.Camera2;
+using Android.Text;
 
 namespace SafeTrip.Droid
 {
@@ -24,11 +15,13 @@ namespace SafeTrip.Droid
 	{
 		MediaRecorder recorder;
 
-		Button finishRecordingButton;
-		EditText pinNumber;
-
-		VideoView video;
+		//VideoView video;
 		//TextureView video;
+
+		public String pin;
+		String userId;
+		int attempts;
+		Service service;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -37,45 +30,22 @@ namespace SafeTrip.Droid
 
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.RecordVideo);
-			if (null == savedInstanceState)
+			if (savedInstanceState == null)
 			{
 				FragmentManager.BeginTransaction()
 					.Replace(Resource.Id.container, Camera2VideoFragment.newInstance())
 					.Commit();
 			}
 
-
-			finishRecordingButton = FindViewById<Button>(Resource.Id.finishRecordingButton);
-
-			pinNumber = FindViewById<EditText>(Resource.Id.PinNumber);
 			//video = FindViewById<VideoView>(Resource.Id.videoView);
 			//video = FindViewById<TextureView>(Resource.Id.textureView1);
+			pin = Intent.GetStringExtra("pin");
+			userId = Intent.GetStringExtra("userId");
 
-			finishRecordingButton.Click += delegate
-			{
-				showKeyboard(pinNumber, this);
-				//showVideoFeed();
-			};
+			service = new Service(userId);
+			attempts = 0;
 
-			pinNumber.TextChanged += delegate
-			{
-				if (pinNumber.Text.Length >= 4)
-				{
-					//Check Password
-					if (pinNumber.Text == "1234")
-					{
-						Finish();
-					}
-					else
-					{
-						Toast.MakeText(this, "Incorrect Pin", ToastLength.Short).Show();
-						char[] test = new char[0];
-						pinNumber.SetText(test, 0, 0);
-					}
-				}
-			};
-
-
+			setupUI();
 		}
 
 		protected override void OnResume()
@@ -95,6 +65,16 @@ namespace SafeTrip.Droid
 				recorder.Dispose();
 				recorder = null;
 			}
+		}
+
+		private void setupUI()
+		{
+			Button finishRecordingButton = FindViewById<Button>(Resource.Id.finishRecordingButton);
+			finishRecordingButton.Click += delegate
+			{
+				//showVideoFeed();
+				confirmPinNumber();
+			};
 		}
 
 		public void showVideoFeed()
@@ -140,13 +120,60 @@ namespace SafeTrip.Droid
 		public static void showKeyboard(EditText mEtSearch, Context context)
 		{
 			mEtSearch.RequestFocus();
-			InputMethodManager imm = (InputMethodManager)context.GetSystemService(Activity.InputMethodService);
+			InputMethodManager imm = (InputMethodManager)context.GetSystemService(InputMethodService);
 			imm.ShowSoftInput(mEtSearch, 0);
 		}
 
 		public override void OnBackPressed()
 		{
+			
+		}
+
+		private void confirmPinNumber()
+		{
+			if (attempts > 5)
+			{
+				service.ContactEmergencyContacts();
+				return;
+			}
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.SetTitle("Confirm Pin");
+
+			var lengthFilter = new IInputFilter[] { new InputFilterLengthFilter(4) };
+
+			LinearLayout layout = new LinearLayout(this);
+			layout.Orientation = Android.Widget.Orientation.Vertical;
+			EditText pinEditText = new EditText(this);
+			pinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
+			pinEditText.Hint = "Enter Pin";
+			pinEditText.SetFilters(lengthFilter);
+			pinEditText.InputType = InputTypes.NumberVariationPassword;
+			layout.AddView(pinEditText);
+
+			alert.SetView(layout);
+
+			alert.SetNegativeButton("Cancel", (sender, e) =>
+			{
+				
+			});
+
+			alert.SetPositiveButton("Done", (sender, e) =>
+			{
+				String enteredPin = pinEditText.Text;
+
+				if (pin.Equals(enteredPin))
+				{
+					Finish();
+				}
+				else
+				{
+					attempts++;
+					confirmPinNumber();
+				}
+
+			});
+			AlertDialog dialog = alert.Create();
+			dialog.Show();
 		}
 	}
-
 }

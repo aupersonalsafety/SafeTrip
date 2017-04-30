@@ -21,7 +21,7 @@ namespace SafeTrip.Droid
 		ISharedPreferencesEditor editor;
 		String pin;
 
-		private Auth0.SDK.Auth0Client client = new Auth0.SDK.Auth0Client("aupersonalsafety.auth0.com", "n4kXJEiHpBL3v1e0p0cM6pj8icidoZzo");
+		private Auth0Client client = new Auth0Client("aupersonalsafety.auth0.com", "n4kXJEiHpBL3v1e0p0cM6pj8icidoZzo");
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -111,7 +111,9 @@ namespace SafeTrip.Droid
 		{
 			ImageButton panicButton = FindViewById<ImageButton>(Resource.Id.panicButton);
 			panicButton.Click += delegate {
-				StartActivity(typeof(RecordVideoActivity));
+				Intent recordIntent = new Intent(this, typeof(RecordVideoActivity));
+				recordIntent.PutExtra("pin", pin);
+				StartActivity(recordIntent);
 			};
 
 			Button holdMyHandButton = FindViewById<Button>(Resource.Id.holdMyHandButton);

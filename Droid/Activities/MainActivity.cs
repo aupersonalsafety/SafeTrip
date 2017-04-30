@@ -49,7 +49,10 @@ namespace SafeTrip.Droid
 			switch (item.ItemId)
 			{
 				case Resource.Id.main_activity_menu:
-					StartActivityForResult(typeof(SettingsActivity), 0);
+					Intent settingsIntent = new Intent(this, typeof(SettingsActivity));
+					settingsIntent.PutExtra("userId", userId);
+					settingsIntent.PutExtra("pin", pin);
+					StartActivityForResult(settingsIntent, 0);
 					break;
 			}
 			return base.OnOptionsItemSelected(item);
@@ -86,6 +89,7 @@ namespace SafeTrip.Droid
 					userToken = user.Auth0AccessToken;
 					userId = user.Profile["user_id"].ToString();
 					saveUserDetails();
+					await service.updatePin("1234");
 				}
 				catch (AggregateException e)
 				{
@@ -99,7 +103,7 @@ namespace SafeTrip.Droid
 			else
 			{
 				service = new Service(userId);
-				fetchPin();
+				await fetchPin();
 			}
 		}
 
@@ -107,7 +111,7 @@ namespace SafeTrip.Droid
 		{
 			ImageButton panicButton = FindViewById<ImageButton>(Resource.Id.panicButton);
 			panicButton.Click += delegate {
-				
+				StartActivity(typeof(RecordVideoActivity));
 			};
 
 			Button holdMyHandButton = FindViewById<Button>(Resource.Id.holdMyHandButton);

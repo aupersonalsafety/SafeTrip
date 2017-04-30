@@ -107,7 +107,6 @@
     <Compile Include="Activities\EmergencyContactsActivity.cs" />
     <Compile Include="Activities\ModifyContactActivity.cs" />
     <Compile Include="Activities\AddressBookActivity.cs" />
-    <Compile Include="Activities\PinActivity.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="Helpers\Constants.cs" />
   </ItemGroup>

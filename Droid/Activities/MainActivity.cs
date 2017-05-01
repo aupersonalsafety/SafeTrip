@@ -90,6 +90,7 @@ namespace SafeTrip.Droid
 					userId = user.Profile["user_id"].ToString();
 					saveUserDetails();
 					await service.updatePin("1234");
+					pin = "1234";
 				}
 				catch (AggregateException e)
 				{
@@ -118,7 +119,9 @@ namespace SafeTrip.Droid
 
 			Button holdMyHandButton = FindViewById<Button>(Resource.Id.holdMyHandButton);
 			holdMyHandButton.Click += delegate {
-				
+				Intent holdMyHandIntent = new Intent(this, typeof(HoldMyHandActivity));
+				holdMyHandIntent.PutExtra("pin", pin);
+				StartActivity(holdMyHandIntent);
 			};
 
 			Button safeTripButton = FindViewById<Button>(Resource.Id.safeTripButton);

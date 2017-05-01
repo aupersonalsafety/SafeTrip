@@ -158,8 +158,8 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070010
 			public const int addFromAddressBookButton = 2131165200;
 			
-			// aapt resource value: 0x7f07001d
-			public const int container = 2131165213;
+			// aapt resource value: 0x7f07001e
+			public const int container = 2131165214;
 			
 			// aapt resource value: 0x7f070008
 			public const int editText1 = 2131165192;
@@ -173,14 +173,14 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070018
 			public const int emailEditText = 2131165208;
 			
-			// aapt resource value: 0x7f07001c
-			public const int finishRecordingButton = 2131165212;
+			// aapt resource value: 0x7f07001d
+			public const int finishRecordingButton = 2131165213;
 			
 			// aapt resource value: 0x7f070012
 			public const int firstNameEditText = 2131165202;
 			
-			// aapt resource value: 0x7f070002
-			public const int holdMyHandButton = 2131165186;
+			// aapt resource value: 0x7f070001
+			public const int holdMyHandButton = 2131165185;
 			
 			// aapt resource value: 0x7f070014
 			public const int lastNameEditText = 2131165204;
@@ -194,11 +194,11 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070007
 			public const int loadingProgressWheel = 2131165191;
 			
-			// aapt resource value: 0x7f070022
-			public const int main_activity_menu = 2131165218;
+			// aapt resource value: 0x7f070023
+			public const int main_activity_menu = 2131165219;
 			
-			// aapt resource value: 0x7f070021
-			public const int menu_add = 2131165217;
+			// aapt resource value: 0x7f070022
+			public const int menu_add = 2131165218;
 			
 			// aapt resource value: 0x7f070009
 			public const int myButton = 2131165193;
@@ -206,14 +206,14 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f07000c
 			public const int myButton2 = 2131165196;
 			
-			// aapt resource value: 0x7f070001
-			public const int panicButton = 2131165185;
+			// aapt resource value: 0x7f070002
+			public const int panicButton = 2131165186;
 			
 			// aapt resource value: 0x7f070016
 			public const int phoneNumberEditText = 2131165206;
 			
-			// aapt resource value: 0x7f07001a
-			public const int pinEditText = 2131165210;
+			// aapt resource value: 0x7f07001b
+			public const int pinEditText = 2131165211;
 			
 			// aapt resource value: 0x7f07000d
 			public const int recordVideoButton = 2131165197;
@@ -221,17 +221,20 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070003
 			public const int safeTripButton = 2131165187;
 			
-			// aapt resource value: 0x7f070019
-			public const int saveContactButton = 2131165209;
-			
-			// aapt resource value: 0x7f07001e
-			public const int settings_emergency_contacts_button = 2131165214;
-			
-			// aapt resource value: 0x7f070020
-			public const int settings_sign_out_button = 2131165216;
+			// aapt resource value: 0x7f07001a
+			public const int saveContactButton = 2131165210;
 			
 			// aapt resource value: 0x7f07001f
-			public const int settings_update_pin_number_button = 2131165215;
+			public const int settings_emergency_contacts_button = 2131165215;
+			
+			// aapt resource value: 0x7f070021
+			public const int settings_sign_out_button = 2131165217;
+			
+			// aapt resource value: 0x7f070020
+			public const int settings_update_pin_number_button = 2131165216;
+			
+			// aapt resource value: 0x7f070019
+			public const int spinner1 = 2131165209;
 			
 			// aapt resource value: 0x7f070011
 			public const int textView1 = 2131165201;
@@ -257,8 +260,8 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f07000f
 			public const int timerText = 2131165199;
 			
-			// aapt resource value: 0x7f07001b
-			public const int verifyPinButton = 2131165211;
+			// aapt resource value: 0x7f07001c
+			public const int verifyPinButton = 2131165212;
 			
 			static Id()
 			{
@@ -277,31 +280,34 @@ namespace SafeTrip.Droid
 			public const int fragment_camera2_video = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int HomeScreen = 2130968577;
+			public const int HoldMyHand = 2130968577;
 			
 			// aapt resource value: 0x7f040002
-			public const int loading = 2130968578;
+			public const int HomeScreen = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int loadingimage = 2130968579;
+			public const int loading = 2130968579;
 			
 			// aapt resource value: 0x7f040004
-			public const int loadingprogress = 2130968580;
+			public const int loadingimage = 2130968580;
 			
 			// aapt resource value: 0x7f040005
-			public const int Main = 2130968581;
+			public const int loadingprogress = 2130968581;
 			
 			// aapt resource value: 0x7f040006
-			public const int ModifyContactLayout = 2130968582;
+			public const int Main = 2130968582;
 			
 			// aapt resource value: 0x7f040007
-			public const int PinLayout = 2130968583;
+			public const int ModifyContactLayout = 2130968583;
 			
 			// aapt resource value: 0x7f040008
-			public const int RecordVideo = 2130968584;
+			public const int PinLayout = 2130968584;
 			
 			// aapt resource value: 0x7f040009
-			public const int SettingsLayout = 2130968585;
+			public const int RecordVideo = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int SettingsLayout = 2130968586;
 			
 			static Layout()
 			{

@@ -110,6 +110,7 @@
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Activities\HoldMyHandActivity.cs" />
+    <Compile Include="Activities\SafeTripActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -140,6 +141,7 @@
     <AndroidResource Include="Resources\menu\MainActivityMenu.xml" />
     <AndroidResource Include="Resources\layout\SettingsLayout.axml" />
     <AndroidResource Include="Resources\layout\HoldMyHand.axml" />
+    <AndroidResource Include="Resources\layout\SafeTrip.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

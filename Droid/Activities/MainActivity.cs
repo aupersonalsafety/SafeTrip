@@ -121,12 +121,18 @@ namespace SafeTrip.Droid
 			holdMyHandButton.Click += delegate {
 				Intent holdMyHandIntent = new Intent(this, typeof(HoldMyHandActivity));
 				holdMyHandIntent.PutExtra("pin", pin);
+				holdMyHandIntent.PutExtra("userId", userId);
 				StartActivity(holdMyHandIntent);
 			};
 
 			Button safeTripButton = FindViewById<Button>(Resource.Id.safeTripButton);
-			safeTripButton.Click += delegate {
-				
+			safeTripButton.Click += delegate
+			{
+				Intent safeTripIntent = new Intent(this, typeof(SafeTripActivity));
+				safeTripIntent.PutExtra("pin", pin);
+				safeTripIntent.PutExtra("userId", userId);
+
+				StartActivity(safeTripIntent);
 			};
 		}
 

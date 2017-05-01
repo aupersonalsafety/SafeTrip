@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using Android.App;
 using Android.OS;
@@ -21,6 +22,10 @@ namespace SafeTrip.Droid
 		Service service;
 
 		String userId;
+		String selectedCarrier;
+
+		Dictionary<string, string> carrierDict;
+		List<string> carriersList;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -33,11 +38,14 @@ namespace SafeTrip.Droid
 
 			service = new Service(userId);
 
+
+
 			Button addressBookButton = FindViewById<Button>(Resource.Id.addFromAddressBookButton);
 			addressBookButton.Click += delegate
 			{
 				choseFromAddressBook();
 			};
+
 			firstNameEditText = FindViewById<EditText>(Resource.Id.firstNameEditText);
 			lastNameEditText = FindViewById<EditText>(Resource.Id.lastNameEditText);
 			phoneNumberEditText = FindViewById<EditText>(Resource.Id.phoneNumberEditText);
@@ -78,12 +86,37 @@ namespace SafeTrip.Droid
 				emergencyContact.contactID = null;
 			}
 
-			insertUser();
-
 			saveContactButton.Click += delegate {
 				emergencyContact = new EmergencyContact(emergencyContact.contactID, firstNameEditText.Text, lastNameEditText.Text, phoneNumberEditText.Text, emailEditText.Text, "Verizon");
 				UpdateContact(emergencyContact);
 			};
+
+			carrierDict = new Dictionary<String, String>();
+			carrierDict.Add("AT&T", "@txt.att.net");
+			carrierDict.Add("T-Mobile", "@tmomail.net");
+			carrierDict.Add("Virgin Mobile", "@vmobl.com");
+			carrierDict.Add("Cingular", "@cingularme.com");
+			carrierDict.Add("Sprint", "@messaging.sprintpcs.com");
+			carrierDict.Add("Verizon", "@vtext.com");
+			carrierDict.Add("Nextel", "@messaging.nextel.com");
+
+			carriersList = new List<string>();
+			carriersList.AddRange(carrierDict.Keys);
+			Spinner carSpin = FindViewById<Spinner>(Resource.Id.carrierSelector);
+			carSpin.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs> (spinner_ItemSelected);
+			var adapter = new ArrayAdapter(this, Resource.Id.carrierSelector, carriersList);
+			adapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			carSpin.Adapter = adapter;
+
+            insertUser();
+		}
+
+		private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+		{
+			Spinner spinner = (Spinner)sender;
+
+			string toast = string.Format("The planet is {0}", spinner.GetItemAtPosition(e.Position));
+			Toast.MakeText(this, toast, ToastLength.Long).Show();
 		}
 
 		public override View OnCreateView(string name, Android.Content.Context context, Android.Util.IAttributeSet attrs)
@@ -128,7 +161,7 @@ namespace SafeTrip.Droid
 			}
 		}
 
-		private async void UpdateContact(EmergencyContact emergencyContactIn)
+		private async Task UpdateContact(EmergencyContact emergencyContactIn)
 		{
 			if (emergencyContactIn.contactPhone.Length == 10)
 			{

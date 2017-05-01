@@ -148,7 +148,7 @@ namespace SafeTrip.iOS
 
 			await service.createUser();
 			await service.updatePin("1234");
-            getPin();
+            await getPin();
 
 			var alert = UIAlertController.Create("Pin Number Set", "Your pin number has been set to 1234 by default. You can change this in settings.", UIAlertControllerStyle.Alert);
 			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));

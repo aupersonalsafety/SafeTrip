@@ -89,8 +89,10 @@ namespace SafeTrip.Droid
 					userToken = user.Auth0AccessToken;
 					userId = user.Profile["user_id"].ToString();
 					saveUserDetails();
+					service = new Service(userId);
+					await service.createUser();
 					await service.updatePin("1234");
-					pin = "1234";
+					await service.getPin();
 				}
 				catch (AggregateException e)
 				{

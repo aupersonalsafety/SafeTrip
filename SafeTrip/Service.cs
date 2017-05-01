@@ -53,7 +53,7 @@ namespace SafeTrip
 			dict.Add("messageText", message);
 			var json = JsonConvert.SerializeObject(dict);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
 			var content = new StringContent(
 					json,
@@ -118,11 +118,11 @@ namespace SafeTrip
 			try
 			{
 
-				System.Diagnostics.Debug.WriteLine("getGlobalPosition called");
+				//System.Diagnostics.Debug.WriteLine("getGlobalPosition called");
 				var locator = CrossGeolocator.Current;
 				locator.DesiredAccuracy = 10;
 
-				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
+				//System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
 				var position = await locator.GetPositionAsync(timeoutMilliseconds: 2000);
 				globalPosition.Latitude = position.Latitude;
 				globalPosition.Longitude = position.Longitude;
@@ -146,8 +146,8 @@ namespace SafeTrip
 			{
 				//Fixme
 				//This is temporary for testing on IOS emulator
-				System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
-				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+				//System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
+				//System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 				globalPosition.Latitude = 32.607722;
 				globalPosition.Longitude = -85.489545;
 				return globalPosition;
@@ -167,7 +167,7 @@ namespace SafeTrip
 			}
 			catch(Exception ex)
 			{
-			  System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+			  //System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 			}
 		}
 
@@ -176,7 +176,7 @@ namespace SafeTrip
 			var position = e.Position;
 			GlobalPosition globalPosition = new GlobalPosition(position.Latitude, position.Longitude);
 
-			System.Diagnostics.Debug.WriteLine("globalPostion:D " + globalPosition);
+			//System.Diagnostics.Debug.WriteLine("globalPostion:D " + globalPosition);
 
 			postLocationToDatabase(globalPosition, userId);
 		}
@@ -184,7 +184,7 @@ namespace SafeTrip
 		public void positionErrorChanged(object sender, Plugin.Geolocator.Abstractions.PositionErrorEventArgs e)
 		{
 			var error = e.Error;
-			System.Diagnostics.Debug.WriteLine("Position Error: {0}", error.ToString());
+			//System.Diagnostics.Debug.WriteLine("Position Error: {0}", error.ToString());
 		}
 
 		public async Task<GlobalPosition> getGlobalPosition()
@@ -193,11 +193,11 @@ namespace SafeTrip
 			try
 			{
 				
-				System.Diagnostics.Debug.WriteLine("getGlobalPosition called");
+				//System.Diagnostics.Debug.WriteLine("getGlobalPosition called");
 				var locator = CrossGeolocator.Current;
 				locator.DesiredAccuracy = 10;
 
-				System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
+				//System.Diagnostics.Debug.WriteLine("locator: {0}", locator);
 				var position = await locator.GetPositionAsync(timeoutMilliseconds: 2000);
 				globalPosition.Latitude = position.Latitude;
 				globalPosition.Longitude = position.Longitude;
@@ -208,8 +208,8 @@ namespace SafeTrip
 			{
 				//Fixme
 				//This is temporary for testing on IOS emulator
-				System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
-				System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
+				//System.Diagnostics.Debug.WriteLine("Returning Dummy Location");
+				//System.Diagnostics.Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
 				globalPosition.Latitude = 32.607722;
 				globalPosition.Longitude = -85.489545;
 
@@ -224,13 +224,13 @@ namespace SafeTrip
 
 			var address = addressIn.Replace(" ", "+");
  			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + key;  			//var response = await  			//https://developer.xamarin.com/guides/xamarin-forms/web-services/consuming/rest/  			var client = new HttpClient(); 			client.MaxResponseContentBufferSize = 256000;  			var response = await client.GetAsync(url);  			if (response.IsSuccessStatusCode) 			{
-				//response successful 				System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result;
+				//response successful 				//System.Diagnostics.Debug.WriteLine("response: " + response); 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result); 				var result = response.Content.ReadAsStringAsync().Result;
  				GlobalPosition globalPosition = getLatAndLongFromJson(result);
 				return globalPosition; 			}
 			else 
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful");
+				//System.Diagnostics.Debug.WriteLine("response is not successful");
 				return null;
 			} 		}
 
@@ -238,8 +238,8 @@ namespace SafeTrip
 		{
 			var json = JObject.Parse(result);
 			//System.Diagnostics.Debug.WriteLine("json: " + json);
-			System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
-			System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]);
+			//System.Diagnostics.Debug.WriteLine("lat: " + json["results"][0]["geometry"]["location"]["lat"]);
+			//System.Diagnostics.Debug.WriteLine("long: " + json["results"][0]["geometry"]["location"]["lng"]);
 
 			GlobalPosition globalPosition = new GlobalPosition();
 			globalPosition.Latitude = (double)(json["results"][0]["geometry"]["location"]["lat"]);
@@ -271,7 +271,7 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response: " + response);
+				//System.Diagnostics.Debug.WriteLine("response: " + response);
 				//var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content.ReadAsStringAsync().Result);
 				var result = response.Content.ReadAsStringAsync().Result;
 				return readTravelTime(result);
@@ -279,7 +279,7 @@ namespace SafeTrip
 			else 
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful");
+				//System.Diagnostics.Debug.WriteLine("response is not successful");
 				return -1;
 			}
 
@@ -287,17 +287,17 @@ namespace SafeTrip
 		{
 			var json = JObject.Parse(result);
 			//System.Diagnostics.Debug.WriteLine("json: " + json);
-			System.Diagnostics.Debug.WriteLine("timeEstimate: " + json["rows"][0]["elements"][0]["duration"]["value"]);
+			//System.Diagnostics.Debug.WriteLine("timeEstimate: " + json["rows"][0]["elements"][0]["duration"]["value"]);
 			return (int)(json["rows"][0]["elements"][0]["duration"]["value"]);
 		}
  
 
 		public async Task<ContactsList> getContacts()
 		{
-			System.Diagnostics.Debug.WriteLine("getContacts called");
+			//System.Diagnostics.Debug.WriteLine("getContacts called");
 			if (await CrossContacts.Current.RequestPermission())
 			{
-				System.Diagnostics.Debug.WriteLine("requestPermission passed");
+				//System.Diagnostics.Debug.WriteLine("requestPermission passed");
 				List<Plugin.Contacts.Abstractions.Contact> contacts = null;
 				CrossContacts.Current.PreferContactAggregation = false;
 
@@ -333,19 +333,17 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return parseContactList(await response.Content.ReadAsStringAsync());
 			}
 			else
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return new List<EmergencyContact>();
 			}
 		}
 
-		//FIXME
-		//parse this list
 		private List<EmergencyContact> parseContactList(String contactsIn)
 		{
 			List<EmergencyContact> list = JsonConvert.DeserializeObject<List<EmergencyContact>>(contactsIn);
@@ -369,7 +367,7 @@ namespace SafeTrip
 			//dict.Add("UserID", userId);
 			string json = JsonConvert.SerializeObject(dict, Formatting.None);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
 			var content = new StringContent(
 					json,
@@ -382,28 +380,53 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return 1;
 			}
 			else
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + await response.Content.ReadAsStringAsync());
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + await response.Content.ReadAsStringAsync());
 				return -1;
 			}
 		}
 
 		public async Task<int> deleteContactFromDatabase(int contactId)
 		{
-			String url = "https://au-personal-safety.herokuapp.com/contact/deletecontact";
+			String url = "https://au-personal-safety.herokuapp.com/contact/deletecontacts/" + contactId;
+
+			var client = new HttpClient();
+
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
+
+			var response = await client.PostAsync(url, null);
+
+			if (response.IsSuccessStatusCode)
+			{
+				//response successful
+				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				return 1;
+			}
+			else
+			{
+				//reponse not successful
+				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				return -1;
+			}
+		}
+
+		public async Task<int> postLocationToDatabase(GlobalPosition position, string userID)
+		{
+			String url = "https://au-personal-safety.herokuapp.com/location/store/" + userID;
 
 			var client = new HttpClient();
 
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
-			dict.Add("contactID", contactId);
+			dict.Add("long", position.Longitude);
+			dict.Add("lat", position.Latitude);
 			var json = JsonConvert.SerializeObject(dict);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
 			var content = new StringContent(
 					json,
@@ -423,41 +446,6 @@ namespace SafeTrip
 			{
 				//reponse not successful
 				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
-				return -1;
-			}
-		}
-
-		public async Task<int> postLocationToDatabase(GlobalPosition position, string userID)
-		{
-			String url = "https://au-personal-safety.herokuapp.com/location/store/" + userID;
-
-			var client = new HttpClient();
-
-			Dictionary<String, Object> dict = new Dictionary<String, Object>();
-			dict.Add("long", position.Longitude);
-			dict.Add("lat", position.Latitude);
-			var json = JsonConvert.SerializeObject(dict);
-
-			System.Diagnostics.Debug.WriteLine("json: " + json);
-
-			var content = new StringContent(
-					json,
-					Encoding.UTF8,
-					"application/json"
-				);
-
-			var response = await client.PostAsync(url, content);
-
-			if (response.IsSuccessStatusCode)
-			{
-				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
-				return 1;
-			}
-			else
-			{
-				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}
@@ -486,13 +474,13 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content.ReadAsStringAsync().Result);
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content.ReadAsStringAsync().Result);
 				return response.Content.ReadAsStringAsync().Result;
 			}
 			else
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return "-1";
 			}
 		}
@@ -506,7 +494,7 @@ namespace SafeTrip
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
 			var json = JsonConvert.SerializeObject(dict);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
 			var content = new StringContent(
 					json,
@@ -519,13 +507,13 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return 1;
 			}
 			else
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}
@@ -542,7 +530,7 @@ namespace SafeTrip
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
 			var json = JsonConvert.SerializeObject(dict);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
 			var content = new StringContent(
 					json,
@@ -555,13 +543,13 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return 1;
 			}
 			else
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}
@@ -575,7 +563,7 @@ namespace SafeTrip
 			Dictionary<String, Object> dict = new Dictionary<String, Object>();
 			var json = JsonConvert.SerializeObject(dict);
 
-			System.Diagnostics.Debug.WriteLine("json: " + json);
+			//System.Diagnostics.Debug.WriteLine("json: " + json);
 
 			var content = new StringContent(
 					json,
@@ -588,13 +576,13 @@ namespace SafeTrip
 			if (response.IsSuccessStatusCode)
 			{
 				//response successful
-				System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is successful: " + response.Content);
 				return 1;
 			}
 			else
 			{
 				//reponse not successful
-				System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
+				//System.Diagnostics.Debug.WriteLine("response is not successful: " + response.Content);
 				return -1;
 			}
 		}

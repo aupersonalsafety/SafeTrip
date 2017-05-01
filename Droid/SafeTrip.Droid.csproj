@@ -136,7 +136,6 @@
     <AndroidResource Include="Resources\drawable\Background.xml" />
     <AndroidResource Include="Resources\menu\AddMenu.xml" />
     <AndroidResource Include="Resources\layout\ModifyContactLayout.axml" />
-    <AndroidResource Include="Resources\layout\PinLayout.axml" />
     <AndroidResource Include="Resources\menu\MainActivityMenu.xml" />
     <AndroidResource Include="Resources\layout\SettingsLayout.axml" />
     <AndroidResource Include="Resources\layout\HoldMyHand.axml" />

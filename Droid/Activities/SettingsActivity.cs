@@ -75,13 +75,15 @@ namespace SafeTrip.Droid
 			LinearLayout layout = new LinearLayout(this);
 			layout.Orientation = Orientation.Vertical;
 			EditText oldPinEditText = new EditText(this);
+			oldPinEditText.InputType = InputTypes.ClassNumber | InputTypes.NumberVariationPassword;
 			oldPinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			oldPinEditText.Hint = "Enter Old Pin";
 			oldPinEditText.SetFilters(lengthFilter);
-			oldPinEditText.InputType = InputTypes.NumberVariationPassword;
+
 			layout.AddView(oldPinEditText);
 
 			EditText newPinEditText = new EditText(this);
+			newPinEditText.InputType = InputTypes.ClassNumber | InputTypes.NumberVariationPassword;
 			newPinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			newPinEditText.Hint = "Enter New Pin";
 			newPinEditText.SetFilters(lengthFilter);
@@ -89,6 +91,7 @@ namespace SafeTrip.Droid
 			layout.AddView(newPinEditText);
 
 			EditText confirmNewPinEditText = new EditText(this);
+			confirmNewPinEditText.InputType = InputTypes.ClassNumber | InputTypes.NumberVariationPassword;
 			confirmNewPinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			confirmNewPinEditText.Hint = "Confirm New Pin";
 			confirmNewPinEditText.SetFilters(lengthFilter);

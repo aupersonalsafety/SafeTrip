@@ -158,6 +158,10 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070010
 			public const int addFromAddressBookButton = 2131165200;
 			
+
+			// aapt resource value: 0x7f070019
+			public const int carrierSelector = 2131165209;
+
 			// aapt resource value: 0x7f07001e
 			public const int container = 2131165214;
 			
@@ -233,8 +237,7 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070020
 			public const int settings_update_pin_number_button = 2131165216;
 			
-			// aapt resource value: 0x7f070019
-			public const int spinner1 = 2131165209;
+
 			
 			// aapt resource value: 0x7f070011
 			public const int textView1 = 2131165201;

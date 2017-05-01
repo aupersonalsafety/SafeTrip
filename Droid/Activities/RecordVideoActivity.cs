@@ -144,6 +144,7 @@ namespace SafeTrip.Droid
 			LinearLayout layout = new LinearLayout(this);
 			layout.Orientation = Android.Widget.Orientation.Vertical;
 			EditText pinEditText = new EditText(this);
+			pinEditText.InputType = InputTypes.ClassNumber | InputTypes.NumberVariationPassword;
 			pinEditText.LayoutParameters = new LinearLayout.LayoutParams(Android.Views.ViewGroup.LayoutParams.MatchParent, Android.Views.ViewGroup.LayoutParams.WrapContent);
 			pinEditText.Hint = "Enter Pin";
 			pinEditText.SetFilters(lengthFilter);

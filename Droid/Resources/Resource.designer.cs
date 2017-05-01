@@ -251,8 +251,9 @@ namespace SafeTrip.Droid
 			// aapt resource value: 0x7f070028
 			public const int settings_sign_out_button = 2131165224;
 			
-			// aapt resource value: 0x7f070027
-			public const int settings_update_pin_number_button = 2131165223;
+
+			// aapt resource value: 0x7f070020
+			public const int settings_update_pin_number_button = 2131165216;
 			
 			// aapt resource value: 0x7f070011
 			public const int textView1 = 2131165201;

@@ -89,8 +89,10 @@ namespace SafeTrip.Droid
 					userToken = user.Auth0AccessToken;
 					userId = user.Profile["user_id"].ToString();
 					saveUserDetails();
+					service = new Service(userId);
+					await service.createUser();
 					await service.updatePin("1234");
-					pin = "1234";
+					displayError("Your pin number has been set to 1234 by default. You can change this in settings.");
 				}
 				catch (AggregateException e)
 				{
@@ -104,7 +106,16 @@ namespace SafeTrip.Droid
 			else
 			{
 				service = new Service(userId);
-				await fetchPin();
+				//await fetchPin();
+				var response = await service.getPin();
+				if (response.Equals("-1"))
+				{
+					displayError("Could not fetch pin. Logging out");
+					editor.PutString("userId", null);
+					editor.PutString("userToken", null);
+					editor.Apply();
+					await fetchLoginInfo();
+				}
 			}
 		}
 

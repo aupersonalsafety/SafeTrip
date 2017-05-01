@@ -91,7 +91,7 @@ namespace SafeTrip.iOS
 
 		public async Task removeContact(int contactId)
 		{
-			if (await service.deleteContactFromDatabase(contactId) == -1)
+			if (await service.deleteContactFromDatabase(contactId) != -1)
 			{
 				await refreshContacts();
 			}

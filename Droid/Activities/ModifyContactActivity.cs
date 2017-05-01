@@ -86,12 +86,13 @@ namespace SafeTrip.Droid
 				emergencyContact.contactID = null;
 			}
 
-			saveContactButton.Click += delegate {
-				emergencyContact = new EmergencyContact(emergencyContact.contactID, firstNameEditText.Text, lastNameEditText.Text, phoneNumberEditText.Text, emailEditText.Text, "Verizon");
+			saveContactButton.Click += delegate
+			{
+				emergencyContact = new EmergencyContact(emergencyContact.contactID, firstNameEditText.Text, lastNameEditText.Text, phoneNumberEditText.Text, emailEditText.Text, selectedCarrier);
 				UpdateContact(emergencyContact);
 			};
 
-			carrierDict = new Dictionary<String, String>();
+			carrierDict = new Dictionary<string, string>();
 			carrierDict.Add("AT&T", "@txt.att.net");
 			carrierDict.Add("T-Mobile", "@tmomail.net");
 			carrierDict.Add("Virgin Mobile", "@vmobl.com");
@@ -102,21 +103,24 @@ namespace SafeTrip.Droid
 
 			carriersList = new List<string>();
 			carriersList.AddRange(carrierDict.Keys);
+
 			Spinner carSpin = FindViewById<Spinner>(Resource.Id.carrierSelector);
-			carSpin.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs> (spinner_ItemSelected);
-			var adapter = new ArrayAdapter(this, Resource.Id.carrierSelector, carriersList);
-			adapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			carSpin.ItemSelected += spinner_ItemSelected;
+
+			var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, carriersList);
+			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			carSpin.Adapter = adapter;
 
-            insertUser();
+			insertUser();
 		}
 
 		private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
 		{
 			Spinner spinner = (Spinner)sender;
 
-			string toast = string.Format("The planet is {0}", spinner.GetItemAtPosition(e.Position));
-			Toast.MakeText(this, toast, ToastLength.Long).Show();
+			var selected = carriersList[e.Position];
+
+			selectedCarrier = carrierDict[selected];
 		}
 
 		public override View OnCreateView(string name, Android.Content.Context context, Android.Util.IAttributeSet attrs)

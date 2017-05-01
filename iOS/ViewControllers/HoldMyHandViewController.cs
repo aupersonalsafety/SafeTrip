@@ -8,7 +8,12 @@ namespace SafeTrip.iOS
 	public partial class HoldMyHandViewController : UIViewController
 	{
 		int attempts;
-		bool success;
+		public string pin;
+		bool timerSet = false;
+
+		public Service service;
+		public string userId;
+
 		public HoldMyHandViewController() : base("HoldMyHandViewController", null)
 		{
 		}
@@ -22,55 +27,82 @@ namespace SafeTrip.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			attempts = 0;
-			success = false;
 
 			HoldMyHandButton.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				PinTextField.BecomeFirstResponder();
+				if (timerSet == false)
+				{
+
+                    displayPinAlert();
+					//StartTimer
+					timerSet = true;
+				}
 			};
 			HoldMyHandButton.TouchUpOutside += (object sender, EventArgs e) =>
 			{
-				PinTextField.BecomeFirstResponder();
-			};
-
-			PinTextField.EditingChanged += (object sender, EventArgs e) =>
-			{
-				if (PinTextField.Text.Length >= 4)
+				if (timerSet == false)
 				{
-					if (PinTextField.Text != "1234")
-					{
-						if (attempts >= 5)
-						{
-							var alert = UIAlertController.Create("Too many attempts", "Contacting Emergency Contacts", UIAlertControllerStyle.Alert);
-							alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-							PresentViewController(alert, true, null);
-							PinTextField.Text = "";
-							PinTextField.Enabled = false;
-						}
-						else
-						{
-							var alert = UIAlertController.Create("Incorrect PIN", "You have entered an incorrect PIN", UIAlertControllerStyle.Alert);
-							alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-							PresentViewController(alert, true, null);
-							attempts++;
-							PinTextField.Text = "";
-						}
-
-
-					}
-					else
-					{
-						success = true;
-						var alert = UIAlertController.Create("Success", "Success", UIAlertControllerStyle.Alert);
-						alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-						PresentViewController(alert, true, null);
-						PinTextField.Text = "";
-						attempts = 0;
-						PinTextField.ResignFirstResponder();
-					}
+					displayPinAlert();
+					//StartTimer
+					timerSet = true;
 				}
 			};
 
+		}
+
+		public void displayPinAlert()
+		{
+			var alert = UIAlertController.Create(title: "Enter Pin", message: "Please enter your pin number. (You have a limited amount of attempts and time to complete this action)",
+												 preferredStyle: UIAlertControllerStyle.Alert);
+			alert.AddTextField((field) =>
+			{
+				field.KeyboardType = UIKeyboardType.NumberPad;
+				field.SecureTextEntry = true;
+				field.EditingChanged += delegate
+				{
+					string pinTextFieldText = field.Text;
+					if (pinTextFieldText.Length >= 4 && attempts < 6)
+					{
+						if (pinTextFieldText == pin)
+						{
+							DismissViewController(true, null);
+							attempts = 0;
+							timerSet = false;
+							//Cancel Timer
+						}
+						else
+						{
+							if (attempts >= 5)
+							{
+								DismissViewController(true, () =>
+								{
+									displayContactingEmergencyContacts();
+									attempts++;
+									//timerSet = false;
+									service.ContactEmergencyContacts();
+								});
+							}
+							else
+							{
+								attempts++;
+								field.Text = "";
+							}
+
+						}
+					}
+
+				};
+			});
+
+			PresentViewController(alert, true, null);
+		}
+
+		public void displayContactingEmergencyContacts()
+		{
+			var alert = UIAlertController.Create("Contacting emergency contacts", "Too many attempts have been made or time has expired. Contacting Emergency Contacts.", UIAlertControllerStyle.Alert);
+			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			PresentViewController(alert, true, null);
+			service.ContactEmergencyContacts();
 		}
 
 		public override void DidReceiveMemoryWarning()

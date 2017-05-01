@@ -16,10 +16,6 @@ namespace SafeTrip.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton AddressBookButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIPickerView carrierPickerView { get; set; }
 
         [Outlet]
@@ -60,11 +56,6 @@ namespace SafeTrip.iOS
 
         void ReleaseDesignerOutlets ()
         {
-            if (AddressBookButton != null) {
-                AddressBookButton.Dispose ();
-                AddressBookButton = null;
-            }
-
             if (carrierPickerView != null) {
                 carrierPickerView.Dispose ();
                 carrierPickerView = null;

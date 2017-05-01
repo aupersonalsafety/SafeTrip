@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="28">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="27">
+            <objects>
+                <viewController id="28" sceneMemberID="viewController" customClass="SafeTripViewController" storyboardIdentifier="SafeTripViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="25"/>
+                        <viewControllerLayoutGuide type="bottom" id="26"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="29">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="32" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="92" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="33" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="46" width="87" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Travel Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="155" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="41" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="212" y="203" width="180" height="30"/>
+                                <state key="normal" title="Get Estimated Travel Time">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="45" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="351" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimate time until arrival (minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="49" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="20" y="311" width="370" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="52" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="232" y="427" width="137" height="30"/>
+                                <state key="normal" title="Start SafeTrip Timer">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="93" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="280" y="490" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint id="34" firstItem="32" firstAttribute="leading" secondItem="29" secondAttribute="leading" constant="20"/>
+                            <constraint id="35" firstItem="29" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="20"/>
+                            <constraint id="37" firstItem="32" firstAttribute="top" secondItem="33" secondAttribute="bottom" constant="25"/>
+                            <constraint id="39" firstItem="38" firstAttribute="leading" secondItem="29" secondAttribute="leading" constant="20"/>
+                            <constraint id="40" firstItem="38" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="33"/>
+                            <constraint id="43" firstItem="41" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="27"/>
+                            <constraint id="44" firstItem="41" firstAttribute="centerX" secondItem="29" secondAttribute="centerX" constant="2"/>
+                            <constraint id="46" firstItem="45" firstAttribute="leading" secondItem="29" secondAttribute="leading" constant="20"/>
+                            <constraint id="47" firstItem="29" firstAttribute="trailing" secondItem="45" secondAttribute="trailing" constant="20"/>
+                            <constraint id="50" firstItem="49" firstAttribute="leading" secondItem="29" secondAttribute="leading" constant="20"/>
+                            <constraint id="51" firstItem="49" firstAttribute="top" secondItem="41" secondAttribute="bottom" constant="78"/>
+                            <constraint id="53" firstItem="52" firstAttribute="top" secondItem="45" secondAttribute="bottom" constant="46"/>
+                            <constraint id="54" firstItem="52" firstAttribute="centerX" secondItem="29" secondAttribute="centerX"/>
+                            <constraint id="61" firstItem="45" firstAttribute="top" secondItem="49" secondAttribute="bottom" constant="19"/>
+                            <constraint id="64" firstItem="33" firstAttribute="leading" secondItem="29" secondAttribute="leading" constant="20"/>
+                            <constraint id="92" firstItem="33" firstAttribute="top" secondItem="25" secondAttribute="bottom" constant="26"/>
+                            <constraint id="94" firstItem="93" firstAttribute="top" secondItem="52" secondAttribute="bottom" constant="33"/>
+                            <constraint id="95" firstItem="93" firstAttribute="centerX" secondItem="29" secondAttribute="centerX" constant="1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="DestinationLabel" destination="33" id="name-outlet-33"/>
+                        <outlet property="CalculateTravelTimeButton" destination="41" id="name-outlet-41"/>
+                        <outlet property="UserTimeEstimateTextField" destination="45" id="name-outlet-45"/>
+                        <outlet property="EstimatedTravelTimeLabel" destination="38" id="name-outlet-38"/>
+                        <outlet property="DesinationTextField" destination="32" id="name-outlet-32"/>
+                        <outlet property="StartSafeTripButton" destination="52" id="name-outlet-52"/>
+                        <outlet property="TimerSetLabel" destination="93" id="name-outlet-93"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="30" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="396" y="206"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="temppanicbutton.png" width="300" height="300"/>
+    </resources>
+</document>

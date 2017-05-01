@@ -10,8 +10,10 @@ namespace SafeTrip.iOS
 {
 	public partial class EmergencyContactsViewController : UITableViewController
 	{
-		Service service;
-		public int userId;
+		public Service service;
+		public string userId;
+		public Auth0.SDK.Auth0Client client;
+		public ViewController presentingViewController;
 
 		public EmergencyContactsViewController(IntPtr handle) : base(handle)
 		{
@@ -21,8 +23,6 @@ namespace SafeTrip.iOS
 		{
 			base.ViewDidLoad();
 
-			service = new Service();
-
 			Title = "Emergency Contacts";
 
 			this.NavigationItem.SetRightBarButtonItem(
@@ -30,9 +30,11 @@ namespace SafeTrip.iOS
 				{
 					var storyBoard = UIStoryboard.FromName("ModifyContact", Foundation.NSBundle.MainBundle);
 					ModifyContactViewController modifyContactViewController = (ModifyContactViewController)storyBoard.InstantiateViewController("ModifyContactViewController");
-
 					if (modifyContactViewController != null)
 					{
+						modifyContactViewController.client = client;
+						modifyContactViewController.userId = userId;
+						modifyContactViewController.service = service;
 						modifyContactViewController.emergencyContact = new EmergencyContact();
 						modifyContactViewController.emergencyContactsViewController = this;
 						NavigationController.PushViewController(modifyContactViewController, true);
@@ -61,12 +63,13 @@ namespace SafeTrip.iOS
 			if (modifyContactViewController != null)
 			{
 				modifyContactViewController.emergencyContact = new EmergencyContact();
-				modifyContactViewController.emergencyContact.ContactID = emergencyContact.ContactID;
+				modifyContactViewController.emergencyContact.contactID = emergencyContact.contactID;
 				modifyContactViewController.emergencyContact.FirstName = emergencyContact.FirstName;
 				modifyContactViewController.emergencyContact.LastName = emergencyContact.LastName;
-				modifyContactViewController.emergencyContact.PhoneNumber = emergencyContact.PhoneNumber;
-				modifyContactViewController.emergencyContact.Email = emergencyContact.Email;
+				modifyContactViewController.emergencyContact.contactPhone = emergencyContact.contactPhone;
+				modifyContactViewController.emergencyContact.contactEmail = emergencyContact.contactEmail;
 				modifyContactViewController.emergencyContactsViewController = this;
+				modifyContactViewController.service = service;
 				NavigationController.PushViewController(modifyContactViewController, true);
 				//modifyContactViewController.LoadEmergencyContact(modifyContactViewController.emergencyContact);
 				
@@ -81,13 +84,14 @@ namespace SafeTrip.iOS
 
 		public async Task refreshContacts()
 		{
-			var fetchedContacts = await service.fetchContacts(userId);
+			var fetchedContacts = await service.fetchContacts();
 			TableView.Source = new EmergencyContactsDataSource(fetchedContacts, this);
+			TableView.ReloadData();
 		}
 
 		public async Task removeContact(int contactId)
 		{
-			if (await service.deleteContactFromDatabase(contactId) == -1)
+			if (await service.deleteContactFromDatabase(contactId) != -1)
 			{
 				await refreshContacts();
 			}
@@ -148,7 +152,7 @@ namespace SafeTrip.iOS
 			{
 				case UITableViewCellEditingStyle.Delete:
 					// remove the item from the underlying data source
-					int contactId = (int)contacts[indexPath.Row].ContactID;
+					int contactId = (int)contacts[indexPath.Row].contactID;
 					owner.removeContact(contactId);
 					contacts.RemoveAt(indexPath.Row);
 					// delete the row from the table

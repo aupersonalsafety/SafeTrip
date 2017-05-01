@@ -7,23 +7,14 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace SafeTrip.iOS
 {
-    [Register ("HoldMyHandViewController")]
-    partial class HoldMyHandViewController
+    [Register ("PreviewView")]
+    partial class PreviewView
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton HoldMyHandButton { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (HoldMyHandButton != null) {
-                HoldMyHandButton.Dispose ();
-                HoldMyHandButton = null;
-            }
         }
     }
 }

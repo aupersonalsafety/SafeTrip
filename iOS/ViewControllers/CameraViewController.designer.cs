@@ -18,20 +18,11 @@ namespace SafeTrip.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton FinishRecordingButton { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField PinTextField { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
             if (FinishRecordingButton != null) {
                 FinishRecordingButton.Dispose ();
                 FinishRecordingButton = null;
-            }
-
-            if (PinTextField != null) {
-                PinTextField.Dispose ();
-                PinTextField = null;
             }
 
             if (PreviewView != null) {

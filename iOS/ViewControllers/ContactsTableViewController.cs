@@ -11,6 +11,7 @@ namespace SafeTrip.iOS
 	{
 		public ModifyContactViewController modifyContactsViewController;
 		ContactsList contacts;
+		public Service service;
 
 		public ContactsTableViewController(IntPtr handle) : base(handle)
 		{
@@ -31,7 +32,6 @@ namespace SafeTrip.iOS
 
 		public async Task fetchContacts()
 		{
-			Service service = new Service();
 			contacts = await service.getContacts();
 
 			if (contacts.getContacts() != null)

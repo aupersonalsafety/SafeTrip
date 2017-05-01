@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Plugin.Contacts.Abstractions;
 
 using BigTed;
@@ -13,14 +14,15 @@ namespace SafeTrip.iOS
 {
 	public partial class ModifyContactViewController : UIViewController
 	{
-		string value = "test";
 		public EmergencyContactsViewController emergencyContactsViewController;
-
+		public string userId;
 		public EmergencyContact emergencyContact;
-		SafeTrip.Service service = new SafeTrip.Service();
-		int? emergencyContactID;
+		public Auth0.SDK.Auth0Client client;
+
+		public Service service;
 		Dictionary<string, string> carrierDict;
 		List<string> carriersList;
+		int? emergencyContactID;
 
 		public ModifyContactViewController(IntPtr handle) : base(handle)
 		{
@@ -28,6 +30,8 @@ namespace SafeTrip.iOS
 
 		public override void ViewDidLoad()
 		{
+			base.ViewDidLoad();
+
 			carrierDict = new Dictionary<String, String>();
 			carrierDict.Add("AT&T", "@txt.att.net");
 			carrierDict.Add("T-Mobile", "@tmomail.net");
@@ -43,31 +47,65 @@ namespace SafeTrip.iOS
 			var model = new CarrierPickerView(carriersList, 0);
 			carrierPickerView.Model = model;
 
-			PhoneNumberTextField.Delegate = new NumberOnlyTextField();
+			this.NavigationItem.SetRightBarButtonItem(
+				new UIBarButtonItem("Address Book", UIBarButtonItemStyle.Plain, (sender, args) =>
+				{
+					var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
+					ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
+					contactsTableViewController.modifyContactsViewController = this;
+					contactsTableViewController.service = service;
+					if (contactsTableViewController != null)
+					{
+						NavigationController.PushViewController(contactsTableViewController, true);
+					}
+				})
+			, true);
+
 
 			UpdateContactButton.TouchUpInside += delegate
 			{
-				emergencyContact = new EmergencyContact(emergencyContact.ContactID, FirstNameTextField.Text, LastNameTextField.Text, PhoneNumberTextField.Text, EmailTextField.Text, carrierDict[model.getSelected()]);
-				//service.SaveOrUpdateContact(emergencyContact);
-				UpdateContact(emergencyContact);
-
-			};
-
-			AddressBookButton.TouchUpInside += (object sender, EventArgs e) =>
-			{
-				var storyBoard = UIStoryboard.FromName("ContactsSelector", null);
-				ContactsTableViewController contactsTableViewController = (ContactsTableViewController)storyBoard.InstantiateViewController("ContactsTableViewController");
-				contactsTableViewController.modifyContactsViewController = this;
-
-				if (contactsTableViewController != null)
+				bool valid = true;
+				string phoneNumber = PhoneNumberTextField.Text;
+				long phoneNumberInt;
+				if (Int64.TryParse(phoneNumber, out phoneNumberInt))
 				{
-					NavigationController.PushViewController(contactsTableViewController, true);
+					if (phoneNumber.Length == 11)
+					{
+						if (phoneNumber[0] == '1')
+						{
+							phoneNumber = phoneNumber.Substring(1);
+						}
+						else
+						{
+							valid = false;
+						}
+					}
+					else if (phoneNumber.Length != 10)
+					{
+						valid = false;
+					}
 				}
+				else
+				{
+					valid = false;	
+				}
+				if (valid)
+				{
+					emergencyContact = new EmergencyContact(emergencyContact.contactID, FirstNameTextField.Text, LastNameTextField.Text, phoneNumber, EmailTextField.Text, carrierDict[model.getSelected()]);
+					UpdateContact(emergencyContact);
+				}
+				else
+				{
+					var alert = UIAlertController.Create("Error", "This is not a valid phonenumber. Please enter a valid phone number to continue.", UIAlertControllerStyle.Alert);
+					alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+					PresentViewController(alert, true, null);
+				}
+
 			};
 
 			LoadEmergencyContact(emergencyContact);
 
-			if (emergencyContact.ContactID == null)
+			if (emergencyContact.contactID == null)
 			{
 				UpdateContactButton.SetTitle("Add Contact", forState: UIControlState.Normal);
 			}
@@ -76,18 +114,38 @@ namespace SafeTrip.iOS
 				UpdateContactButton.SetTitle("Save Changes", forState: UIControlState.Normal);
 			}
 
-			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			FirstNameTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
+
+			LastNameTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
+
+			PhoneNumberTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
+
+			EmailTextField.ShouldReturn += (textField) =>
+			{
+				((UITextField)textField).ResignFirstResponder();
+				return true;
+			};
 		}
 
-		public async void UpdateContact(EmergencyContact emergencyContactIn)
+		public async Task UpdateContact(EmergencyContact emergencyContactIn)
 		{
-			if (emergencyContactIn.PhoneNumber.Length == 10)
+			if (emergencyContactIn.contactPhone.Length == 10)
 			{
-				//FIXME
-				//update to userID
 				BTProgressHUD.Show(status: "Loading...");
-				if (await service.postContactToDatabase(emergencyContactIn, 1) == 1)
+				if (await service.postContactToDatabase(emergencyContactIn) == 1)
 				{
 					BTProgressHUD.Dismiss();
 					emergencyContactsViewController.DismissUpdateContactViewModel();
@@ -132,12 +190,12 @@ namespace SafeTrip.iOS
 
 		public void LoadEmergencyContact(EmergencyContact emergencyContact)
 		{
-			emergencyContactID = emergencyContact.ContactID;
+			emergencyContactID = emergencyContact.contactID;
 			FirstNameTextField.Text = emergencyContact.FirstName;
 			LastNameTextField.Text = emergencyContact.LastName;
-			PhoneNumberTextField.Text = removeLetters(emergencyContact.PhoneNumber);
-			EmailTextField.Text = emergencyContact.Email;
-			var index = carriersList.IndexOf(emergencyContact.Carrier);
+			PhoneNumberTextField.Text = removeLetters(emergencyContact.contactPhone);
+			EmailTextField.Text = emergencyContact.contactEmail;
+			var index = carriersList.IndexOf(emergencyContact.contactCarrier);
 			carrierPickerView.Select(index, 0, false);
 		}
 

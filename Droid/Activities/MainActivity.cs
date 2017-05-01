@@ -92,7 +92,14 @@ namespace SafeTrip.Droid
 					service = new Service(userId);
 					await service.createUser();
 					await service.updatePin("1234");
-					await service.getPin();
+					if ((await service.getPin()).Equals("-1"))
+					{
+						displayError("Could not fetch pin. Logging out");
+						editor.PutString("userId", null);
+						editor.PutString("userToken", null);
+						editor.Apply();
+						await fetchLoginInfo();
+					}
 				}
 				catch (AggregateException e)
 				{
